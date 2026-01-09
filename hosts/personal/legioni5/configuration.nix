@@ -14,6 +14,16 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  #bluetooth fix
+services.udev.extraRules = ''
+    # Fix for MediaTek WiFi/Bluetooth combo card misidentification
+    # Hindrer at enheten blir flagget som en mediaspiller (som krasjer Bluetooth)
+    SUBSYSTEM=="usb", ATTR{idVendor}=="0489", ATTR{idProduct}=="e111", ENV{ID_MEDIA_PLAYER}="0"
+  '';
+
+  hardware.bluetooth.enable = true;
+  hardware.bluetooth.powerOnBoot = true;
+
   # Use latest kernel.
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
