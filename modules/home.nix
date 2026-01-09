@@ -21,9 +21,11 @@
 
     git = {
       enable = true;
-      userName = "Vegard Pareli Seines";
-      userEmail = "vegsei@gmail.com";
-      extraConfig = {
+      user = {
+        name = "Vegard Pareli Seines";
+        email = "vegsei@gmail.com";
+      };
+      settings = {
         init.defaultBranch = "main";
       };
     };
