@@ -1,23 +1,32 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-
 { config, pkgs, ... }:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
+  imports = [ 
+    ./hardware-configuration.nix
+    ./game.nix # Vi antar du har laget denne for RTX 5070 Ti
+  ];
 
-  # Bootloader.
+  # Bootloader
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-# 1. Tving btusb-modulen til å laste
-  boot.kernelModules = [ "btusb" ];
+  # --- BLUETOOTH & KERNEL FIXES ---
 
-systemd.services.force-mediatek-bluetooth = {
+  # 1. Bruk nyeste kjerne (viktig for Arrow Lake og 50-serien)
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+
+  # 2. Tving drivermoduler og deaktiver aggressiv strømsparing på USB/BT
+  boot.kernelModules = [ "btusb" ];
+  boot.blacklistedKernelModules = [ "ideapad_laptop" ]; # Hindrer rfkill-konflikt
+boot.kernelParams = [ 
+    "usbcore.autosuspend=-1" 
+    "btusb.enable_autosuspend=n"
+    "i915.force_probe=7f2f"
+    "btusb.disable_scofix=1" # Legg til denne!
+  ];
+
+  # 3. Den forbedrede Brute-force tjenesten
+  systemd.services.force-mediatek-bluetooth = {
     description = "Brute-force MediaTek Bluetooth initialization";
     after = [ "network.target" "bluetooth.service" ];
     wantedBy = [ "multi-user.target" ];
@@ -26,82 +35,55 @@ systemd.services.force-mediatek-bluetooth = {
       RemainAfterExit = true;
       ExecStart = pkgs.writeScript "force-bluetooth" ''
         #!${pkgs.bash}/bin/bash
-        
-        # Vent opptil 30 sekunder på at driver-mappen i det hele tatt eksisterer
-        for i in {1..30}; do
-          if [ -f /sys/bus/usb/drivers/btusb/new_id ]; then
-            echo "btusb driver funnet etter $i sekunder."
-            break
-          fi
+        # Vent på sysfs
+        for i in {1..15}; do
+          [ -f /sys/bus/usb/drivers/btusb/new_id ] && break
           sleep 1
         done
 
-        # Forsøk å tvinge inn ID-en 5 ganger med litt mellomrom
-        for i in {1..5}; do
-          echo "Forsøk $i: Skriver ID til new_id..."
-          echo "0489 e111" > /sys/bus/usb/drivers/btusb/new_id || true
-          sleep 2
-          
-          # Sjekk om kontrolløren har dukket opp i bluetoothctl
-          if ${pkgs.bluez}/bin/bluetoothctl list | grep -q "Controller"; then
-            echo "Suksess! Bluetooth-kontroller funnet."
-            ${pkgs.systemd}/bin/systemctl restart bluetooth.service
-            exit 0
-          fi
-        done
+        # Tving ID og vekk kontrolleren
+        echo "0489 e111" > /sys/bus/usb/drivers/btusb/new_id || true
+        sleep 2
 
-        echo "Feilet: Kontrolleren dukket aldri opp."
-        exit 1
+        # Tving kontrolleren til å være 'UP' i tilfelle den starter som 'DOWN'
+        ${pkgs.bluez}/bin/hciconfig hci0 up || true
+        
+        # Restart tjenesten for å plukke opp endringen
+        ${pkgs.systemd}/bin/systemctl restart bluetooth.service
       '';
     };
   };
 
-  # 3. Udev-regler (Kun for å blokkere GVFS nå)
+  # 4. Hardware-regler for å stoppe GVFS/Gnome fra å stjele enheten
   services.udev.extraRules = ''
-    SUBSYSTEM=="usb", ATTR{idVendor}=="0489", ATTR{idProduct}=="e111", ENV{ID_MEDIA_PLAYER}="0", ENV{ID_GPM}="0", ENV{ID_MTP_DEVICE}="0"
+    SUBSYSTEM=="usb", ATTR{idVendor}=="0489", ATTR{idProduct}=="e111", ENV{ID_MEDIA_PLAYER}="0", ENV{ID_GPM}="0", ENV{ID_MTP_DEVICE}="0", ATTR{power/control}="on"
   '';
 
-  # 4. HWDB (Behold som før)
   services.udev.extraHwdb = ''
     usb:v0489pE111*
      ID_MEDIA_PLAYER=0
   '';
 
-  # Use latest kernel.
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  # 5. Aktiver Bluetooth ordentlig
+  hardware.bluetooth = {
+    enable = true;
+    powerOnBoot = true;
+  };
 
-  networking.hostName = "legioni5"; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+  # --- SYSTEM SETUP ---
 
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
-  # Enable networking
+  networking.hostName = "legioni5";
   networking.networkmanager.enable = true;
 
-  # Enable sound with pipewire.
-  services.pulseaudio.enable = false;
+  # Lyd (Pipewire)
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
-    # If you want to use JACK applications, uncomment this
-    #jack.enable = true;
-
-    # use the example session manager (no others are packaged yet so this is enabled by default,
-    # no need to redefine it in your config for now)
-    #media-session.enable = true;
   };
 
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It‘s perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "25.11"; # Did you read the comment?
-
+  # Standard NixOS versjon
+  system.stateVersion = "25.11";
 }
