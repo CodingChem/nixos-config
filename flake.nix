@@ -35,6 +35,7 @@
       modules = [
         ./hosts/personal/legioni5/configuration.nix
 	./modules/defaults.nix
+	./modules/game.nix
 	./modules/desktop/gnome.nix
 	./modules/desktop/defaults.nix
 
