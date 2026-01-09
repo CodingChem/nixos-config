@@ -14,15 +14,18 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  #bluetooth fix
-services.udev.extraRules = ''
-    # Fix for MediaTek WiFi/Bluetooth combo card misidentification
-    # Hindrer at enheten blir flagget som en mediaspiller (som krasjer Bluetooth)
-    SUBSYSTEM=="usb", ATTR{idVendor}=="0489", ATTR{idProduct}=="e111", ENV{ID_MEDIA_PLAYER}="0"
-  '';
-
+# Aktiver Bluetooth-støtte
   hardware.bluetooth.enable = true;
-  hardware.bluetooth.powerOnBoot = true;
+  hardware.bluetooth.powerOnBoot = true; # Slår på adapteren automatisk ved boot
+
+  # Legg til støtte for Bluetooth-lyd (hvis du bruker headset)
+  services.blueman.enable = true; # Valgfritt: Gir et ekstra kontrollpanel hvis GNOME sitt krangler
+
+  # Din MediaTek-fix fra i sted (HWDB-metoden er ofte mest effektiv for MediaTek)
+  services.udev.hwdb.extraConfig = ''
+    usb:v0489pE111*
+     ID_MEDIA_PLAYER=0
+  '';
 
   # Use latest kernel.
   boot.kernelPackages = pkgs.linuxPackages_latest;
