@@ -25,10 +25,11 @@ systemd.services.force-mediatek-bluetooth = {
       Type = "oneshot";
       RemainAfterExit = true;
       ExecStartPre = "${pkgs.coreutils}/bin/sleep 5";
-      ExecStart = "${pkgs.bash}/bin/bash -c '\
-        echo \"0489 e111\" > /sys/bus/usb/drivers/btusb/new_id || true; \
-        ${pkgs.systemd}/bin/systemctl restart bluetooth.service \
-      '";
+      ExecStart = pkgs.writeScript "force-bluetooth" ''
+        #!${pkgs.bash}/bin/bash
+        echo "0489 e111" > /sys/bus/usb/drivers/btusb/new_id || true
+        ${pkgs.systemd}/bin/systemctl restart bluetooth.service
+      '';
     };
   };
 
