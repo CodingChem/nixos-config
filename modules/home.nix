@@ -44,7 +44,7 @@
         ls = "eza --icons";
 	ll = "eza --icons -l";
 	la = "eza --icons -la";
-	tree = "eza --icons --git-ignore --tree";
+	lt = "eza --icons --git-ignore --tree";
         cat = "bat";
       };
     };

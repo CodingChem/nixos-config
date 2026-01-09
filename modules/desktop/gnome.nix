@@ -15,11 +15,6 @@
     variant = "";
   };
 
-  # Enable CUPS to print documents.
-  services.printing.enable = true;
-
-  # Install firefox.
-  programs.firefox.enable = true;
   environment.gnome.excludePackages = (with pkgs; [
     gnome-tour
     gnome-maps
@@ -36,10 +31,10 @@
         button-layout = "appmenu:minimize,maximize,close";
       };
       "org/gnome/settings-daemon/plugins/media-keys" = {
-        custom-keybindings = [ "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/" ];
+        custom-keybindings = [ "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" ];
       };
       "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
-        binding = "<Super><Return>";
+        binding = "<Super>Return";
 	command = "ghostty";
 	name = "Open Ghostty";
       };

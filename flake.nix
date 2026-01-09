@@ -18,6 +18,7 @@
         ./hosts/work/P14S/configuration.nix
 	./modules/defaults.nix
 	./modules/desktop/gnome.nix
+	./modules/desktop/defaults.nix
 
         home-manager.nixosModules.home-manager
 	{
