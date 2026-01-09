@@ -11,6 +11,7 @@
       specialArgs = { inherit inputs; };
       modules = [
         ./hosts/work/P14S/configuration.nix
+	./modules/defaults.nix
       ];
     };
   };
