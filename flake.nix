@@ -18,6 +18,7 @@
         ./hosts/work/P14S/configuration.nix
 	./modules/defaults.nix
 	./modules/users/vegard.nix
+	./modules/gnome.nix
 
         home-manager.nixosModules.home-manager
 	{
