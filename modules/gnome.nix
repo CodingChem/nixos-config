@@ -19,4 +19,10 @@
 
   # Install firefox.
   programs.firefox.enable = true;
+  environment.gnome.excludePackages = (with pkgs; [
+    gnome-tour
+    gnome-maps
+    gnome-weather
+    geary
+  ]);
 }
