@@ -14,16 +14,19 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-# 1. Tving btusb-modulen til å laste ved oppstart
+# 1. Sørg for at btusb lastes
   boot.kernelModules = [ "btusb" ];
 
-  # 2. Oppdatert udev-regel som blokkerer GVFS/Gnome fra å stjele enheten
+  # 2. Den "magiske" regelen som tvinger driveren til å kjenne igjen kortet ditt
   services.udev.extraRules = ''
-    # MediaTek Bluetooth fix - Hindre at enheten blir sett på som disk/mediaspiller
-    SUBSYSTEM=="usb", ATTR{idVendor}=="0489", ATTR{idProduct}=="e111", ENV{ID_MEDIA_PLAYER}="0", ENV{ID_GPM}="0", ENV{ID_MTP_DEVICE}="0", TAG+="systemd", ENV{SYSTEMD_WANTS}+="bluetooth.service"
+    # MediaTek Bluetooth Force ID (0489:e111)
+    SUBSYSTEM=="usb", ATTR{idVendor}="0489", ATTR{idProduct}="e111", ACTION=="add", RUN+="${pkgs.bash}/bin/bash -c 'echo 0489 e111 > /sys/bus/usb/drivers/btusb/new_id'"
+    
+    # Blokker GVFS fra å stjele den (fra forrige steg)
+    SUBSYSTEM=="usb", ATTR{idVendor}=="0489", ATTR{idProduct}=="e111", ENV{ID_MEDIA_PLAYER}="0", ENV{ID_GPM}="0", ENV{ID_MTP_DEVICE}="0"
   '';
 
-  # 3. HWDB (Behold denne, den fungerer fint)
+  # 3. HWDB-fixen (behold denne, den trengs for stabilitet)
   services.udev.extraHwdb = ''
     usb:v0489pE111*
      ID_MEDIA_PLAYER=0
