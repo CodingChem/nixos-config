@@ -17,24 +17,17 @@
 # 1. Tving btusb-modulen til å laste ved oppstart
   boot.kernelModules = [ "btusb" ];
 
-  # 2. Legg til en udev-regel som tvinger enheten til å bruke btusb-driveren
-  # Dette overstyrer at den blir sett på som en "Wireless_Device"
+  # 2. Forenklet udev-regel uten 'CONTROL' (som forårsaket feilen)
   services.udev.extraRules = ''
-    SUBSYSTEM=="usb", ATTR{idVendor}=="0489", ATTR{idProduct}=="e111", MODE="0660", GROUP="bluetooth", CONTROL{node}="0", ENV{ID_USB_INTERFACES}="*:ff0101:*", RUN+="${pkgs.kmod}/bin/modprobe btusb"
+    # MediaTek Bluetooth fix
+    SUBSYSTEM=="usb", ATTR{idVendor}=="0489", ATTR{idProduct}=="e111", TAG+="systemd", ENV{SYSTEMD_WANTS}+="bluetooth.service"
   '';
 
-  # 3. HWDB fixen vi snakket om (viktig for MediaTek)
+  # 3. HWDB (Behold denne, den fungerer fint)
   services.udev.extraHwdb = ''
     usb:v0489pE111*
      ID_MEDIA_PLAYER=0
   '';
-
-  # 4. Sørg for at bluetooth-tjenesten er konfigurert riktig
-  hardware.bluetooth = {
-    enable = true;
-    powerOnBoot = true;
-    settings.General.AutoEnable = true;
-  };
 
   # Use latest kernel.
   boot.kernelPackages = pkgs.linuxPackages_latest;
