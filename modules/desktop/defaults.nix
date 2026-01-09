@@ -10,8 +10,8 @@
       enable = true;
       # package = pkgs.chromium;
       extensions = [
-        { id = "ddkjiahejlhfcafbddmgiahcphecmpfh"; }
-	{ id = "nngceckbapebfimnlniiiahkandclblb"; }
+        "ddkjiahejlhfcafbddmgiahcphecmpfh";
+	"nngceckbapebfimnlniiiahkandclblb";
       ];
 	#      commandLineArgs  = [
 	#        "--ozone-platform-hint=auto"
