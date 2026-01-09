@@ -64,11 +64,13 @@ services.pipewire = {
   alsa.enable = true;
   alsa.support32Bit = true;
   pulse.enable = true;
-  # Her kan du legge til lav-forsinkelse innstillinger om nødvendig:
+  
   extraConfig.pipewire."92-low-latency" = {
     "context.properties" = {
-      "default.clock.rate" = 48000;
-      "default.clock.quantum" = 1024; # Øk denne verdien (f.eks 2048) hvis det fortsatt hakker
+      "default.clock.rate" = 48000;      # MATCHER headsettet ditt
+      "default.clock.quantum" = 1024;    # En trygg mellomting for VM
+      "default.clock.min-quantum" = 512;
+      "default.clock.max-quantum" = 2048;
     };
   };
 };
