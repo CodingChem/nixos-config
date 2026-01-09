@@ -18,27 +18,40 @@
   boot.kernelModules = [ "btusb" ];
 
 systemd.services.force-mediatek-bluetooth = {
-    description = "Force MediaTek Bluetooth ID and restart service";
-    after = [ "systemd-modules-load.service" "bluetooth.service" "display-manager.service" ];
+    description = "Brute-force MediaTek Bluetooth initialization";
+    after = [ "network.target" "bluetooth.service" ];
     wantedBy = [ "multi-user.target" ];
     serviceConfig = {
       Type = "oneshot";
       RemainAfterExit = true;
-      # Vi venter til ETTER at du har kommet til innloggingsskjermen (10 sek)
-      ExecStartPre = "${pkgs.coreutils}/bin/sleep 10";
       ExecStart = pkgs.writeScript "force-bluetooth" ''
         #!${pkgs.bash}/bin/bash
-        echo "Forsøker å tvinge Bluetooth ID..."
-        # Tving driveren til å våkne
-        ${pkgs.kmod}/bin/modprobe -r btusb || true
-        ${pkgs.kmod}/bin/modprobe btusb || true
         
-        # Skriv ID
-        echo "0489 e111" > /sys/bus/usb/drivers/btusb/new_id || echo "Kunne ikke skrive til new_id!"
-        
-        # Restart BlueZ
-        ${pkgs.systemd}/bin/systemctl restart bluetooth.service
-        echo "Ferdig med tvungen restart."
+        # Vent opptil 30 sekunder på at driver-mappen i det hele tatt eksisterer
+        for i in {1..30}; do
+          if [ -f /sys/bus/usb/drivers/btusb/new_id ]; then
+            echo "btusb driver funnet etter $i sekunder."
+            break
+          fi
+          sleep 1
+        done
+
+        # Forsøk å tvinge inn ID-en 5 ganger med litt mellomrom
+        for i in {1..5}; do
+          echo "Forsøk $i: Skriver ID til new_id..."
+          echo "0489 e111" > /sys/bus/usb/drivers/btusb/new_id || true
+          sleep 2
+          
+          # Sjekk om kontrolløren har dukket opp i bluetoothctl
+          if ${pkgs.bluez}/bin/bluetoothctl list | grep -q "Controller"; then
+            echo "Suksess! Bluetooth-kontroller funnet."
+            ${pkgs.systemd}/bin/systemctl restart bluetooth.service
+            exit 0
+          fi
+        done
+
+        echo "Feilet: Kontrolleren dukket aldri opp."
+        exit 1
       '';
     };
   };
