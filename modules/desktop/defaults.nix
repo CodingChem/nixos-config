@@ -5,5 +5,5 @@
   services.printing.enable = true;
 
   # Install firefox.
-  programs.firefox.enable = true;
+  programs.chromium.enable = true;
 }
