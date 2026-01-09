@@ -24,11 +24,11 @@
       enable = true;
       enableZshIntegration = true;
       settings = {
-        theme = "catppuccin-mocha";
+        theme = "Catppuccin Mocha";
 	font-family = "JetBrainsMono Nerd Font";
 	font-size = 12;
 	window-decoration = false;
-	window-background-opacity = 0.9;
+	background-opacity = 0.9;
       };
     };
 
