@@ -22,9 +22,16 @@
   services.blueman.enable = true; # Valgfritt: Gir et ekstra kontrollpanel hvis GNOME sitt krangler
 
   # Din MediaTek-fix fra i sted (HWDB-metoden er ofte mest effektiv for MediaTek)
-  services.udev.hwdb.extraConfig = ''
+# Fiks for MediaTek Bluetooth (Riktig sti i NixOS)
+  hardware.hwdb.enable = true; # Sørg for at denne er på
+  hardware.hwdb.extraConfig = ''
     usb:v0489pE111*
      ID_MEDIA_PLAYER=0
+  '';
+
+  # Behold udev-reglene dine hvis du har dem, men de ligger her:
+  services.udev.extraRules = ''
+    SUBSYSTEM=="usb", ATTR{idVendor}=="0489", ATTR{idProduct}=="e111", ENV{ID_MEDIA_PLAYER}="0"
   '';
 
   # Use latest kernel.
