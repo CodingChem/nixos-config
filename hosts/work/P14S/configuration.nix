@@ -19,7 +19,7 @@
 
   home-manager.users.vegard = {
     programs.ghostty.settings = {
-      renderer = "software";
+      render-device = "software";
     };
   };
   # Bootloader.
