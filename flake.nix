@@ -12,6 +12,7 @@
       modules = [
         ./hosts/work/P14S/configuration.nix
 	./modules/defaults.nix
+	./modules/users/vegard.nix
       ];
     };
   };
