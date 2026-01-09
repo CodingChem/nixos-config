@@ -14,29 +14,27 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-# 1. Fjern Lenovo-spesifikk driver som ofte blokkerer MediaTek-kort på Legion
-  boot.blacklistedKernelModules = [ "ideapad_laptop" ];
+# 1. Tving btusb-modulen til å laste ved oppstart
+  boot.kernelModules = [ "btusb" ];
 
-  # 2. Tving Bluetooth-adapteren til å aktivere seg selv
+  # 2. Legg til en udev-regel som tvinger enheten til å bruke btusb-driveren
+  # Dette overstyrer at den blir sett på som en "Wireless_Device"
+  services.udev.extraRules = ''
+    SUBSYSTEM=="usb", ATTR{idVendor}=="0489", ATTR{idProduct}=="e111", MODE="0660", GROUP="bluetooth", CONTROL{node}="0", ENV{ID_USB_INTERFACES}="*:ff0101:*", RUN+="${pkgs.kmod}/bin/modprobe btusb"
+  '';
+
+  # 3. HWDB fixen vi snakket om (viktig for MediaTek)
+  services.udev.extraHwdb = ''
+    usb:v0489pE111*
+     ID_MEDIA_PLAYER=0
+  '';
+
+  # 4. Sørg for at bluetooth-tjenesten er konfigurert riktig
   hardware.bluetooth = {
     enable = true;
     powerOnBoot = true;
-    settings = {
-      General = {
-        AutoEnable = true;
-        # Noen MediaTek-kort trenger dette for å bli sett av BlueZ
-        ControllerMode = "dual"; 
-      };
-    };
+    settings.General.AutoEnable = true;
   };
-
-  # 3. Sørg for at firmware er lastet (MediaTek trenger dette)
-  hardware.enableAllFirmware = true;
-
-  # 4. Modprobe-innstilling for MediaTek (fikser ofte at kortet ikke blir sett)
-  boot.extraModprobeConfig = ''
-    options btusb enable_autosuspend=0
-  '';
 
   # Use latest kernel.
   boot.kernelPackages = pkgs.linuxPackages_latest;
