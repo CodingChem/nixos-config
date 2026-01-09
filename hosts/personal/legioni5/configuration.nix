@@ -17,10 +17,10 @@
 # 1. Tving btusb-modulen til å laste ved oppstart
   boot.kernelModules = [ "btusb" ];
 
-  # 2. Forenklet udev-regel uten 'CONTROL' (som forårsaket feilen)
+  # 2. Oppdatert udev-regel som blokkerer GVFS/Gnome fra å stjele enheten
   services.udev.extraRules = ''
-    # MediaTek Bluetooth fix
-    SUBSYSTEM=="usb", ATTR{idVendor}=="0489", ATTR{idProduct}=="e111", TAG+="systemd", ENV{SYSTEMD_WANTS}+="bluetooth.service"
+    # MediaTek Bluetooth fix - Hindre at enheten blir sett på som disk/mediaspiller
+    SUBSYSTEM=="usb", ATTR{idVendor}=="0489", ATTR{idProduct}=="e111", ENV{ID_MEDIA_PLAYER}="0", ENV{ID_GPM}="0", ENV{ID_MTP_DEVICE}="0", TAG+="systemd", ENV{SYSTEMD_WANTS}+="bluetooth.service"
   '';
 
   # 3. HWDB (Behold denne, den fungerer fint)
