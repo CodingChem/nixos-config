@@ -14,19 +14,28 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-# 1. Sørg for at btusb lastes
+# 1. Tving btusb-modulen til å laste
   boot.kernelModules = [ "btusb" ];
 
-  # 2. Den "magiske" regelen som tvinger driveren til å kjenne igjen kortet ditt
+  # 2. Systemd-tjeneste som garanterer at ID-en blir registrert
+  systemd.services.force-mediatek-bluetooth = {
+    description = "Force MediaTek Bluetooth ID into btusb driver";
+    after = [ "systemd-modules-load.service" ];
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+      # Vi bruker '|| true' så bygget ikke feiler hvis ID-en allerede er registrert
+      ExecStart = "${pkgs.bash}/bin/bash -c 'echo \"0489 e111\" > /sys/bus/usb/drivers/btusb/new_id || true'";
+    };
+  };
+
+  # 3. Udev-regler (Kun for å blokkere GVFS nå)
   services.udev.extraRules = ''
-    # MediaTek Bluetooth Force ID (0489:e111)
-    SUBSYSTEM=="usb", ATTR{idVendor}="0489", ATTR{idProduct}="e111", ACTION=="add", RUN+="${pkgs.bash}/bin/bash -c 'echo 0489 e111 > /sys/bus/usb/drivers/btusb/new_id'"
-    
-    # Blokker GVFS fra å stjele den (fra forrige steg)
     SUBSYSTEM=="usb", ATTR{idVendor}=="0489", ATTR{idProduct}=="e111", ENV{ID_MEDIA_PLAYER}="0", ENV{ID_GPM}="0", ENV{ID_MTP_DEVICE}="0"
   '';
 
-  # 3. HWDB-fixen (behold denne, den trengs for stabilitet)
+  # 4. HWDB (Behold som før)
   services.udev.extraHwdb = ''
     usb:v0489pE111*
      ID_MEDIA_PLAYER=0
