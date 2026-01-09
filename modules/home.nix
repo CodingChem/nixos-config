@@ -2,6 +2,7 @@
 { config, pkgs, ... }:
 
 {
+  home.stateVersion = "25.11";
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.vegard = {
     isNormalUser = true;
@@ -26,5 +27,6 @@
 	init.defaultBranch = "main";
       };
     };
+    home-manager.enable = true;
   };
 }
