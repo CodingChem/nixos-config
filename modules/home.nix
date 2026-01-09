@@ -23,7 +23,6 @@
     ghostty = {
       enable = true;
       enableZshIntegration = true;
-      installBatchedShellIntegration = true;
       settings = {
         theme = "catppuccin-mocha";
 	font-family = "JetBrainsMono Nerd Font";
