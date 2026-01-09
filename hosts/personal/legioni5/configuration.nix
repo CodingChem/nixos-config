@@ -33,6 +33,11 @@
   # 3. Sørg for at firmware er lastet (MediaTek trenger dette)
   hardware.enableAllFirmware = true;
 
+  # 4. Modprobe-innstilling for MediaTek (fikser ofte at kortet ikke blir sett)
+  boot.extraModprobeConfig = ''
+    options btusb enable_autosuspend=0
+  '';
+
   # Use latest kernel.
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
