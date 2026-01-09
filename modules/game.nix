@@ -1,51 +1,61 @@
 { config, pkgs, ... }:
 
 {
-  # Tillat proprietær programvare (viktig for Nvidia og Steam)
+  # Tillat Steam og Nvidia-drivere (Unfree)
   nixpkgs.config.allowUnfree = true;
 
-  # Aktiver grafikkdrivere
-  hardware.graphics = {
+  # Aktiver Steam
+  programs.steam = {
     enable = true;
-    enable32Bit = true; # Viktig for Steam og eldre spill
+    remotePlay.openFirewall = true;
+    dedicatedServer.openFirewall = true;
+    localNetworkGameTransfers.openFirewall = true;
   };
 
-  # Nvidia-spesifikk konfigurasjon
+  # Grafikkinnstillinger
+  hardware.graphics = {
+    enable = true;
+    enable32Bit = true; # Påkrevd for Steam
+  };
+
+  # Last Nvidia-driveren
   services.xserver.videoDrivers = [ "nvidia" ];
 
   hardware.nvidia = {
-    # Modesetting er påkrevd for Wayland
+    # Påkrevd for Wayland/GNOME
     modesetting.enable = true;
 
-    # Nvidia Power Management kan hjelpe på Legion-laptoper
+    # Strømstyring for laptoper
     powerManagement.enable = true;
-    powerManagement.finegrained = false;
+    powerManagement.finegrained = true; # Bedre strømsparing på 50-serien
 
-    # Bruk den nyeste driveren (viktig for 50-serien!)
-    package = config.boot.kernelPackages.nvidiaPackages.stable;
-
-    # Open-source versjonen av driveren (anbefalt for nyere kort som 5070ti)
+    # Bruk den åpne drivermodulen (anbefalt for 5070 Ti)
     open = true;
 
-    # Aktiver Nvidia Settings-menyen
-    nvidiaSettings = true;
-  };
-programs.steam = {
-    enable = true;
-    remotePlay.openFirewall = true; # Åpne porter for Steam Remote Play
-    dedicatedServer.openFirewall = true; # Åpne porter for Source Dedicated Server
-    localNetworkGameTransfers.openFirewall = true; # Raskere installasjon mellom PC-er
+    # Bruk stabil produksjonsdriver
+    package = config.boot.kernelPackages.nvidiaPackages.stable;
+
+    # PRIME-oppsett (Hybrid grafikk)
+    prime = {
+      offload = {
+        enable = true;
+        enableOffloadCmd = true;
+      };
+      # Basert på din lspci:
+      intelBusId = "PCI:0:2:0";
+      nvidiaBusId = "PCI:2:0:0";
+    };
   };
 
-  # For å få bedre ytelse i spill (GameMode)
+  # Fix for Intel Arrow Lake integrert grafikk
+  boot.kernelParams = [ "i915.force_probe=7f2f" ];
+
+  # Spill-relaterte verktøy
   programs.gamemode.enable = true;
-hardware.nvidia.prime = {
-    offload = {
-      enable = true;
-      enableOffloadCmd = true;
-    };
-    # Finn disse ID-ene ved å kjøre: lspci | grep -E "VGA|3D"
-    intelBusId = "PCI:0:2:0";   # Eksempel, sjekk din egen
-    nvidiaBusId = "PCI:1:0:0";  # Eksempel, sjekk din egen
-  };
+
+  environment.systemPackages = with pkgs; [
+    mangohud             # FPS/Overlay
+    nvtopPackages.nvidia # GPU Monitor (veldig kjekk!)
+    vulkan-tools         # For å teste med 'vulkaninfo'
+  ];
 }
