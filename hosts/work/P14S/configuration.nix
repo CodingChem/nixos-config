@@ -13,6 +13,11 @@
     virtualisation.virtualbox.guest.dragAndDrop = true;
   
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
+  # Optimalisering for moderne CPU og lydstabilitet
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+  powerManagement.cpuFreqGovernor = "performance";
+
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
