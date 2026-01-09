@@ -1,4 +1,3 @@
-
 { config, pkgs, ... }:
 
 {
@@ -13,15 +12,6 @@
   console.keyMap = "no";
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.vegard = {
-    isNormalUser = true;
-    description = "Vegard Seines";
-    extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [
-    #  thunderbird
-    ];
-  };
   environment.systemPackages = with pkgs; [
   neovim 
   wget
