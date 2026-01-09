@@ -18,11 +18,15 @@
   
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
-
+  programs.zsh.enable = true;
   # Define the user
   users.users.vegard = {
     isNormalUser = true;
     description = "Vegard Seines";
     extraGroups = [ "networkmanager" "wheel" ];
+    shell = pkgs.zsh;
   };
+  fonts.packages = with pkgs; [
+    nerd-fonts.jetbrains-mono
+  ];
 }
