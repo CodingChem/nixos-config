@@ -19,16 +19,26 @@
 
 systemd.services.force-mediatek-bluetooth = {
     description = "Force MediaTek Bluetooth ID and restart service";
-    after = [ "systemd-modules-load.service" "bluetooth.service" ];
+    after = [ "systemd-modules-load.service" "bluetooth.service" "display-manager.service" ];
     wantedBy = [ "multi-user.target" ];
     serviceConfig = {
       Type = "oneshot";
       RemainAfterExit = true;
-      ExecStartPre = "${pkgs.coreutils}/bin/sleep 5";
+      # Vi venter til ETTER at du har kommet til innloggingsskjermen (10 sek)
+      ExecStartPre = "${pkgs.coreutils}/bin/sleep 10";
       ExecStart = pkgs.writeScript "force-bluetooth" ''
         #!${pkgs.bash}/bin/bash
-        echo "0489 e111" > /sys/bus/usb/drivers/btusb/new_id || true
+        echo "Forsøker å tvinge Bluetooth ID..."
+        # Tving driveren til å våkne
+        ${pkgs.kmod}/bin/modprobe -r btusb || true
+        ${pkgs.kmod}/bin/modprobe btusb || true
+        
+        # Skriv ID
+        echo "0489 e111" > /sys/bus/usb/drivers/btusb/new_id || echo "Kunne ikke skrive til new_id!"
+        
+        # Restart BlueZ
         ${pkgs.systemd}/bin/systemctl restart bluetooth.service
+        echo "Ferdig med tvungen restart."
       '';
     };
   };
