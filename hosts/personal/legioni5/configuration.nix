@@ -18,14 +18,17 @@
   boot.kernelModules = [ "btusb" ];
 
 systemd.services.force-mediatek-bluetooth = {
-    description = "Force MediaTek Bluetooth ID into btusb driver";
-    after = [ "systemd-modules-load.service" ];
+    description = "Force MediaTek Bluetooth ID and restart service";
+    after = [ "systemd-modules-load.service" "bluetooth.service" ];
     wantedBy = [ "multi-user.target" ];
-    # Vi legger inn en liten "sleep" for å være sikker på at sysfs er klar
     serviceConfig = {
       Type = "oneshot";
-      ExecStartPre = "${pkgs.coreutils}/bin/sleep 5"; 
-      ExecStart = "${pkgs.bash}/bin/bash -c 'echo \"0489 e111\" > /sys/bus/usb/drivers/btusb/new_id || true'";
+      RemainAfterExit = true;
+      ExecStartPre = "${pkgs.coreutils}/bin/sleep 5";
+      ExecStart = "${pkgs.bash}/bin/bash -c '\
+        echo \"0489 e111\" > /sys/bus/usb/drivers/btusb/new_id || true; \
+        ${pkgs.systemd}/bin/systemctl restart bluetooth.service \
+      '";
     };
   };
 
