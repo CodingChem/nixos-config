@@ -11,11 +11,17 @@
     ];
     virtualisation.virtualbox.guest.enable = true;
     virtualisation.virtualbox.guest.dragAndDrop = true;
+    hardware.graphics.enable = true;
   
   # Optimalisering for moderne CPU og lydstabilitet
   boot.kernelPackages = pkgs.linuxPackages_latest;
   powerManagement.cpuFreqGovernor = "performance";
 
+  home-manager.users.vegard = {
+    programs.ghostty.settings = {
+      renderer = "software";
+    };
+  };
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
