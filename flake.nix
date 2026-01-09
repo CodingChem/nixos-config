@@ -17,7 +17,6 @@
       modules = [
         ./hosts/work/P14S/configuration.nix
 	./modules/defaults.nix
-	./modules/home.nix
 	./modules/gnome.nix
 
         home-manager.nixosModules.home-manager
