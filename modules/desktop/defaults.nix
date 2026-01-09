@@ -10,7 +10,7 @@
       enable = true;
       # package = pkgs.chromium;
       extensions = [
-        { id = "cjpalhdlnbpafiamejdnhcphjbkeiagm"; }
+        { id = "ddkjiahejlhfcafbddmgiahcphecmpfh"; }
 	{ id = "nngceckbapebfimnlniiiahkandclblb"; }
       ];
 	#      commandLineArgs  = [
