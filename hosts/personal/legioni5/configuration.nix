@@ -14,20 +14,24 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-# Aktiver bluetooth
-  hardware.bluetooth.enable = true;
-  hardware.bluetooth.powerOnBoot = true;
+# 1. Fjern Lenovo-spesifikk driver som ofte blokkerer MediaTek-kort på Legion
+  boot.blacklistedKernelModules = [ "ideapad_laptop" ];
 
-  # Den korrekte måten å legge til HWDB-data i NixOS
-  services.udev.extraHwdb = ''
-    usb:v0489pE111*
-     ID_MEDIA_PLAYER=0
-  '';
+  # 2. Tving Bluetooth-adapteren til å aktivere seg selv
+  hardware.bluetooth = {
+    enable = true;
+    powerOnBoot = true;
+    settings = {
+      General = {
+        AutoEnable = true;
+        # Noen MediaTek-kort trenger dette for å bli sett av BlueZ
+        ControllerMode = "dual"; 
+      };
+    };
+  };
 
-  # Behold denne for sikkerhets skyld, den skader ikke
-  services.udev.extraRules = ''
-    SUBSYSTEM=="usb", ATTR{idVendor}=="0489", ATTR{idProduct}=="e111", ENV{ID_MEDIA_PLAYER}="0"
-  '';
+  # 3. Sørg for at firmware er lastet (MediaTek trenger dette)
+  hardware.enableAllFirmware = true;
 
   # Use latest kernel.
   boot.kernelPackages = pkgs.linuxPackages_latest;
