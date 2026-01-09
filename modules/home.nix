@@ -19,6 +19,11 @@
   programs = {
     home-manager.enable = true;
 
+    gh = {
+      enable = true;
+      git_protocol = "ssh";
+      gitCredentialHelper.enable = true;
+    };
     # Terminal emulator
     ghostty = {
       enable = true;
