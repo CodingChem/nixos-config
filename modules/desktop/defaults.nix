@@ -13,10 +13,10 @@
         { id = "cjpalhdlnbpafiamejdnhcphjbkeiagm"; }
 	{ id = "nngceckbapebfimnlniiiahkandclblb"; }
       ];
-      commandLineArgs  = [
-        "--ozone-platform-hint=auto"
-	"--enable-features=WaylandWindowDecorations"
-      ];
+	#      commandLineArgs  = [
+	#        "--ozone-platform-hint=auto"
+	# "--enable-features=WaylandWindowDecorations"
+	#      ];
     };
   };
 }
