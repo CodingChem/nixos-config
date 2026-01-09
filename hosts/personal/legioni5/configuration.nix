@@ -3,7 +3,6 @@
 {
   imports = [ 
     ./hardware-configuration.nix
-    ./game.nix # Vi antar du har laget denne for RTX 5070 Ti
   ];
 
   # Bootloader
