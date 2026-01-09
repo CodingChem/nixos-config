@@ -18,6 +18,21 @@
   # program settings
   programs = {
     home-manager.enable = true;
+
+    # Terminal emulator
+    ghostty = {
+      enable = true;
+      enableZshIntegration = true;
+      installBatchedShellIntegration = true;
+      settings = {
+        theme = "catppuccin-mocha";
+	font-family = "JetBrainsMono Nerd Font";
+	font-size = 12;
+	window-decoration = false;
+	window-background-opacity = 0.9;
+      };
+    };
+
 # Zsh konfigurasjon
     zsh = {
       enable = true;
