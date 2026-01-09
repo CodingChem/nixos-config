@@ -17,15 +17,14 @@
 # 1. Tving btusb-modulen til å laste
   boot.kernelModules = [ "btusb" ];
 
-  # 2. Systemd-tjeneste som garanterer at ID-en blir registrert
-  systemd.services.force-mediatek-bluetooth = {
+systemd.services.force-mediatek-bluetooth = {
     description = "Force MediaTek Bluetooth ID into btusb driver";
     after = [ "systemd-modules-load.service" ];
     wantedBy = [ "multi-user.target" ];
+    # Vi legger inn en liten "sleep" for å være sikker på at sysfs er klar
     serviceConfig = {
       Type = "oneshot";
-      RemainAfterExit = true;
-      # Vi bruker '|| true' så bygget ikke feiler hvis ID-en allerede er registrert
+      ExecStartPre = "${pkgs.coreutils}/bin/sleep 5"; 
       ExecStart = "${pkgs.bash}/bin/bash -c 'echo \"0489 e111\" > /sys/bus/usb/drivers/btusb/new_id || true'";
     };
   };
