@@ -21,11 +21,11 @@
 
     git = {
       enable = true;
-      user = {
-        name = "Vegard Pareli Seines";
-        email = "vegsei@gmail.com";
-      };
       settings = {
+        user = {
+          name = "Vegard Pareli Seines";
+          email = "vegsei@gmail.com";
+        };
         init.defaultBranch = "main";
       };
     };
