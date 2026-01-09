@@ -17,11 +17,11 @@
   boot.kernelPackages = pkgs.linuxPackages_latest;
   powerManagement.cpuFreqGovernor = "performance";
 
-  home-manager.users.vegard = {
-    programs.ghostty.settings = {
-      render-device = "software";
-    };
-  };
+  # home-manager.users.vegard = {
+  #   programs.ghostty.settings = {
+  #     render-device = "software";
+  #   };
+  # };
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
