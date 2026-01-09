@@ -36,10 +36,9 @@
         button-layout = "appmenu:minimize,maximize,close";
       };
       "org/gnome/settings-daemon/plugins/media-keys" = {
-        custom-keybindings = [ "/org/gnome/settings-daemon/plugin/media-keys/custom-keybindings/custom0/" ];
-
+        custom-keybindings = [ "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/" ];
       };
-      "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" {
+      "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
         binding = "<Super><Return>";
 	command = "ghostty";
 	name = "Open Ghostty";
