@@ -8,7 +8,7 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    niri.url = "github:YaLTer/niri";
+    niri.url = "github:YaLTeR/niri";
   };
 
   outputs = { self, nixpkgs, home-manager, niri, ... }@inputs: {
