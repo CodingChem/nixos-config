@@ -8,9 +8,10 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    niri.url = "github:YaLTer/niri";
   };
 
-  outputs = { self, nixpkgs, home-manager,... }@inputs: {
+  outputs = { self, nixpkgs, home-manager, niri, ... }@inputs: {
     nixosConfigurations.P14S = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       specialArgs = { inherit inputs; };
@@ -36,15 +37,23 @@
         ./hosts/personal/legioni5/configuration.nix
 	./modules/defaults.nix
 	./modules/game.nix
-	./modules/desktop/niri.nix
+	# ./modules/desktop/niri.nix
 	./modules/desktop/defaults.nix
+	niri.nixosModules.niri
 
         home-manager.nixosModules.home-manager
 	{
 	  home-manager.useGlobalPkgs = true;
 	  home-manager.useUserPackages = true;
 	  home-manager.extraSpecialArgs = { inherit inputs; };
-	  home-manager.users.vegard = import ./modules/home.nix;
+	  home-manager.users.vegard = {
+	    imports = [
+	      ./modules/home.nix
+              ./modules/desktop/niri.nix
+	      niri.homeModules.niri
+	    ];
+	  };
+	  import ./modules/home.nix;
 	}
       ];
     };
