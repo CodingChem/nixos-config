@@ -6,16 +6,15 @@
     # ./bluetooth.nix
   ];
 
-  # Bootloader
+  # --- BOOTLOADER ---
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
   # --- SYSTEM SETUP ---
-
   networking.hostName = "legioni5";
   networking.networkmanager.enable = true;
 
-  # Lyd (Pipewire)
+  # --- AUDIO (Pipewire) ---
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
@@ -23,27 +22,46 @@
     alsa.support32Bit = true;
     pulse.enable = true;
   };
-{ pkgs, ... }: {
+
+  # --- NIRI & GRAPHICS SETUP ---
+  
   # Enable Niri System-Wide (Registers session in GDM)
   programs.niri.enable = true;
 
-  # Ensure you have a wayland-compatible terminal/launcher available system-wide or in user profile
-  # (We will configure them in Home Manager, but good to have)
+  # Basic system packages for Wayland
   environment.systemPackages = with pkgs; [ 
     wl-clipboard 
     waybar 
-    fuzzel   # A lightweight launcher, great for Niri
-    alacritty # or your preferred terminal
+    fuzzel    # Launcher
+    alacritty # Terminal
   ];
 
-  # Nvidia 50-series specific (Standard Wayland setup)
-  # Your 5070Ti handles explicit sync well, so we just need modesetting.
-  hardware.nvidia = {
-    modesetting.enable = true;
-    open = true; # Use open kernel modules if on driver 560+
+  # --- NVIDIA RTX 5070Ti CONFIGURATION ---
+  
+  # 1. Enable OpenGL/Vulkan
+  hardware.graphics = {
+    enable = true;
+    enable32Bit = true; # Useful for Steam/Games
   };
-}
 
-  # Standard NixOS versjon
-  system.stateVersion = "25.11";
-}
+  # 2. Tell NixOS to load the Nvidia driver
+  services.xserver.videoDrivers = [ "nvidia" ];
+
+  # 3. Configure the Nvidia driver settings
+  hardware.nvidia = {
+    # Modesetting is required for Wayland
+    modesetting.enable = true;
+
+    # Use the open source kernel module (Recommended for 50-series/Driver 560+)
+    open = true;
+
+    # Nvidia power management (Optional, but often good for laptops/desktops)
+    powerManagement.enable = false;
+    powerManagement.finegrained = false;
+
+    # Access the beta/newest drivers necessary for 50-series
+    package = config.boot.kernelPackages.nvidiaPackages.beta; 
+  };
+
+  # --- SYSTEM VERSION ---
+  system.stateVersion
