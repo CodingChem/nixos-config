@@ -39,7 +39,6 @@
 	./modules/desktop/niri.nix
 	./modules/desktop/gnome.nix
 	./modules/desktop/defaults.nix
-	niri.nixosModules.home-manager
 
         home-manager.nixosModules.home-manager
 	{
@@ -49,7 +48,6 @@
 	  home-manager.users.vegard = {
 	    imports = [
 	      ./modules/home.nix
-	      niri.homeModules.niri
 	    ];
 	  };
 	}
