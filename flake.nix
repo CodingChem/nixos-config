@@ -37,6 +37,7 @@
 	./modules/defaults.nix
 	./modules/game.nix
 	./modules/desktop/niri.nix
+	./modules/desktop/gnome.nix
 	./modules/desktop/defaults.nix
 
         home-manager.nixosModules.home-manager
