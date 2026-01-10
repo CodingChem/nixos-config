@@ -5,6 +5,9 @@
   programs.niri = {
     enable = true;
     };
+  home.packages = with pkgs; [
+    xwayland-satellite
+  ];
 
     # settings = {
     #   # Input device configuration
