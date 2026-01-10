@@ -5,17 +5,17 @@
   programs.niri = {
     enable = true;
 
-    settings = {
-      # Input device configuration
-      input = {
-        keyboard.xkb.layout = "us";
-        touchpad = {
-          tap = true;
-          natural-scroll = true;
-        };
-      };
-      };
-      };
+    # settings = {
+    #   # Input device configuration
+    #   input = {
+    #     keyboard.xkb.layout = "us";
+    #     touchpad = {
+    #       tap = true;
+    #       natural-scroll = true;
+    #     };
+    #   };
+    #   };
+    #   };
   #
   #     # Layout settings
   #     layout = {
