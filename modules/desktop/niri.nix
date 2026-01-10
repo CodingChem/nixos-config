@@ -2,11 +2,11 @@
 
 {
   # 1. Ensure the apps you bind are actually installed
-  system.packages = with pkgs; [
-    ghostty
-    xwayland-satellite
-    # alacritty # You can remove this if you fully switched to Ghostty
-  ];
+  # system.packages = with pkgs; [
+  #   ghostty
+  #   xwayland-satellite
+  #   # alacritty # You can remove this if you fully switched to Ghostty
+  # ];
 
   programs.niri = {
     enable = true;
