@@ -14,6 +14,7 @@
           natural-scroll = true;
         };
       };
+      };
   #
   #     # Layout settings
   #     layout = {
