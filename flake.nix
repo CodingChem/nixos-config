@@ -38,7 +38,6 @@
 	./modules/game.nix
 	./modules/desktop/niri.nix
 	./modules/desktop/defaults.nix
-	niri.nixosModules.niri
 
         home-manager.nixosModules.home-manager
 	{
