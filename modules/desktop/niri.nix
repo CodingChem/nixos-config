@@ -84,21 +84,21 @@
   };
   
   # Configure Fuzzel
-  programs.fuzzel = {
-    enable = true;
-    settings = {
-      main = {
-        # Updated to use Ghostty to match your preference
-        terminal = "${pkgs.ghostty}/bin/ghostty"; 
-        layer = "overlay";
-      };
-      colors = {
-        background = "282a36dd";
-        text = "f8f8f2ff";
-        selection = "44475add";
-        selection-text = "f8f8f2ff";
-        border = "bd93f9ff";
-      };
-    };
-  };
+  # programs.fuzzel = {
+  #   enable = true;
+  #   settings = {
+  #     main = {
+  #       # Updated to use Ghostty to match your preference
+  #       terminal = "${pkgs.ghostty}/bin/ghostty"; 
+  #       layer = "overlay";
+  #     };
+  #     colors = {
+  #       background = "282a36dd";
+  #       text = "f8f8f2ff";
+  #       selection = "44475add";
+  #       selection-text = "f8f8f2ff";
+  #       border = "bd93f9ff";
+  #     };
+  #   };
+  # };
 }
