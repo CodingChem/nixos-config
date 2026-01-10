@@ -53,7 +53,6 @@
 	      niri.homeModules.niri
 	    ];
 	  };
-	  import ./modules/home.nix;
 	}
       ];
     };
