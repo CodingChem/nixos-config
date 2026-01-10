@@ -1,10 +1,16 @@
 { config, pkgs, lib, ... }:
 
 {
+  # 1. Ensure the apps you bind are actually installed
+  home.packages = with pkgs; [
+    ghostty
+    xwayland-satellite
+    # alacritty # You can remove this if you fully switched to Ghostty
+  ];
+
   programs.niri = {
     enable = true;
 
-    # The configuration below translates to Niri's config.kdl
     settings = {
       # Input device configuration
       input = {
@@ -14,13 +20,6 @@
           natural-scroll = true;
         };
       };
-
-      # Output (Monitor) configuration
-      # Niri usually auto-detects, but you can pin settings here.
-      # output."DP-1" = {
-      #   mode = "2560x1440@144";
-      #   scale = 1.0;
-      # };
 
       # Layout settings
       layout = {
@@ -44,16 +43,15 @@
       };
 
       # Keybindings
-      binds = with config.lib.niri.actions; let
-        sh = spawn: spawn "sh" "-c" spawn;
-      in {
+      binds = with config.lib.niri.actions; {
         # Mod key is usually Super/Windows
         "Mod+Shift+E".action = quit;
         "Mod+Q".action = close-window;
 
         # Application launchers
-        "Mod+Return".action = spawn-sh "ghostty";
-        "Mod+D".action = spawn "fuzzel"; # Menu/Launcher
+        # "spawn" expects a list of strings: ["command" "arg"]
+        "Mod+Return".action = spawn "ghostty"; 
+        "Mod+D".action = spawn "fuzzel"; 
 
         # Window movement (Vim keys)
         "Mod+H".action = focus-column-left;
@@ -77,17 +75,21 @@
       # Startup commands
       spawn-at-startup = [
         { command = [ "waybar" ]; }
-        { command = [ "xwayland-satellite" ]; } # If you need X11 apps
+        
+        # Xwayland-satellite is required for X11 apps on Niri
+        # (Niri does not provide its own Xwayland server)
+        { command = [ "xwayland-satellite" ]; } 
       ];
     };
   };
   
-  # Optional: Style Fuzzel to look nice immediately
+  # Configure Fuzzel
   programs.fuzzel = {
     enable = true;
     settings = {
       main = {
-        terminal = "${pkgs.alacritty}/bin/alacritty";
+        # Updated to use Ghostty to match your preference
+        terminal = "${pkgs.ghostty}/bin/ghostty"; 
         layer = "overlay";
       };
       colors = {
