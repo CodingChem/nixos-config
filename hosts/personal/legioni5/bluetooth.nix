@@ -1,21 +1,24 @@
- { config, pkgs, ... }:
+{ config, pkgs, ... }:
 
 {
-# 1. Fix the "False Identity" bug where GNOME thinks the Bluetooth chip is a Camera/MP3 player
+  # 1. The Core Fix: Tell the kernel to disable Link Power Management (LPM) for this ID.
+  # '0489:e111' is your device. 'k' means USB_QUIRK_NO_LPM.
+  boot.kernelParams = [ "usbcore.quirks=0489:e111:k" ];
+
+  # 2. Keep the software-level autosuspend disabled as a backup
+  boot.extraModprobeConfig = ''
+    options btusb enable_autosuspend=n
+  '';
+
+  # 3. Hardware database fix (Keep this to prevent GNOME interfering)
   services.udev.extraHwdb = ''
-    # Match Foxconn / Hon Hai Wireless_Device (0489:e111)
     usb:v0489pE111*
      ID_GPHOTO2=0
      ID_MTP_DEVICE=0
      ID_MEDIA_PLAYER=0
   '';
 
-  # 2. Keep the "Clean" power management fix just in case (optional but recommended)
-  boot.extraModprobeConfig = ''
-    options btusb enable_autosuspend=n
-  '';
-
-  # Ensure you have the necessary firmware packages
-  hardware.enableAllFirmware = true;
+  # Standard Bluetooth enabling
   hardware.bluetooth.enable = true;
+  hardware.bluetooth.powerOnBoot = true;
 }
