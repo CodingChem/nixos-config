@@ -15,6 +15,7 @@
         };
       };
       };
+      };
   #
   #     # Layout settings
   #     layout = {
