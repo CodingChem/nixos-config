@@ -52,16 +52,17 @@
     # Modesetting is required for Wayland
     modesetting.enable = true;
 
-    # Use the open source kernel module (Recommended for 50-series/Driver 560+)
+    # Use the open source kernel module (Recommended for 50-series)
     open = true;
 
-    # Nvidia power management (Optional, but often good for laptops/desktops)
+    # Nvidia power management
     powerManagement.enable = false;
     powerManagement.finegrained = false;
 
-    # Access the beta/newest drivers necessary for 50-series
+    # Use beta drivers for the 5070Ti to ensure support
     package = config.boot.kernelPackages.nvidiaPackages.beta; 
   };
 
   # --- SYSTEM VERSION ---
-  system.stateVersion
+  system.stateVersion = "25.11"; 
+}
