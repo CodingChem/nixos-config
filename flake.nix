@@ -56,8 +56,6 @@
           home-manager.users.vegard = {
             imports = [
               ./modules/home.nix
-              # 4. Load the Home Manager Module DIRECTLY here
-              niri.homeModules.niri
             ];
           };
         }
