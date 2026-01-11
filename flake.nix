@@ -9,14 +9,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # # 1. Add the COSMIC flake input
-    # nixos-cosmic = {
-    #   url = "github:lilyinstarlight/nixos-cosmic";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
   };
 
-  outputs = { self, nixpkgs, home-manager, ... }@inputs: {
+  outputs = { self, nixpkgs, home-manager, zen-browser, ... }@inputs: {
     nixosConfigurations.P14S = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       specialArgs = { inherit inputs; };

@@ -7,7 +7,6 @@
   environment.systemPackages = with pkgs; [
     chromium
   ];
-  # Install firefox.
   programs = {
     chromium = {
       enable = true;
