@@ -1,24 +1,14 @@
 { config, pkgs, ... }:
 
 {
-  # 1. The Core Fix: Tell the kernel to disable Link Power Management (LPM) for this ID.
-  # '0489:e111' is your device. 'k' means USB_QUIRK_NO_LPM.
-  boot.kernelParams = [ "usbcore.quirks=0489:e111:k" ];
-
-  # 2. Keep the software-level autosuspend disabled as a backup
-  boot.extraModprobeConfig = ''
-    options btusb enable_autosuspend=n
-  '';
-
-  # 3. Hardware database fix (Keep this to prevent GNOME interfering)
-  services.udev.extraHwdb = ''
-    usb:v0489pE111*
-     ID_GPHOTO2=0
-     ID_MTP_DEVICE=0
-     ID_MEDIA_PLAYER=0
-  '';
-
-  # Standard Bluetooth enabling
+# 1. Enable Bluetooth
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
+
+  # 2. Fix for MediaTek MT7925e (0489:e111) 
+  # This rule overrides the bad 'hwdb' entry that the script was trying to delete.
+  # It forces the system to stop treating the Bluetooth card as a Camera/Media Player.
+  services.udev.extraRules = ''
+    SUBSYSTEM=="usb", ATTR{idVendor}=="0489", ATTR{idProduct}=="e111", ENV{ID_MTP_DEVICE}="0", ENV{ID_GPHOTO2}="0", ENV{ID_MEDIA_PLAYER}="0"
+  '';
 }

@@ -3,7 +3,7 @@
 {
   imports = [ 
     ./hardware-configuration.nix
-    # ./bluetooth.nix
+    ./bluetooth.nix
   ];
 
   # --- BOOTLOADER ---
