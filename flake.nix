@@ -8,9 +8,13 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # 1. We MUST have this input to get the configuration options
+    niri.url = "github:YaLTeR/niri";
   };
 
-  outputs = { self, nixpkgs, home-manager, ... }@inputs: {
+  # 2. Add 'niri' to the arguments here
+  outputs = { self, nixpkgs, home-manager, niri, ... }@inputs: {
     nixosConfigurations.P14S = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       specialArgs = { inherit inputs; };
@@ -38,20 +42,27 @@
         ./modules/defaults.nix
         ./modules/game.nix
         
-        # Load your local Niri config
+        # Your Niri config file
         ./modules/desktop/niri.nix
         
         ./modules/desktop/gnome.nix
         ./modules/desktop/defaults.nix
+        
+        # 3. Load the System Module DIRECTLY here
+        # This fixes "missing attribute" errors
+        niri.nixosModules.niri
 
         home-manager.nixosModules.home-manager
         {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
           home-manager.extraSpecialArgs = { inherit inputs; };
+          
           home-manager.users.vegard = {
             imports = [
               ./modules/home.nix
+              # 4. Load the Home Manager Module DIRECTLY here
+              niri.homeModules.niri
             ];
           };
         }
