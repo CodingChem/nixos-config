@@ -8,9 +8,10 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    niri.url = "github:YaLTeR/niri";
   };
 
-  outputs = { self, nixpkgs, home-manager, ... }@inputs: {
+  outputs = { self, nixpkgs, home-manager, niri, ... }@inputs: {
     nixosConfigurations.P14S = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       specialArgs = { inherit inputs; };
@@ -40,6 +41,8 @@
 	./modules/desktop/gnome.nix
 	./modules/desktop/defaults.nix
 
+	niri.nixosModules.niri
+
         home-manager.nixosModules.home-manager
 	{
 	  home-manager.useGlobalPkgs = true;
@@ -48,6 +51,7 @@
 	  home-manager.users.vegard = {
 	    imports = [
 	      ./modules/home.nix
+	      niri.homeModules.niri
 	    ];
 	  };
 	}
