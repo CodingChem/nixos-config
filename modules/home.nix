@@ -16,7 +16,10 @@
     android-studio-full
     jetbrains.idea
   ];
-
+  nixpkgs.config = {
+    allowUnfree = true;
+    android_sdk.accept_license = true;
+  };
   # program settings
   programs = {
     home-manager.enable = true;
