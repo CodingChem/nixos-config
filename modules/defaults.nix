@@ -17,7 +17,10 @@
   console.keyMap = "no";
   
   # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
+  nixpkgs.config = {
+    allowUnfree = true;
+    android_sdk.accept_license = true;
+  };
   programs.zsh.enable = true;
   # Define the user
   users.users.vegard = {
