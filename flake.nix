@@ -10,7 +10,6 @@
     };
   };
 
-  # 2. Add 'niri' to the arguments here
   outputs = { self, nixpkgs, home-manager, ... }@inputs: {
     nixosConfigurations.P14S = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
@@ -39,14 +38,11 @@
         ./modules/defaults.nix
         ./modules/game.nix
         
-        # Your Niri config file
-        ./modules/desktop/niri.nix
+        ./modules/desktop/dms.nix
         
         ./modules/desktop/gnome.nix
         ./modules/desktop/defaults.nix
         
-        # 3. Load the System Module DIRECTLY here
-        # This fixes "missing attribute" errors
         home-manager.nixosModules.home-manager
         {
           home-manager.useGlobalPkgs = true;
