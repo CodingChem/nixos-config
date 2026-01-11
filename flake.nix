@@ -11,7 +11,7 @@
   };
 
   # 2. Add 'niri' to the arguments here
-  outputs = { self, nixpkgs, home-manager, niri, ... }@inputs: {
+  outputs = { self, nixpkgs, home-manager, ... }@inputs: {
     nixosConfigurations.P14S = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       specialArgs = { inherit inputs; };
