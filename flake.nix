@@ -56,7 +56,6 @@
           home-manager.users.vegard = {
             imports = [
               ./modules/home.nix
-	      inputs.dms.homeModules.dankMaterialShell.default
             ];
           };
         }

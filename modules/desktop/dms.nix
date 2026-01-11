@@ -1,6 +1,9 @@
 { config, pkgs, ... }:
 
 {
+  imports  = [
+    inputs.dms.nixosModules.dankMaterialShell
+  ];
   programs.niri.enable = true;
   programs.dank-material-shell = {
     enable = true;
