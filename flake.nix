@@ -8,9 +8,6 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    # 1. We MUST have this input to get the configuration options
-    niri.url = "github:YaLTeR/niri";
   };
 
   # 2. Add 'niri' to the arguments here
@@ -50,8 +47,6 @@
         
         # 3. Load the System Module DIRECTLY here
         # This fixes "missing attribute" errors
-        niri.nixosModules.niri
-
         home-manager.nixosModules.home-manager
         {
           home-manager.useGlobalPkgs = true;
