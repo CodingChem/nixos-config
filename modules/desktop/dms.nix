@@ -2,7 +2,7 @@
 
 {
   imports  = [
-    inputs.dms.nixosModules.dankMaterialShell
+    dms.nixosModules.dankMaterialShell
   ];
   programs.niri.enable = true;
   programs.dank-material-shell = {
