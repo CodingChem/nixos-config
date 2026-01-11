@@ -9,11 +9,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Keep the input here
     niri.url = "github:YaLTeR/niri";
   };
 
-  outputs = { self, nixpkgs, home-manager, ... }@inputs: {
+  # 1. ADD 'niri' HERE vvv
+  outputs = { self, nixpkgs, home-manager, niri, ... }@inputs: {
     nixosConfigurations.P14S = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       specialArgs = { inherit inputs; };
@@ -36,17 +36,15 @@
     nixosConfigurations.legioni5 = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       
-      # This line ensures 'inputs' is available in all your modules
-      specialArgs = { inherit inputs; };
+      # 2. PASS 'niri' HERE vvv
+      # This ensures modules receive the EVALUATED flake, not just the source
+      specialArgs = { inherit inputs niri; };
       
       modules = [
         ./hosts/personal/legioni5/configuration.nix
         ./modules/defaults.nix
         ./modules/game.nix
-        
-        # We load niri.nix, and WE WILL FIX niri.nix to import the modules itself
         ./modules/desktop/niri.nix
-        
         ./modules/desktop/gnome.nix
         ./modules/desktop/defaults.nix
 
@@ -55,8 +53,8 @@
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
           
-          # This ensures 'inputs' is available in Home Manager too
-          home-manager.extraSpecialArgs = { inherit inputs; };
+          # 3. PASS 'niri' TO HOME MANAGER TOO vvv
+          home-manager.extraSpecialArgs = { inherit inputs niri; };
           
           home-manager.users.vegard = {
             imports = [

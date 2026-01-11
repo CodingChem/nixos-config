@@ -1,17 +1,16 @@
-{ config, pkgs, inputs, ... }: # <--- Add 'inputs' here
+# 1. ADD 'niri' TO ARGUMENTS vvv
+{ config, pkgs, niri, ... }: 
 
 {
-  # 1. Import the Niri System Module (from the flake input)
-  imports = [ inputs.niri.nixosModules.niri ];
+  # 2. USE 'niri' DIRECTLY (It is now the evaluated flake)
+  imports = [ niri.nixosModules.niri ];
 
-  # 2. Enable the Niri login session
   programs.niri.enable = true;
 
-  # 3. Configure the User (Home Manager)
   home-manager.users.vegard = { config, pkgs, ... }: {
     
-    # 4. Import the Niri Home Manager Module (from the flake input)
-    imports = [ inputs.niri.homeModules.niri ];
+    # 3. USE 'niri' HERE TOO
+    imports = [ niri.homeModules.niri ];
 
     home.packages = with pkgs; [
       xwayland-satellite
@@ -19,10 +18,9 @@
 
     programs.niri = {
       enable = true;
-      package = pkgs.niri; # Use the binary from nixpkgs
+      package = pkgs.niri;
 
       settings = {
-        # --- Input ---
         input = {
           keyboard.xkb.layout = "us";
           touchpad = {
@@ -31,7 +29,6 @@
           };
         };
 
-        # --- Layout ---
         layout = {
           gaps = 16;
           center-focused-column = "never";
@@ -49,7 +46,6 @@
           };
         };
 
-        # --- Keybindings ---
         binds = with config.lib.niri.actions; {
           "Mod+Shift+E".action = quit;
           "Mod+Q".action = close-window;
@@ -70,7 +66,6 @@
           "Alt+Print".action = screenshot-window;
         };
 
-        # --- Startup ---
         spawn-at-startup = [
           { command = [ "xwayland-satellite" ]; }
           { command = [ "waybar" ]; }
