@@ -30,9 +30,7 @@
     alacritty # Terminal
   ];
   # --- Docker ---
-  virtualization.docker = {
-    enable = true;
-  };
+  virtualisation.docker.enable.enable = true;
 
   # --- SYSTEM VERSION ---
   system.stateVersion = "25.11"; 
