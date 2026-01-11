@@ -14,7 +14,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, ... }@inputs: {
+  outputs = { self, nixpkgs, home-manager, dms, ... }@inputs: {
     nixosConfigurations.P14S = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       specialArgs = { inherit inputs; };
@@ -42,6 +42,7 @@
         ./modules/defaults.nix
         ./modules/game.nix
         
+	inputs.dms.nixosModules.dank-material-shell
         ./modules/desktop/dms.nix
         
         ./modules/desktop/gnome.nix
