@@ -29,11 +29,11 @@
     # so they look consistent with the desktop.
 
     # Install useful COSMIC utilities if they aren't pulled in by the desktop manager
-    home.packages = with pkgs; [
-      cosmic-ext-applet-clipboard-manager # Clipboard manager is essential
-      cosmic-ext-applet-emoji-selector    # If you use emojis
-      # cosmic-player                     # Music player (optional)
-    ];
+    # home.packages = with pkgs; [
+    #   cosmic-ext-applet-clipboard-manager # Clipboard manager is essential
+    #   cosmic-ext-applet-emoji-selector    # If you use emojis
+    #   # cosmic-player                     # Music player (optional)
+    # ];
 
     # Session Variables for Wayland + Nvidia
     home.sessionVariables = {
