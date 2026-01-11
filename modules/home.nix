@@ -16,7 +16,6 @@
     android-studio-full
     jetbrains.idea
   ];
-  };
   # program settings
   programs = {
     home-manager.enable = true;
