@@ -1,28 +1,25 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, inputs, ... }: # <--- Add 'inputs' here
 
 {
-  # ==========================================================
-  # SYSTEM SETTINGS (The "NixOS" part)
-  # ==========================================================
-  
-  # This enables the Niri login session so it appears in GDM/SDDM
+  # 1. Import the Niri System Module (from the flake input)
+  imports = [ inputs.niri.nixosModules.niri ];
+
+  # 2. Enable the Niri login session
   programs.niri.enable = true;
 
-
-  # ==========================================================
-  # USER SETTINGS (The "Home Manager" part)
-  # ==========================================================
+  # 3. Configure the User (Home Manager)
   home-manager.users.vegard = { config, pkgs, ... }: {
     
-    # 1. Install packages for the user
+    # 4. Import the Niri Home Manager Module (from the flake input)
+    imports = [ inputs.niri.homeModules.niri ];
+
     home.packages = with pkgs; [
       xwayland-satellite
     ];
 
-    # 2. Configure Niri (Keybinds, Layouts, etc.)
     programs.niri = {
-      # This enables the Home Manager module logic
-      enable = true; 
+      enable = true;
+      package = pkgs.niri; # Use the binary from nixpkgs
 
       settings = {
         # --- Input ---
@@ -58,6 +55,7 @@
           "Mod+Q".action = close-window;
           "Mod+Return".action = spawn "ghostty"; 
           "Mod+D".action = spawn "fuzzel"; 
+          
           "Mod+H".action = focus-column-left;
           "Mod+L".action = focus-column-right;
           "Mod+J".action = focus-window-down;
@@ -66,12 +64,13 @@
           "Mod+Ctrl+L".action = move-column-right;
           "Mod+Home".action = focus-column-first;
           "Mod+End".action = focus-column-last;
+          
           "Print".action = screenshot;
           "Ctrl+Print".action = screenshot-screen;
           "Alt+Print".action = screenshot-window;
         };
 
-        # --- Startup (Critical for Steam) ---
+        # --- Startup ---
         spawn-at-startup = [
           { command = [ "xwayland-satellite" ]; }
           { command = [ "waybar" ]; }
