@@ -1,14 +1,18 @@
 { config, pkgs, ... }:
 
 {
-# 1. Enable Bluetooth
+# 1. Enable Bluetooth (Standard)
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
 
-  # 2. Fix for MediaTek MT7925e (0489:e111) 
-  # This rule overrides the bad 'hwdb' entry that the script was trying to delete.
-  # It forces the system to stop treating the Bluetooth card as a Camera/Media Player.
-  services.udev.extraRules = ''
-    SUBSYSTEM=="usb", ATTR{idVendor}=="0489", ATTR{idProduct}=="e111", ENV{ID_MTP_DEVICE}="0", ENV{ID_GPHOTO2}="0", ENV{ID_MEDIA_PLAYER}="0"
+  # 2. THE FIX: Override the Hardware Database
+  # The original script deleted the "bad" rule. We cannot delete in NixOS, 
+  # so we overwrite the properties to "0" (False).
+  # Note: The indentation of the properties (ID_...) is required.
+  services.udev.extraHwdb = ''
+    usb:v0489pE111*
+     ID_MTP_DEVICE=0
+     ID_GPHOTO2=0
+     ID_MEDIA_PLAYER=0
   '';
 }
