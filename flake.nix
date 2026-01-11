@@ -9,12 +9,14 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Input is correct
+    # 1. Input definition
     niri.url = "github:YaLTeR/niri";
   };
 
-  # We use @inputs to access niri safely
-  outputs = { self, nixpkgs, home-manager, ... }@inputs: {
+  # 2. Add 'niri' to the arguments here! 
+  # This converts the input source into usable "outputs"
+  outputs = { self, nixpkgs, home-manager, niri, ... }@inputs: {
+    
     nixosConfigurations.P14S = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       specialArgs = { inherit inputs; };
@@ -42,14 +44,14 @@
         ./modules/defaults.nix
         ./modules/game.nix
         
-        # Your Niri configuration file
-        ./modules/desktop/niri.nix 
+        # Your Hybrid Niri file
+        ./modules/desktop/niri.nix
         
         ./modules/desktop/gnome.nix
         ./modules/desktop/defaults.nix
 
-        # FIX 1: Use inputs.niri explicitly to avoid errors
-        inputs.niri.nixosModules.niri
+        # 3. Use the 'niri' argument directly (NOT inputs.niri)
+        niri.nixosModules.niri
 
         home-manager.nixosModules.home-manager
         {
@@ -59,8 +61,8 @@
           home-manager.users.vegard = {
             imports = [
               ./modules/home.nix
-              # FIX 2: Use inputs.niri here too
-              inputs.niri.homeModules.niri
+              # 4. Same here
+              niri.homeModules.niri
             ];
           };
         }
