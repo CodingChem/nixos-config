@@ -13,10 +13,10 @@
       waybar
     ];
 
-    programs.niri = {
-      enable = true;
-      package = pkgs.niri; # Use standard Nixpkgs version
-
+    # programs.niri = {
+    #   enable = true;
+    #   package = pkgs.niri; # Use standard Nixpkgs version
+    #
       # settings = {
       #   input = {
       #     keyboard.xkb.layout = "us";
@@ -76,6 +76,6 @@
       #     { command = [ "waybar" ]; }
       #   ];
       # };
-    };
+    # };
   };
 }
