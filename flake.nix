@@ -42,7 +42,7 @@
         ./modules/defaults.nix
         ./modules/game.nix
         
-	inputs.dms.nixosModules.dank-material-shell
+	inputs.dms.nixosModules.default
         ./modules/desktop/dms.nix
         
         ./modules/desktop/gnome.nix
