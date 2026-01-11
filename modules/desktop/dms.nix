@@ -2,7 +2,7 @@
 
 {
   programs.niri.enable = true;
-  programs.dankMaterialShell = {
+  programs.dank-material-shell = {
     enable = true;
     systemd.enable = true;
     niri  = {
