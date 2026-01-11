@@ -15,6 +15,7 @@
     eza    # En moderne erstatning for 'ls'
     android-studio-full
     jetbrains.idea
+    obsidian
   ];
   # program settings
   programs = {

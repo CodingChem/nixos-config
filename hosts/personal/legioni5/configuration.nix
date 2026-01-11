@@ -29,6 +29,10 @@
     fuzzel    # Launcher
     alacritty # Terminal
   ];
+  # --- Docker ---
+  virtualization.docker = {
+    enable = true;
+  };
 
   # --- SYSTEM VERSION ---
   system.stateVersion = "25.11"; 
