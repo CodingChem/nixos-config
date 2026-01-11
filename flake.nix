@@ -8,6 +8,10 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    dms = {
+      url = "github:AvengeMedia/DankMaterialShell/stable";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { self, nixpkgs, home-manager, ... }@inputs: {
@@ -52,6 +56,7 @@
           home-manager.users.vegard = {
             imports = [
               ./modules/home.nix
+	      inputs.dms.homeModules.dankMaterialShell.default
             ];
           };
         }
