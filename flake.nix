@@ -42,7 +42,7 @@
         ./modules/game.nix
         ./desktop/cosmic.nix 
         ./desktop/defaults.nix
-	./desktop/gnome.nix
+	# ./desktop/gnome.nix
 	./modules/programming/kotlin.nix
         
         home-manager.nixosModules.home-manager
