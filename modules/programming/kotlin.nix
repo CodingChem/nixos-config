@@ -26,6 +26,6 @@ in
 
     # For IntelliJ. NB: Sjekk om du bruker idea-community eller idea-ultimate
     # Binæren heter vanligvis 'idea-community' eller 'idea-ultimate'
-    (patchWayland jetbrains.idea-community "idea-community")
+    (patchWayland jetbrains.idea "idea")
   ];
 }
