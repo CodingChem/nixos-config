@@ -18,8 +18,10 @@
       modules = [
         ./hosts/work/P14S/configuration.nix
         ./modules/defaults.nix
-        ./modules/desktop/gnome.nix
-        ./modules/desktop/defaults.nix
+        ./desktop/gnome.nix
+        ./desktop/defaults.nix
+	./desktop/cosmic.nix
+	./modules/programming/kotlin.nix
 
         home-manager.nixosModules.home-manager
         {
@@ -38,9 +40,10 @@
         ./hosts/personal/legioni5/configuration.nix
         ./modules/defaults.nix
         ./modules/game.nix
-        ./modules/desktop/cosmic.nix 
-        ./modules/desktop/defaults.nix
-	./modules/desktop/gnome.nix
+        ./desktop/cosmic.nix 
+        ./desktop/defaults.nix
+	./desktop/gnome.nix
+	./modules/programming/kotlin.nix
         
         home-manager.nixosModules.home-manager
         {
