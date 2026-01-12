@@ -2,7 +2,7 @@
 
 {
   # Apps
-  home.packages = with pkgs; [
+  environment.systemPackages = with pkgs; [
     android-studio-full
     jetbrains.idea
   ];
