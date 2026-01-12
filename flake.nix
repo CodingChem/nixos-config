@@ -21,7 +21,6 @@
         ./desktop/gnome.nix
         ./desktop/defaults.nix
 	./desktop/cosmic.nix
-	./modules/programming/kotlin.nix
 
         home-manager.nixosModules.home-manager
         {
@@ -43,7 +42,6 @@
         ./desktop/cosmic.nix 
         ./desktop/defaults.nix
 	# ./desktop/gnome.nix
-	./modules/programming/kotlin.nix
         
         home-manager.nixosModules.home-manager
         {

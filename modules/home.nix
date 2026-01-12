@@ -14,6 +14,7 @@
     bat    # En bedre 'cat' som ofte følger med i denne pakken
     eza    # En moderne erstatning for 'ls'
     obsidian
+    devenv
   ];
   # program settings
   programs = {
