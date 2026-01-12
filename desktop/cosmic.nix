@@ -7,13 +7,6 @@
     layout = "no";
     variant = "";
   };
-  services.xserver.videoDrivers = [ "nvidia" ]; 
-  
-  hardware.graphics = {
-    enable = true;
-    # If on unstable/newer nixpkgs, 'enable32Bit' might be required for Steam/Games
-    enable32Bit = true; 
-  };
 
   # Optional: Exclude default COSMIC packages if you prefer alternatives.
   # Unlike GNOME, COSMIC apps (Term, Edit, Files) are tightly integrated, 
