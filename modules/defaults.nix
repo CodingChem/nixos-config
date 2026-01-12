@@ -3,7 +3,7 @@
 {
   # System-settings
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
-  
+  nix.settings.trusted-users = [ "root" "vegard" ];
   # Networking
   networking.networkmanager.enable = true;
   # Enable BBR Congestion Control
