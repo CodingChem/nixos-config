@@ -13,6 +13,7 @@
   # --- SYSTEM SETUP ---
   networking.hostName = "legioni5";
   networking.networkmanager.enable = true;
+  services.fwupd.enable = true;
 
   # --- AUDIO (Pipewire) ---
   security.rtkit.enable = true;
