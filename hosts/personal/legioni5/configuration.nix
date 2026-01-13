@@ -24,10 +24,6 @@
   };
 
   environment.systemPackages = with pkgs; [ 
-    wl-clipboard 
-    waybar 
-    fuzzel    # Launcher
-    alacritty # Terminal
   ];
   # --- Docker ---
   virtualisation.docker.enable = true;

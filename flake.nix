@@ -41,7 +41,6 @@
         ./modules/game.nix
         ./desktop/cosmic.nix 
         ./desktop/defaults.nix
-	# ./desktop/gnome.nix
         
         home-manager.nixosModules.home-manager
         {
