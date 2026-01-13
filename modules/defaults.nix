@@ -2,8 +2,23 @@
 
 {
   # System-settings
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
-  nix.settings.trusted-users = [ "root" "vegard" ];
+  nix = { 
+    settings = {
+      experimental-features = [ "nix-command" "flakes" ];
+      trusted-users = [ "root" "vegard" ];
+      auto-optimise-store = true;
+    };
+    gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 30d";
+    };
+  };
+  
+  # Allow unfree packages
+  nixpkgs.config = {
+    allowUnfree = true;
+  };
   # Networking
   networking.networkmanager.enable = true;
   # Enable BBR Congestion Control
@@ -22,11 +37,6 @@
   # Configure console keymap
   console.keyMap = "no";
   
-  # Allow unfree packages
-  nixpkgs.config = {
-    allowUnfree = true;
-    android_sdk.accept_license = true;
-  };
   programs.zsh.enable = true;
   # Define the user
   users.users.vegard = {
