@@ -16,7 +16,7 @@
   services.xserver.displayManager.ly = {
     enable = true;
   };
-  services.displayManager.sessionCommands = ''
+  services.xserver.displayManager.sessionCommands = ''
       # Set Wallpaper
       # Check if file exists to avoid error if path is wrong
       if [ -f $HOME/Pictures/wallpapers/wall1.jpg ]; then
