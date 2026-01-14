@@ -14,7 +14,7 @@
   outputs = { self, nixpkgs, home-manager, ... }@inputs: {
 
     devShells.x86_64-linux.suckless = nixpkgs.mkShell {
-      packages = with pkgs; [
+      packages = with nixpkgs; [
         pkg-config
 	xorg.libX11
 	xorg.libXft
