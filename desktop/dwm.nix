@@ -12,7 +12,10 @@
       };
     };
   };
+  services.displayManager.ly.enable = true;
   environment.systemPackages = with pkgs; [
     kitty
+    dmenu
+    st
   ];
 }
