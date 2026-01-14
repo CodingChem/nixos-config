@@ -1,5 +1,20 @@
 {pkgs, ... }:
 
+let
+  dwmSession = pkgs.writeShellScriptBin "dwm-session" ''
+    # Set background (Use full path to binary for safety)
+    ${pkgs.xwallpaper}/bin/xwallpaper --zoom $HOME/Pictures/wallpapers/wall1.jpg &
+
+    # Start Polkit (Password prompts)
+    ${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1 &
+    
+    # Start Picom (Compositor - fixes tearing)
+    ${pkgs.picom}/bin/picom &
+
+    # Finally, start DWM (exec is important!)
+    exec ${pkgs.dwm}/bin/dwm  '';
+in
+
 {
   services.xserver = {
     enable = true;
@@ -11,14 +26,9 @@
         src = ./../src/dwm;
       };
     };
-    displayManager = {
-      sessionCommands = ''
-      xwallpaper --zoom ~/Pictures/wallpapers/wall1.jpg
-      ${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1 &
-      '';
-    };
   };
   services.displayManager.ly.enable = true;
+  services.displayManager.sessionPackages = [ dwmSession ];
   
   environment.systemPackages = with pkgs; [
     alacritty
@@ -28,6 +38,8 @@
     glib
     gtk3
     polkit_gnome
+    picom
+    dwmSession
   ];
   environment.sessionVariables = {
     # Hints for apps to know how to draw themselves
