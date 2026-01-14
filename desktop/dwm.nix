@@ -16,7 +16,8 @@
   services.xserver.displayManager.lightdm = {
     enable = true;
     greeters.slick.enable = true;
-    sessionCommands = ''
+  };
+  services.displayManager.sessionCommands = ''
       # Set Wallpaper
       # Check if file exists to avoid error if path is wrong
       if [ -f $HOME/Pictures/wallpapers/wall1.jpg ]; then
@@ -29,7 +30,6 @@
       # Start Compositor (Transparency/Vsync)
       ${pkgs.picom}/bin/picom &
     '';
-  };
 
   environment.systemPackages = with pkgs; [
     alacritty
