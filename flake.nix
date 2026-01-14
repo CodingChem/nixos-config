@@ -12,6 +12,21 @@
   };
 
   outputs = { self, nixpkgs, home-manager, ... }@inputs: {
+
+    devShells.x86_64-linux.suckless = pkgs.mkShell {
+      packages = with pkgs; [
+        pkg-config
+	xorg.libX11
+	xorg.libXft
+	xorg.libXinerama
+	fontconfig
+	freetype
+	harfbuzz
+	gcc
+	gnumake
+      ];
+    };
+
     nixosConfigurations.P14S = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       specialArgs = { inherit inputs; };
