@@ -19,7 +19,7 @@
         ./hosts/P14S/configuration.nix
         ./modules/defaults.nix
         ./desktop/defaults.nix
-	./desktop/cosmic.nix
+	#./desktop/cosmic.nix
 	./desktop/dwm.nix
 
         home-manager.nixosModules.home-manager
