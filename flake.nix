@@ -11,10 +11,15 @@
 
   };
 
-  outputs = { self, nixpkgs, home-manager, ... }@inputs: {
+  outputs = { self, nixpkgs, home-manager, ... }@inputs:
+  let
+    x86 = "x86_64-linux";
+    pkgs = import nixpkgs { inherit system; };
+  in
+  {
 
-    devShells.x86_64-linux.suckless = nixpkgs.mkShell {
-      packages = with nixpkgs; [
+    devShells.${x86}.suckless = pkgs.mkShell {
+      packages = with pkgs; [
         pkg-config
 	xorg.libX11
 	xorg.libXft
