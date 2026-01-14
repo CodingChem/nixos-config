@@ -12,7 +12,6 @@
       };
     };
     displayManager = {
-      ly.enable = true;
       sessionCommands = ''
       # 1. set backgroundcolor
       ${pkgs.xorg.xsetroot}/bin/xsetroot -solid "#24273a"
@@ -31,6 +30,7 @@
       '';
     };
   };
+  services.displayManager.ly.enable = true;
   
   environment.systemPackages = with pkgs; [
     alacritty
