@@ -36,7 +36,7 @@
   
   # Configure console keymap
   console.keyMap = "no";
-  services.xserver.layout = "no";
+  services.xserver.xkb.layout = "no";
   
   programs.zsh.enable = true;
   # Define the user
