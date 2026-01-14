@@ -14,7 +14,7 @@
   };
   services.displayManager.ly.enable = true;
   environment.systemPackages = with pkgs; [
-    kitty
+    alacritty
     dmenu
     st
   ];
