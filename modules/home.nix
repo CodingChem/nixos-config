@@ -1,6 +1,10 @@
 { config, pkgs, ... }:
 
 {
+  imports = 
+    [
+      ./suckless.nix
+    ];
   # User setup
   home.username = "vegard";
   home.homeDirectory = "/home/vegard";
