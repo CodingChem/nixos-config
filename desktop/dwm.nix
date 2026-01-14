@@ -13,6 +13,25 @@ let
 
     # Finally, start DWM (exec is important!)
     exec ${pkgs.dwm}/bin/dwm  '';
+
+dwmSession = pkgs.runCommand "dwm-session" {
+    # This tells NixOS exactly what the session is named (Fixes the error!)
+    passthru.providedSessions = [ "dwm-session" ];
+  } ''
+    # Create the binary directory and link our script
+    mkdir -p $out/bin
+    ln -s ${dwmScript}/bin/dwm-session $out/bin/dwm-session
+
+    # Create the xsessions directory and the .desktop file
+    mkdir -p $out/share/xsessions
+    cat > $out/share/xsessions/dwm-session.desktop <<EOF
+    [Desktop Entry]
+    Name=DWM Custom
+    Comment=Custom DWM Session
+    Exec=$out/bin/dwm-session
+    Type=Application
+    EOF
+  '';
 in
 
 {
