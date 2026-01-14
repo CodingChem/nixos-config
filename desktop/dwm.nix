@@ -17,19 +17,19 @@
     enable = true;
     greeters.slick.enable = true;
   };
-  services.xserver.displayManager.sessionCommands = ''
-      # Set Wallpaper
-      # Check if file exists to avoid error if path is wrong
-      if [ -f $HOME/Pictures/wallpapers/wall1.jpg ]; then
-        ${pkgs.xwallpaper}/bin/xwallpaper --zoom $HOME/Pictures/wallpapers/wall1.jpg
-      fi
-
-      # Start Polkit (Critical for password prompts)
-      ${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1 &
-
-      # Start Compositor (Transparency/Vsync)
-      ${pkgs.picom}/bin/picom &
-    '';
+  # services.xserver.displayManager.sessionCommands = ''
+  #     # Set Wallpaper
+  #     # Check if file exists to avoid error if path is wrong
+  #     if [ -f $HOME/Pictures/wallpapers/wall1.jpg ]; then
+  #       ${pkgs.xwallpaper}/bin/xwallpaper --zoom $HOME/Pictures/wallpapers/wall1.jpg
+  #     fi
+  #
+  #     # Start Polkit (Critical for password prompts)
+  #     ${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1 &
+  #
+  #     # Start Compositor (Transparency/Vsync)
+  #     ${pkgs.picom}/bin/picom &
+  #   '';
 
   environment.systemPackages = with pkgs; [
     alacritty
