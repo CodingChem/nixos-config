@@ -1,7 +1,3 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-
 { config, pkgs, ... }:
 
 {
@@ -17,39 +13,29 @@
   boot.kernelPackages = pkgs.linuxPackages_latest;
   powerManagement.cpuFreqGovernor = "performance";
 
-  # home-manager.users.vegard = {
-  #   programs.ghostty.settings = {
-  #     render-device = "software";
-  #   };
-  # };
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
   networking.hostName = "P14S"; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
-# Aktiver lyd med PipeWire
-security.rtkit.enable = true; # Gir PipeWire sanntidsprioritet
-services.pipewire = {
-  enable = true;
-  alsa.enable = true;
-  alsa.support32Bit = true;
-  pulse.enable = true;
-  
-  extraConfig.pipewire."92-low-latency" = {
-    "context.properties" = {
-      "default.clock.rate" = 48000;      # MATCHER headsettet ditt
-      "default.clock.quantum" = 1024;    # En trygg mellomting for VM
-      "default.clock.min-quantum" = 512;
-      "default.clock.max-quantum" = 2048;
+  # Aktiver lyd med PipeWire
+  security.rtkit.enable = true; # Gir PipeWire sanntidsprioritet
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+    
+    extraConfig.pipewire."92-low-latency" = {
+      "context.properties" = {
+        "default.clock.rate" = 48000;      # MATCHER headsettet ditt
+        "default.clock.quantum" = 1024;    # En trygg mellomting for VM
+        "default.clock.min-quantum" = 512;
+        "default.clock.max-quantum" = 2048;
+      };
     };
   };
-};
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

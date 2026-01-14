@@ -18,7 +18,6 @@
       modules = [
         ./hosts/work/P14S/configuration.nix
         ./modules/defaults.nix
-        ./desktop/gnome.nix
         ./desktop/defaults.nix
 	./desktop/cosmic.nix
 
