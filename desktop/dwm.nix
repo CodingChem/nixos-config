@@ -13,7 +13,7 @@
     };
   };
 
-  services.xserver.displayManager.ly = {
+  services.displayManager.ly = {
     enable = true;
   };
   services.xserver.displayManager.sessionCommands = ''
