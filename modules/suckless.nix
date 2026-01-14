@@ -9,7 +9,7 @@
     (pkgs.st.overrideAttrs (_: {
       src = ./st;
       patches = [ ];
-    }]]
+    }))
     slock
     surf
   ];
