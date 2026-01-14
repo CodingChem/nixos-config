@@ -8,7 +8,7 @@
     windowManager.dwm = {
       enable = true;
       package = pkgs.dwm.overrideAttrs {
-        src = ./.config/nixos/desktop/dwm;
+        src = ./dwm;
       };
     };
   };
