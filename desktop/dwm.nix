@@ -1,39 +1,5 @@
 {pkgs, ... }:
 
-let
-  dwmScript = pkgs.writeShellScriptBin "dwm-session" ''
-    # Set background (Use full path to binary for safety)
-    ${pkgs.xwallpaper}/bin/xwallpaper --zoom $HOME/Pictures/wallpapers/wall1.jpg &
-
-    # Start Polkit (Password prompts)
-    ${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1 &
-    
-    # Start Picom (Compositor - fixes tearing)
-    ${pkgs.picom}/bin/picom &
-
-    # Finally, start DWM (exec is important!)
-    exec ${pkgs.dwm}/bin/dwm  '';
-
-dwmSession = pkgs.runCommand "dwm-session" {
-    # This tells NixOS exactly what the session is named (Fixes the error!)
-    passthru.providedSessions = [ "dwm-session" ];
-  } ''
-    # Create the binary directory and link our script
-    mkdir -p $out/bin
-    ln -s ${dwmScript}/bin/dwm-session $out/bin/dwm-session
-
-    # Create the xsessions directory and the .desktop file
-    mkdir -p $out/share/xsessions
-    cat > $out/share/xsessions/dwm-session.desktop <<EOF
-    [Desktop Entry]
-    Name=DWM Custom
-    Comment=Custom DWM Session
-    Exec=$out/bin/dwm-session
-    Type=Application
-    EOF
-  '';
-in
-
 {
   services.xserver = {
     enable = true;
@@ -46,9 +12,25 @@ in
       };
     };
   };
-  services.displayManager.ly.enable = true;
-  services.displayManager.sessionPackages = [ dwmSession ];
-  
+
+  displayManager.lightdm = {
+    enable = true;
+    greeters.slick.enable = true;
+    sessionCommands = ''
+      # Set Wallpaper
+      # Check if file exists to avoid error if path is wrong
+      if [ -f $HOME/Pictures/wallpapers/wall1.jpg ]; then
+        ${pkgs.xwallpaper}/bin/xwallpaper --zoom $HOME/Pictures/wallpapers/wall1.jpg
+      fi
+
+      # Start Polkit (Critical for password prompts)
+      ${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1 &
+
+      # Start Compositor (Transparency/Vsync)
+      ${pkgs.picom}/bin/picom &
+    '';
+  };
+
   environment.systemPackages = with pkgs; [
     alacritty
     xclip
@@ -58,7 +40,6 @@ in
     gtk3
     polkit_gnome
     picom
-    dwmSession
   ];
   environment.sessionVariables = {
     # Hints for apps to know how to draw themselves
