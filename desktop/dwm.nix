@@ -24,6 +24,10 @@
     alacritty
     xclip
     xwallpaper
+    gsettings-desktop-schemas
+    glib
+    gtk3
+    polkit_gnome
   ];
   environment.sessionVariables = {
     # Hints for apps to know how to draw themselves
@@ -46,12 +50,4 @@
     ];
     config.common.default = "*";
   };
-
-  # 3. Ensure GSettings schemas are available (Fixes crashing GTK apps)
-  environment.systemPackages = [
-    pkgs.gsettings-desktop-schemas
-    pkgs.glib # Contains gsettings tool
-    pkgs.gtk3
-    pkgs.polkit_gnome
-  ];
 }
