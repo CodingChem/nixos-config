@@ -13,7 +13,7 @@
     };
   };
 
-  displayManager.lightdm = {
+  services.displayManager.lightdm = {
     enable = true;
     greeters.slick.enable = true;
     sessionCommands = ''
