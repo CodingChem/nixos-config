@@ -13,12 +13,12 @@
 
   outputs = { self, nixpkgs, home-manager, ... }@inputs:
   let
-    x86 = "x86_64-linux";
-    pkgs = import nixpkgs { inherit x86; };
+    system = "x86_64-linux";
+    pkgs = import nixpkgs { inherit system; };
   in
   {
 
-    devShells.${x86}.suckless = pkgs.mkShell {
+    devShells.${system}.suckless = pkgs.mkShell {
       packages = with pkgs; [
         pkg-config
 	xorg.libX11
