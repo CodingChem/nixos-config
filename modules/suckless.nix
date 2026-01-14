@@ -11,6 +11,5 @@
       patches = [ ];
     }))
     slock
-    surf
   ];
 }
