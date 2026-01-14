@@ -18,10 +18,12 @@
         "ddkjiahejlhfcafbddmgiahcphecmpfh"
 	"nngceckbapebfimnlniiiahkandclblb"
       ];
-	#      commandLineArgs  = [
+	     commandLineArgs  = [
+	       "--enable-features=WebUIDarkMode"
+	       "--force-dark-mode"
 	#        "--ozone-platform-hint=auto"
 	# "--enable-features=WaylandWindowDecorations"
-	#      ];
+	     ];
     };
   };
 }
