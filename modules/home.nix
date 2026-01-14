@@ -11,8 +11,8 @@
     fzf
     ripgrep
     fd
-    bat    # En bedre 'cat' som ofte følger med i denne pakken
-    eza    # En moderne erstatning for 'ls'
+    bat
+    eza
     obsidian
     devenv
   ];

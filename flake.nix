@@ -16,7 +16,7 @@
       system = "x86_64-linux";
       specialArgs = { inherit inputs; };
       modules = [
-        ./hosts/work/P14S/configuration.nix
+        ./hosts/P14S/configuration.nix
         ./modules/defaults.nix
         ./desktop/defaults.nix
 	./desktop/cosmic.nix
@@ -36,7 +36,7 @@
       system = "x86_64-linux";
       specialArgs = { inherit inputs; };
       modules = [
-        ./hosts/personal/legioni5/configuration.nix
+        ./hosts/legioni5/configuration.nix
         ./modules/defaults.nix
         ./modules/game.nix
         ./desktop/cosmic.nix 
