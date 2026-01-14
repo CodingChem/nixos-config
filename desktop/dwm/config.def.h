@@ -6,7 +6,7 @@ static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 static const char *fonts[]          = { "JetBrainsMono Nerd Font:size=16" };
-static const char dmenufont[]       = "JetBrainsMono Nerd Font:size=16;
+static const char dmenufont[]       = "JetBrainsMono Nerd Font:size=16";
 // Catppuccin Macchiato Palette
 static const char col_base[]        = "#24273a"; // Background
 static const char col_text[]        = "#cad3f5"; // Foreground
