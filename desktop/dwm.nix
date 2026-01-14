@@ -1,7 +1,7 @@
 {pkgs, ... }:
 
 let
-  dwmSession = pkgs.writeShellScriptBin "dwm-session" ''
+  dwmScript = pkgs.writeShellScriptBin "dwm-session" ''
     # Set background (Use full path to binary for safety)
     ${pkgs.xwallpaper}/bin/xwallpaper --zoom $HOME/Pictures/wallpapers/wall1.jpg &
 
