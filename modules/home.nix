@@ -19,6 +19,7 @@
     eza
     obsidian
     devenv
+    tmux
   ];
   # program settings
   programs = {
