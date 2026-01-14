@@ -14,7 +14,7 @@
   outputs = { self, nixpkgs, home-manager, ... }@inputs:
   let
     x86 = "x86_64-linux";
-    pkgs = import nixpkgs { inherit system; };
+    pkgs = import nixpkgs { inherit x86; };
   in
   {
 
