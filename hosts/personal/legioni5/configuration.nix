@@ -23,7 +23,20 @@
     alsa.support32Bit = true;
     pulse.enable = true;
   };
-
+    # Terminal emulator
+    programs = {
+    ghostty = {
+      enable = true;
+      enableZshIntegration = true;
+      settings = {
+        theme = "Catppuccin Mocha";
+	font-family = "JetBrainsMono Nerd Font";
+	font-size = 12;
+	window-decoration = false;
+	background-opacity = 0.9;
+      };
+    };
+    };
   environment.systemPackages = with pkgs; [ 
   ];
   # --- Docker ---
