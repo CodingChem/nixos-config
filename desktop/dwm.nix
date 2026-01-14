@@ -27,7 +27,7 @@
       ${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1 &
 
       # Start Compositor (Transparency/Vsync)
-      ${pkgs.picom}/bin/picom &
+      picom --backend glx --vsync &
     '';
 
   environment.systemPackages = with pkgs; [
