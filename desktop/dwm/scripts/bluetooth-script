@@ -20,7 +20,7 @@ case "$selected" in
     "Scan On")
         # Scanning usually requires a terminal to see output, 
         # so we spawn a terminal window (st) for this.
-        alacritty -e bluetoothctl scan on &
+        kitty -e bluetoothctl scan on &
         ;;
     "Connect Device")
         # Get list of Paired devices
