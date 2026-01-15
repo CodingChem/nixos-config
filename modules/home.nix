@@ -110,8 +110,6 @@
       defaultEditor = true;
 
       settings = {
-        theme = "catppuccin_mocha"; # A modern, high-contrast theme (built-in)
-
         editor = {
           line-number = "relative"; # Essential for jumping (e.g., 5j, 10k)
           mouse = false; # Keep hands on keyboard (cleaner in dwm)
