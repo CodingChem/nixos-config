@@ -140,6 +140,12 @@ get_volume() {
         echo "$icon ${vol}%"
     fi
 }
+# Get playing audio
+#
+get_playing() {
+    playerctl metadata --format "{{ artist }} - {{ title }}"
+    }
+
 # THE LOOP --------------------------------------------------------------------
 # We run an infinite loop that updates the bar every second.
 while true; do
@@ -150,10 +156,11 @@ while true; do
     time_now=$(get_time)
     brightness=$(get_brightness)
     volume=$(get_volume)
+    playing=$(get_playing)
 
     # Set the Root Window Name (dwm reads this)
     # The separators " | " make it readable
-    xsetroot -name " $volume | $brightness | $bt_status | $bat_status | $time_now "
+    xsetroot -name " $volume | $playing | $brightness | $bt_status | $bat_status | $time_now "
 
     # Update frequency (1 second)
     sleep 1s
