@@ -47,6 +47,7 @@
     polkit_gnome
     picom
     dmenu
+    playerctl
   ];
   environment.sessionVariables = {
     # Hints for apps to know how to draw themselves
