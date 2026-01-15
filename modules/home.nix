@@ -1,6 +1,13 @@
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 
 {
+  imports = [
+    inputs.catppuccin.homeManagerModules.catppuccin
+  ];
+
+  catppuccin.flavor = "macchiato";
+  catppuccin.enable = true;
+
   # User setup
   home.username = "vegard";
   home.homeDirectory = "/home/vegard";
@@ -29,6 +36,16 @@
   programs = {
     home-manager.enable = true;
 
+    kitty = {
+      enable = true;
+      settings = {
+        font_family = "JetbrainsMono Nerd Font";
+        font_size = 14;
+        background_opacity = "0.9";
+        window_padding_width = 10;
+        enable_audio_bell = false;
+      };
+    };
     gh = {
       enable = true;
       settings = {

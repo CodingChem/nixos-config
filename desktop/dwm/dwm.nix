@@ -39,6 +39,7 @@
 
   environment.systemPackages = with pkgs; [
     alacritty
+    kitty
     xclip
     xwallpaper
     gsettings-desktop-schemas
