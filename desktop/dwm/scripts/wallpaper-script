@@ -1,0 +1,27 @@
+#!/bin/sh
+
+# Configuration
+WALL_DIR="$HOME/Pictures/wallpapers"
+TARGET_FILE="$HOME/Pictures/wall1.jpg" # Adjust this path to where your startup wallpaper lives
+
+# 1. List files and pipe to dmenu
+# -i: case insensitive
+# -l 20: list 20 lines vertically (easier to read files than horizontal)
+SELECTED=$(ls "$WALL_DIR" | dmenu -i -l 20 -p "Wallpaper:")
+
+# 2. Safety check: exit if user pressed Esc (string is empty)
+if [ -z "$SELECTED" ]; then
+    exit 0
+fi
+
+# 3. Construct full path
+FULL_PATH="$WALL_DIR/$SELECTED"
+
+# 4. Apply wallpaper
+xwallpaper --zoom "$FULL_PATH"
+
+# 5. Overwrite the startup wallpaper
+cp "$FULL_PATH" "$TARGET_FILE"
+
+# Optional: Send a notification (requires libnotify)
+notify-send "Wallpaper Changed" "Set to $SELECTED"

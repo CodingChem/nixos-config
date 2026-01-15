@@ -84,6 +84,7 @@ static const char *spotify[] = { "spotify", NULL };
 static const char *bluetooth[] = {"/home/vegard/.config/nixos/desktop/dwm/scripts/bluetooth-script", NULL };
 static const char *power_menu[] = {"/home/vegard/.config/nixos/desktop/dwm/scripts/power-script", NULL };
 static const char *playpausecmd[] = { "playerctl", "play-pause", NULL };
+static const char *wallpapercmd[] = { "/home/vegard/.config/nixos/desktop/dwm/scripts/wallpaper-script", NULL };
 
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -95,6 +96,7 @@ static const Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_s,      spawn,          {.v = spotify } },
 	{ MODKEY|ControlMask,           XK_b,      spawn,          {.v = bluetooth } },
 	{ MODKEY|ControlMask,           XK_p,      spawn,          {.v = power_menu } },
+	{ MODKEY|ControlMask,           XK_w,      spawn,          {.v = wallpapercmd } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY|ShiftMask,             XK_b,      spawn,          {.v = zen_browser } },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
