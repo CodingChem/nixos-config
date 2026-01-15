@@ -82,6 +82,7 @@ static const char *steam[] = { "steam", NULL };
 static const char *spotify[] = { "spotify", NULL };
 static const char *bluetooth[] = {"/home/vegard/.config/nixos/desktop/dwm/scripts/bluetooth-script", NULL };
 static const char *power_menu[] = {"/home/vegard/.config/nixos/desktop/dwm/scripts/power-script", NULL };
+static const char *playpausecmd[] = { "playerctl", "play-pause", NULL };
 
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -119,7 +120,8 @@ static const Key keys[] = {
 	{ 0,                            XF86XK_AudioLowerVolume,  spawn,          {.v = downvol} },
 	{ 0,                            XF86XK_AudioMute,         spawn,          {.v = mutevol} },
 	{ 0,                            XF86XK_MonBrightnessUp,   spawn,          {.v = upbright} },
-	{ 0,                            XF86XK_MonBrightnessDown, spawn,          {.v = downbright} },	TAGKEYS(                        XK_1,                      0)
+	{ 0,                            XF86XK_MonBrightnessDown, spawn,          {.v = downbright} },
+	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
 	TAGKEYS(                        XK_4,                      3)
@@ -129,6 +131,7 @@ static const Key keys[] = {
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
+	{ 0,              XF86XK_AudioPlay,    spawn,          {.v = playpausecmd } },
 };
 
 /* button definitions */
