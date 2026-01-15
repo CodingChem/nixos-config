@@ -27,6 +27,7 @@
     nil # The standard Language Server for Nix
     nixpkgs-fmt # The formatter used in the config above
     libnotify
+    yazi
 
     # Bash/Shell LSP
     nodePackages.bash-language-server
@@ -35,6 +36,11 @@
   # program settings
   programs = {
     home-manager.enable = true;
+    yazi = {
+      enable = true;
+      enableZshIntegration = true;
+      shellWrapperName = "y";
+    };
 
     kitty = {
       enable = true;
