@@ -1,3 +1,4 @@
+#include <X11/XF86keysym.h>
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
@@ -21,20 +22,24 @@ static const char *colors[][3]      = {
 };
 
 /* tagging */
-static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+static const char *tags[] = { "", "", "", "", "", "󰓓", "7", "8", "9" };
 
 static const Rule rules[] = {
 	/* xprop(1):
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
-	/* class      instance    title       tags mask     isfloating   monitor */
-	{ "Gimp",     NULL,       NULL,       0,            1,           -1 },
-	{ "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 },
+	/* class               instance             title       tags mask     isfloating   monitor */
+	{ "Alacritty",         NULL,                NULL,       1 << 0,       0,           -1 },
+	{ "zen",               "Navigator",         NULL,       1 << 1,       0,           -1 },
+	{ "Chromium-browser",  "gemini.google.com", NULL,       1 << 2,       0,           -1 },
+	{ "obsidian",          NULL,                NULL,       1 << 3,       0,           -1 },
+	{ "Spotify",           NULL,                NULL,       1 << 4,       0,           -1 },
+	{ "steam",             NULL,                NULL,       1 << 5,       0,           -1 },
 };
 
 /* layout(s) */
-static const float mfact     = 0.55; /* factor of master area size [0.05..0.95] */
+static const float mfact     = 0.66; /* factor of master area size [0.05..0.95] */
 static const int nmaster     = 1;    /* number of clients in master area */
 static const int resizehints = 1;    /* 1 means respect size hints in tiled resizals */
 static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen window */
@@ -57,19 +62,39 @@ static const Layout layouts[] = {
 
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
+/* Audio (PipeWire via wpctl) */
+static const char *upvol[]   = { "wpctl", "set-volume", "@DEFAULT_AUDIO_SINK@", "5%+", "-l", "1.0", NULL };
+static const char *downvol[] = { "wpctl", "set-volume", "@DEFAULT_AUDIO_SINK@", "5%-", NULL };
+static const char *mutevol[] = { "wpctl", "set-mute",   "@DEFAULT_AUDIO_SINK@", "toggle", NULL };
 
+/* Brightness (Laptop via brightnessctl) */
+/* We use 5%+ and 5%- for smooth steps */
+static const char *upbright[]   = { "brightnessctl", "-d", "intel_backlight", "set", "5%+", NULL };
+static const char *downbright[] = { "brightnessctl", "-d", "intel_backlight", "set", "5%-", NULL };
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_base, "-nf", col_text, "-sb", col_accent, "-sf", col_active_text, NULL };
 static const char *termcmd[]  = { "alacritty", NULL };
 static const char *gemini[]   = { "chromium" , "--app=https://gemini.google.com", NULL };
+static const char *zen_browser[]   = { "app.zen_browser.zen", NULL };
+static const char *obsidian[] = { "obsidian", NULL };
+static const char *steam[] = { "steam", NULL };
+static const char *spotify[] = { "spotify", NULL };
+static const char *bluetooth[] = {"/home/vegard/.config/nixos/desktop/dwm/scripts/bluetooth-script", NULL };
+static const char *power_menu[] = {"/home/vegard/.config/nixos/desktop/dwm/scripts/power-script", NULL };
 
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
-	{ MODKEY,                       XK_a,      spawn,          {.v = gemini  }  },
+	{ MODKEY|ShiftMask,             XK_a,      spawn,          {.v = gemini  }  },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
+	{ MODKEY|ShiftMask,             XK_n,      spawn,          {.v = obsidian } },
+	{ MODKEY|ShiftMask,             XK_g,      spawn,          {.v = steam } },
+	{ MODKEY|ShiftMask,             XK_s,      spawn,          {.v = spotify } },
+	{ MODKEY|ControlMask,           XK_b,      spawn,          {.v = bluetooth } },
+	{ MODKEY|ControlMask,           XK_p,      spawn,          {.v = power_menu } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
+	{ MODKEY|ShiftMask,             XK_b,      spawn,          {.v = zen_browser } },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
 	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
@@ -90,7 +115,11 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
-	TAGKEYS(                        XK_1,                      0)
+	{ 0,                            XF86XK_AudioRaiseVolume,  spawn,          {.v = upvol} },
+	{ 0,                            XF86XK_AudioLowerVolume,  spawn,          {.v = downvol} },
+	{ 0,                            XF86XK_AudioMute,         spawn,          {.v = mutevol} },
+	{ 0,                            XF86XK_MonBrightnessUp,   spawn,          {.v = upbright} },
+	{ 0,                            XF86XK_MonBrightnessDown, spawn,          {.v = downbright} },	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
 	TAGKEYS(                        XK_4,                      3)
@@ -118,4 +147,5 @@ static const Button buttons[] = {
 	{ ClkTagBar,            MODKEY,         Button1,        tag,            {0} },
 	{ ClkTagBar,            MODKEY,         Button3,        toggletag,      {0} },
 };
+
 

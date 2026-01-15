@@ -1,0 +1,10 @@
+#!/bin/sh
+
+case "$(printf "Shutdown\nSleep\nLock\nReboot" | dmenu -l 4)" in
+  Shutdown) systemctl poweroff ;;
+  Sleep) systemctl suspend -i ;;
+  Lock) notify-send "Not Implemented" "Lock is not implemented" ;;
+  Reboot) systemctl reboot -i ;;
+  *) exit 1 ;;
+esac
+

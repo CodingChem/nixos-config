@@ -1,0 +1,161 @@
+#!/bin/sh
+
+# 1. TIME ---------------------------------------------------------------------
+get_time() {
+    # Format: Day-Month HH:MM
+    date '+%b %d %H:%M'
+}
+
+# 2. BATTERY ------------------------------------------------------------------
+get_battery() {
+    # Check if battery folder exists
+    if [ -d /sys/class/power_supply/BAT0 ]; then
+        capacity=$(cat /sys/class/power_supply/BAT0/capacity)
+        status=$(cat /sys/class/power_supply/BAT0/status)
+
+        # 1. Determine the icon based on charge level
+        if [ "$capacity" -ge 75 ]; then
+            icon=""
+        elif [ "$capacity" -ge 25 ]; then
+            icon=""
+        else
+            icon=""
+        fi
+
+        # 2. Output based on status
+        if [ "$status" = "Charging" ]; then
+            # You might want a distinct indicator for charging, 
+            # or just use the icon + text "CHR"
+            echo "  $icon ${capacity}%"
+        else
+            # Replaces "BAT" with the dynamic icon
+            echo "$icon ${capacity}%"
+        fi
+    else
+        # 3. Desktop Fallback
+        # Since you are likely seeing this on your desktop (given your RTX 5070 Ti),
+        # I added a plug icon here to match the style.
+        echo " AC"
+    fi
+}
+# 3. BLUETOOTH ----------------------------------------------------------------
+get_bluetooth() {
+    # Check if powered on
+    if bluetoothctl show | grep -q "Powered: yes"; then
+        
+        # 1. Loop through all connected devices
+        # We capture the output of the loop into a variable
+        devices_output=$(bluetoothctl devices Connected | while read -r line; do
+            # Extract the name (everything after the MAC address)
+            name=$(echo "$line" | cut -d ' ' -f 3-)
+            
+            # 2. Check the name and output the specific icon
+            case "$name" in
+                *"Bluetooth Ergonomic Mouse"*)
+                    printf "󰍽 " 
+                    ;;
+                *"WH-1000MX5"*|*"WH-1000XM5"*) 
+                    printf "󰋎 " 
+                    ;;
+                *)
+                    # If it's a device without a custom icon, show the name
+                    printf "$name " 
+                    ;;
+            esac
+        done)
+
+        # 3. Clean up and display
+        # If the variable is not empty, show the main BT icon + the device icons
+        if [ -n "$devices_output" ]; then
+            echo " $devices_output"
+        else
+            echo ""
+        fi
+    else
+        echo "󰂲"
+    fi
+}
+# Brightness
+
+get_brightness() {
+    # 1. Find the first available backlight controller
+    # We use 'ls' with head to grab the first folder found in /sys/class/backlight
+    dir=$(ls -d /sys/class/backlight/* 2>/dev/null | head -n 1)
+
+    if [ -d "$dir" ]; then
+        # 2. Read raw values
+        current=$(cat "$dir/brightness")
+        max=$(cat "$dir/max_brightness")
+
+        # 3. Calculate percentage
+        # Shell integer math: (current * 100) / max
+        percent=$(( 100 * current / max ))
+
+        # 4. Determine Icon
+        if [ "$percent" -ge 70 ]; then
+            icon="󰃠" # High
+        elif [ "$percent" -ge 30 ]; then
+            icon="󰃟" # Medium
+        else
+            icon="󰃞" # Low
+        fi
+
+        echo "$icon ${percent}%"
+    else
+        # 5. Desktop Fallback
+        # Since you have an RTX 5070 Ti, if this is a desktop,
+        # /sys/class/backlight is often empty. 
+        echo "󰃠" 
+    fi
+}
+
+# Volume
+
+get_volume() {
+    # 1. Get Volume Information
+    # Output looks like: "Volume: 0.45" or "Volume: 0.45 [MUTED]"
+    vol_info=$(wpctl get-volume @DEFAULT_AUDIO_SINK@)
+
+    # 2. Check if Muted
+    if echo "$vol_info" | grep -q "MUTED"; then
+        echo "󰝟 Muted"
+    else
+        # 3. Extract and Convert Volume (0.45 -> 45)
+        # We use awk to grab the number (2nd field) and multiply by 100
+        vol=$(echo "$vol_info" | awk '{print int($2 * 100)}')
+
+        # 4. Determine Icon (Headset vs Speakers)
+        # We inspect the default sink to see if it's Bluetooth (BlueZ) or USB
+        device_info=$(wpctl inspect @DEFAULT_AUDIO_SINK@)
+
+        case "$device_info" in
+            *"bluez"*|*"BlueZ"*|*"USB"*)
+                icon="󰋎" # Headset
+                ;;
+            *)
+                icon="󰕾" # Speakers
+                ;;
+        esac
+
+        echo "$icon ${vol}%"
+    fi
+}
+# THE LOOP --------------------------------------------------------------------
+# We run an infinite loop that updates the bar every second.
+while true; do
+    
+    # Calculate data
+    bt_status=$(get_bluetooth)
+    bat_status=$(get_battery)
+    time_now=$(get_time)
+    brightness=$(get_brightness)
+    volume=$(get_volume)
+
+    # Set the Root Window Name (dwm reads this)
+    # The separators " | " make it readable
+    xsetroot -name " $volume | $brightness | $bt_status | $bat_status | $time_now "
+
+    # Update frequency (1 second)
+    sleep 1s
+
+done

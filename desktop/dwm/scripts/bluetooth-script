@@ -1,0 +1,54 @@
+#!/bin/sh
+
+# 1. Define the Menu Options
+# We offer basic toggles + a way to pick a device
+options="Power On\nPower Off\nScan On\nScan Off\nConnect Device\nDisconnect Device"
+
+# 2. Pipe into dmenu
+selected=$(echo -e "$options" | dmenu -i -p "Bluetooth")
+
+# 3. Handle the Logic
+case "$selected" in
+    "Power On")
+        bluetoothctl power on
+        notify-send "Bluetooth" "Powered On"
+        ;;
+    "Power Off")
+        bluetoothctl power off
+        notify-send "Bluetooth" "Powered Off"
+        ;;
+    "Scan On")
+        # Scanning usually requires a terminal to see output, 
+        # so we spawn a terminal window (st) for this.
+        alacritty -e bluetoothctl scan on &
+        ;;
+    "Connect Device")
+        # Get list of Paired devices
+        # awk magic: prints "Name (MAC)" for better readability
+        # $2 is MAC, $3- is the rest of the line (Name)
+        device=$(bluetoothctl devices Paired | awk '{print substr($0, index($0,$3)) " (" $2 ")"}')
+        
+        # Select device via dmenu
+        chosen_device=$(echo "$device" | dmenu -i -l 10 -p "Connect:")
+
+        # Extract MAC address from the selection (it's inside the parens)
+        # We use awk to grab the string between the last set of parentheses
+        mac=$(echo "$chosen_device" | awk -F '[()]' '{print $(NF-1)}')
+
+        # Execute
+        if [ -n "$mac" ]; then
+            notify-send "Bluetooth" "Connecting to $chosen_device..."
+            bluetoothctl connect "$mac" && notify-send "Bluetooth" "Connected!"
+        fi
+        ;;
+    "Disconnect Device")
+        # Similar logic to Connect, but run 'disconnect'
+        device=$(bluetoothctl devices Connected | awk '{print substr($0, index($0,$3)) " (" $2 ")"}')
+        chosen_device=$(echo "$device" | dmenu -i -l 10 -p "Disconnect:")
+        mac=$(echo "$chosen_device" | awk -F '[()]' '{print $(NF-1)}')
+        
+        if [ -n "$mac" ]; then
+            bluetoothctl disconnect "$mac" && notify-send "Bluetooth" "Disconnected."
+        fi
+        ;;
+esac

@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 {
-  imports = [ 
+  imports = [
     ./hardware-configuration.nix
     ./bluetooth.nix
   ];
@@ -61,25 +61,25 @@
 
   # Fix for Intel Arrow Lake integrert grafikk
   boot.kernelParams = [ "i915.force_probe=7f2f" ];
-    # Terminal emulator
-    programs = {
-    ghostty = {
-      enable = true;
-      enableZshIntegration = true;
-      settings = {
-        theme = "Catppuccin Mocha";
-	font-family = "JetBrainsMono Nerd Font";
-	font-size = 12;
-	window-decoration = false;
-	background-opacity = 0.9;
-      };
-    };
-    };
-  environment.systemPackages = with pkgs; [ 
+  # Terminal emulator
+  #    programs = {
+  #    ghostty = {
+  #      enable = true;
+  #      enableZshIntegration = true;
+  #      settings = {
+  #        theme = "Catppuccin Mocha";
+  # font-family = "JetBrainsMono Nerd Font";
+  # font-size = 12;
+  # window-decoration = false;
+  # background-opacity = 0.9;
+  #      };
+  #    };
+  #    };
+  environment.systemPackages = with pkgs; [
   ];
   # --- Docker ---
   virtualisation.docker.enable = true;
 
   # --- SYSTEM VERSION ---
-  system.stateVersion = "25.11"; 
+  system.stateVersion = "25.11";
 }
