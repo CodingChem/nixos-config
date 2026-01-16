@@ -41,6 +41,10 @@
           ./desktop/defaults.nix
           #./desktop/cosmic.nix
           ./desktop/dwm/dwm.nix
+          {
+            my.dwm.enable = true;
+            my.dwm.terminal = "alacritty";
+          }
 
           home-manager.nixosModules.home-manager
           {
@@ -59,8 +63,12 @@
           ./hosts/legioni5/configuration.nix
           ./modules/defaults.nix
           ./modules/game.nix
-          ./desktop/dwm/dwm.nix
           ./desktop/defaults.nix
+          ./desktop/dwm/dwm.nix
+          {
+            my.dwm.enable = true;
+            my.dwm.terminal = "kitty";
+          }
 
           home-manager.nixosModules.home-manager
           {

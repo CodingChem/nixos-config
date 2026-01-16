@@ -75,7 +75,7 @@ static const char *downbright[] = { "brightnessctl", "-d", "intel_backlight", "s
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_base, "-nf", col_text, "-sb", col_accent, "-sf", col_active_text, NULL };
-static const char *termcmd[]  = { "kitty", NULL };
+static const char *termcmd[]  = { "@TERMINAL@", NULL };
 static const char *gemini[]   = { "chromium" , "--app=https://gemini.google.com", NULL };
 static const char *zen_browser[]   = { "app.zen_browser.zen", NULL };
 static const char *obsidian[] = { "obsidian", NULL };
