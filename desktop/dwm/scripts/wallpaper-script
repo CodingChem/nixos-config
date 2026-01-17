@@ -2,7 +2,7 @@
 
 # Configuration
 WALL_DIR="$HOME/Pictures/wallpapers"
-TARGET_FILE="$HOME/Pictures/wall1.jpg" # Adjust this path to where your startup wallpaper lives
+TARGET_FILE="$HOME/Pictures/wallpapers/wall1.jpg" # Adjust this path to where your startup wallpaper lives
 
 # 1. List files and pipe to dmenu
 # -i: case insensitive

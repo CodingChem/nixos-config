@@ -78,6 +78,7 @@ in
 
       # Fix for Java apps (if you use them) behaving weirdly in tiling WMs
       _JAVA_AWT_WM_NONREPARENTING = "1";
+      _JAVA_OPTIONS = "";
 
       # Optional: Force GTK apps to use a specific theme if they ignore system settings
       GTK_THEME = "Adwaita:dark";
