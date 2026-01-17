@@ -2,7 +2,7 @@
 
 {
   services.desktopManager.cosmic.enable = true;
-  services.displayManager.cosmic-greeter.enable = true;
+  #services.displayManager.cosmic-greeter.enable = true;
   services.xserver.xkb = {
     layout = "no";
     variant = "";
@@ -15,9 +15,9 @@
 
   # --- Home Manager Configuration ---
   home-manager.users.vegard = { pkgs, ... }: {
-    
+
     home.sessionVariables = {
-      NIXOS_OZONE_WL = "1"; 
+      NIXOS_OZONE_WL = "1";
     };
   };
 }
