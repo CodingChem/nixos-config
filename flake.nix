@@ -65,6 +65,7 @@
           ./modules/game.nix
           ./desktop/defaults.nix
           ./desktop/dwm/dwm.nix
+          ./desktop/cosmic.nix
           {
             my.dwm.enable = true;
             my.dwm.terminal = "kitty";
