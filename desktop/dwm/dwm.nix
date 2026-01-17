@@ -69,6 +69,9 @@ in
       picom
       dmenu
       playerctl
+      xdg-utils
+      xdg-desktop-portal
+      xdg-desktop-portal-gtk
     ];
     environment.sessionVariables = {
       # Hints for apps to know how to draw themselves
