@@ -85,6 +85,7 @@ in
 
       # Optional: Force GTK apps to use a specific theme if they ignore system settings
       GTK_THEME = "Adwaita:dark";
+      BROWSER = "app.zen_browser.zen";
     };
 
     # 2. XDG Portals (Crucial for "Open File" dialogs and screen sharing)
