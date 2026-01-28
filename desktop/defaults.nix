@@ -10,6 +10,7 @@
     chromium
     spotify
     distrobox
+    android-tools
   ];
   programs = {
     chromium = {
