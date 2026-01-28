@@ -33,6 +33,9 @@
     nodePackages.bash-language-server
     shellcheck # Lints your shell scripts (Helix uses this automatically)
   ];
+  home.sessionPath = [
+    "${config.home.homeDirectory}/.local/bin"
+  ];
   # program settings
   programs = {
     home-manager.enable = true;
