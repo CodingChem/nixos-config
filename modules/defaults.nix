@@ -38,6 +38,11 @@
   console.keyMap = "no";
   services.xserver.xkb.layout = "no";
   
+  virtualisation.docker = {
+    enable = true;
+    enableOnBoot = true;
+  };
+
   programs.zsh.enable = true;
   # Define the user
   users.users.vegard = {
