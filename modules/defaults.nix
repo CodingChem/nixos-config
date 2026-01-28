@@ -43,7 +43,7 @@
   users.users.vegard = {
     isNormalUser = true;
     description = "Vegard Seines";
-    extraGroups = [ "networkmanager" "wheel" "docker" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" "kvm" "adbusers" ];
     shell = pkgs.zsh;
   };
   fonts.packages = with pkgs; [

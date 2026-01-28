@@ -9,6 +9,7 @@
   environment.systemPackages = with pkgs; [
     chromium
     spotify
+    distrobox
   ];
   programs = {
     chromium = {
