@@ -39,7 +39,6 @@
           ./hosts/P14S/configuration.nix
           ./modules/defaults.nix
           ./desktop/defaults.nix
-          #./desktop/cosmic.nix
           ./desktop/dwm/dwm.nix
           {
             my.dwm.enable = true;
@@ -65,9 +64,8 @@
           ./modules/game.nix
           ./desktop/defaults.nix
           ./desktop/dwm/dwm.nix
-          ./desktop/cosmic.nix
           {
-            my.dwm.enable = false;
+            my.dwm.enable = true;
             my.dwm.terminal = "kitty";
           }
 
