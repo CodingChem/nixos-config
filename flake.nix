@@ -63,6 +63,7 @@
           ./modules/defaults.nix
           ./modules/game.nix
           ./desktop/defaults.nix
+          ./modules/laptops/lid.nix
           ./desktop/dwm/dwm.nix
           {
             my.dwm.enable = true;
