@@ -28,6 +28,7 @@
     nixpkgs-fmt # The formatter used in the config above
     libnotify
     yazi
+    wget
 
     # Bash/Shell LSP
     nodePackages.bash-language-server
