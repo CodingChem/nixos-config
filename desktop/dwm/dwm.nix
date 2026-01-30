@@ -94,7 +94,7 @@ in
       extraPortals = [
         pkgs.xdg-desktop-portal-gtk # Use GTK file picker even in dwm
       ];
-      config.common.default = "*";
+      config.common.default = "gtk";
     };
     home-manager.users.vegard = { pkgs, ... }: {
       home.packages = with pkgs; [
