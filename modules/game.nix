@@ -15,6 +15,7 @@
 
   # Spill-relaterte verktøy
   programs.gamemode.enable = true;
+  programs.gamescope.enable = true;
 
   environment.systemPackages = with pkgs; [
     mangohud             # FPS/Overlay
