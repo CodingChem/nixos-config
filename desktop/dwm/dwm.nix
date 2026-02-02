@@ -49,6 +49,9 @@ in
       windowManager.dwm = {
         enable = true;
       };
+      screenSection = ''
+      Option "metamodes" "eDP-1: 2560x1600_240 +0+0 {ForceFullCompositionPipeline=On}"
+      '';
     };
 
     services.displayManager.ly = {
@@ -155,6 +158,8 @@ in
             strength = 5;
           };
           # Fixes for Nvidia generic flickering
+          use-damage = false; # Setting this to false can sometimes help at 240Hz
+          xrender-sync-fence = true; 
           unredir-if-possible = false;
         };
       };
