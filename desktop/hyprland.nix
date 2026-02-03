@@ -38,7 +38,7 @@ in
       waybar           # The status bar
       swww             # Wallpaper daemon
       kitty            # Terminal
-      rofi-wayland     # App launcher
+      wofi             # App launcher
       dunst            # Notifications
       grim             # Screenshots
       slurp            # Region selection
@@ -63,6 +63,10 @@ in
           monitor = [
             "eDP-1, 2560x1600@240, 0x0, 1"
           ];
+	  "$mod" = "SUPER";
+	  bind = [
+	    "$mod, P, exec, wofi --drun"
+	  ];
           
           # Nvidia Performance Tweaks
           cursor = {
