@@ -66,9 +66,22 @@ in
           ];
 	  "$mod" = "SUPER";
 	  bind = [
+	    "$mod, Q, killactive,"
 	    "$mod, P, exec, wofi --drun"
 	    "$mod, Return, exec, kitty"
-	  ];
+	  ] ++ (
+	    builtins.concatLists (builtins.genList (i:
+	      let ws = i + 1;
+	      in [
+	        "$mod, ${toString ws}, workspace, ${toString ws}"
+		"$mod SHIFT, ${toString ws}, movetoworkspace, ${toString ws}"
+	      ]
+	      ) 9)
+	      );
+        bindm = [
+	  "$mod, mouse:272, movewindow"
+	  "$mod, mouse:273, resizewindow"
+	];
           
           # Nvidia Performance Tweaks
           cursor = {
