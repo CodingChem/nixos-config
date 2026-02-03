@@ -7,7 +7,7 @@
     ../../desktop
   ];
 
-  my.desktop.type = "dwm";
+  my.desktop.type = "hyprland";
 
   # --- BOOTLOADER ---
   boot.loader.systemd-boot.enable = true;
