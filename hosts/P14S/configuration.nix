@@ -2,13 +2,18 @@
 
 {
   imports =
-    [ # Include the results of the hardware scan.
+    [
+      # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ../../desktop
     ];
-    virtualisation.virtualbox.guest.enable = true;
-    virtualisation.virtualbox.guest.dragAndDrop = true;
-    hardware.graphics.enable = true;
-  
+  my.desktop.type = "dwm";
+  my.dwm.terminal = "alacritty";
+
+  virtualisation.virtualbox.guest.enable = true;
+  virtualisation.virtualbox.guest.dragAndDrop = true;
+  hardware.graphics.enable = true;
+
   # Optimalisering for moderne CPU og lydstabilitet
   boot.kernelPackages = pkgs.linuxPackages_latest;
   powerManagement.cpuFreqGovernor = "performance";
@@ -26,11 +31,11 @@
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
-    
+
     extraConfig.pipewire."92-low-latency" = {
       "context.properties" = {
-        "default.clock.rate" = 48000;      # MATCHER headsettet ditt
-        "default.clock.quantum" = 1024;    # En trygg mellomting for VM
+        "default.clock.rate" = 48000; # MATCHER headsettet ditt
+        "default.clock.quantum" = 1024; # En trygg mellomting for VM
         "default.clock.min-quantum" = 512;
         "default.clock.max-quantum" = 2048;
       };

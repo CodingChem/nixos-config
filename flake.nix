@@ -38,12 +38,6 @@
         modules = [
           ./hosts/P14S/configuration.nix
           ./modules/defaults.nix
-          ./desktop/defaults.nix
-          ./desktop/dwm/dwm.nix
-          {
-            my.dwm.enable = true;
-            my.dwm.terminal = "alacritty";
-          }
 
           home-manager.nixosModules.home-manager
           {

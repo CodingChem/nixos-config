@@ -15,7 +15,6 @@
   config = lib.mkMerge [
     (lib.mkIf (config.my.desktop.type == "dwm") {
       my.dwm.enable = true;
-      my.dwm.terminal = "kitty";
     })
     (lib.mkIf (config.my.desktop.type == "hyprland") {
       my.hyprland.enable = true;
