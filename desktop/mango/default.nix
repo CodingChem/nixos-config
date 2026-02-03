@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 
 let
   cfg = config.my.mango;
@@ -7,52 +7,27 @@ in
   options.my.mango.enable = lib.mkEnableOption "mango-wc compositor";
 
   config = lib.mkIf cfg.enable {
-    # Install the package
-    home.packages = [ pkgs.mango-wc ];
+    home-manager.users.vegard = {
+      # Move the HM-specific module import here
+      imports = [
+        inputs.mango.hmModules.mango
+      ];
 
-    # Example Home Manager configuration for mango-wc
-    # Adjust according to the specific attributes mango-wc supports in HM
-    wayland.windowManager.mango-wc = {
-      enable = true;
-      # Add your specific config here
-      # settings = { ... };
-    };
-  };
-}
-  # We add 'inputs' to the arguments list here
-  { config, lib, pkgs, inputs, ... }:
-
-  let
-    cfg = config.my.mango;
-  in
-  {
-    imports = [
-      # This reaches back to flake.nix, finds the mango input, 
-      # and loads its Home Manager module.
-      inputs.mango.hmModules.mango
-    ];
-
-    options.my.mango.enable = lib.mkEnableOption "mango-wc compositor";
-
-    config = lib.mkIf cfg.enable {
       wayland.windowManager.mango = {
         enable = true;
         settings = ''
           # Gaps
           gappih=10
           gappiv=10
-        
-          # NVIDIA Fixes for your 5070Ti
-          env=LIBVA_DRIVER_NAME,nvidia
-          env=GBM_BACKEND,nvidia-drm
-          env=__GLX_VENDOR_LIBRARY_NAME,nvidia
-          env=WLR_NO_HARDWARE_CURSORS,1
+          
+          # NVIDIA RTX 5070Ti Tweaks
+          
 
           # Keybindings
           bind=SUPER,Return,spawn,foot
           bind=SUPER,q,killclient,
-          bind=SUPER_SHIFT,e,exit,
-        
+          bind=SUPER+SHIFT,e,quit,
+          
           # Layouts
           bind=SUPER,s,setlayout,scroller
           bind=SUPER,t,setlayout,tile
@@ -60,7 +35,7 @@ in
 
         autostart_sh = ''
           waybar &
-          swaybg -m fill -i /path/to/wallpaper.jpg &
+          # swaybg -m fill -i /path/to/wallpaper.jpg &
         '';
       };
 
@@ -70,4 +45,5 @@ in
         swaybg
       ];
     };
-  }
+  };
+}

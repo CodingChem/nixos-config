@@ -50,7 +50,7 @@ in
         enable = true;
       };
       screenSection = ''
-      Option "metamodes" "eDP-1: 2560x1600_240 +0+0 {ForceFullCompositionPipeline=On}"
+        Option "metamodes" "eDP-1: 2560x1600_240 +0+0 {ForceFullCompositionPipeline=On}"
       '';
     };
 
@@ -97,7 +97,7 @@ in
       extraPortals = [
         pkgs.xdg-desktop-portal-gtk # Use GTK file picker even in dwm
       ];
-      config.common.default = "gtk";
+      config.common.default = "*";
     };
     home-manager.users.vegard = { pkgs, ... }: {
       home.packages = with pkgs; [
@@ -159,7 +159,7 @@ in
           };
           # Fixes for Nvidia generic flickering
           use-damage = false; # Setting this to false can sometimes help at 240Hz
-          xrender-sync-fence = true; 
+          xrender-sync-fence = true;
           unredir-if-possible = false;
         };
       };

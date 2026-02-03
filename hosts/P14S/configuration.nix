@@ -8,7 +8,6 @@
       ../../desktop
     ];
   my.desktop.type = "dwm";
-  my.dwm.terminal = "alacritty";
 
   virtualisation.virtualbox.guest.enable = true;
   virtualisation.virtualbox.guest.dragAndDrop = true;
