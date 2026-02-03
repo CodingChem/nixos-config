@@ -60,6 +60,7 @@ in
         enable = true;
         settings = {
           # Use your 240Hz monitor to its full potential
+	  input.kb_layout = "no";
           monitor = [
             "eDP-1, 2560x1600@240, 0x0, 1"
           ];
