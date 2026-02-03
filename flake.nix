@@ -62,12 +62,10 @@
           ./hosts/legioni5/configuration.nix
           ./modules/defaults.nix
           ./modules/game.nix
-          ./desktop/defaults.nix
+          ./desktop
           ./modules/laptops/lid.nix
-          ./desktop/dwm/dwm.nix
           {
-            my.dwm.enable = true;
-            my.dwm.terminal = "kitty";
+            my.desktop.type = "dwm";
           }
 
           home-manager.nixosModules.home-manager
