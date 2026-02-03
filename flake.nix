@@ -62,11 +62,7 @@
           ./hosts/legioni5/configuration.nix
           ./modules/defaults.nix
           ./modules/game.nix
-          ./desktop
           ./modules/laptops/lid.nix
-          {
-            my.desktop.type = "dwm";
-          }
 
           home-manager.nixosModules.home-manager
           {

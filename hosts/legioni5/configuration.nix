@@ -4,7 +4,10 @@
   imports = [
     ./hardware-configuration.nix
     ./bluetooth.nix
+    ../../desktop
   ];
+
+  my.desktop.type = "dwm";
 
   # --- BOOTLOADER ---
   boot.loader.systemd-boot.enable = true;
@@ -47,13 +50,11 @@
     # Bruk stabil produksjonsdriver
     package = config.boot.kernelPackages.nvidiaPackages.stable;
 
-    # PRIME-oppsett (Hybrid grafikk)
     prime = {
       offload = {
         enable = true;
         enableOffloadCmd = true;
       };
-      # Basert på din lspci:
       intelBusId = "PCI:0:2:0";
       nvidiaBusId = "PCI:2:0:0";
     };
@@ -61,24 +62,6 @@
 
   # Fix for Intel Arrow Lake integrert grafikk
   boot.kernelParams = [ "i915.force_probe=7f2f" ];
-  # Terminal emulator
-  #    programs = {
-  #    ghostty = {
-  #      enable = true;
-  #      enableZshIntegration = true;
-  #      settings = {
-  #        theme = "Catppuccin Mocha";
-  # font-family = "JetBrainsMono Nerd Font";
-  # font-size = 12;
-  # window-decoration = false;
-  # background-opacity = 0.9;
-  #      };
-  #    };
-  #    };
-  environment.systemPackages = with pkgs; [
-  ];
-  # --- Docker ---
-  virtualisation.docker.enable = true;
 
   # --- SYSTEM VERSION ---
   system.stateVersion = "25.11";
