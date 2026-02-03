@@ -5,10 +5,11 @@
     ./dwm/dwm.nix
     ./hyprland.nix
     ./shared.nix
+    ./mango
   ];
 
   options.my.desktop.type = lib.mkOption {
-    type = lib.types.enum [ "dwm" "hyprland" ];
+    type = lib.types.enum [ "dwm" "hyprland" "mango" ];
     default = "dwm";
   };
 
@@ -19,5 +20,9 @@
     (lib.mkIf (config.my.desktop.type == "hyprland") {
       my.hyprland.enable = true;
     })
+    (lib.mkIf (config.my.desktop.type == "mango")
+      {
+        my.mango.enable = true;
+      })
   ];
 }
