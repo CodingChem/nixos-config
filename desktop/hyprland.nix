@@ -66,6 +66,7 @@ in
 	  "$mod" = "SUPER";
 	  bind = [
 	    "$mod, P, exec, wofi --drun"
+	    "$mod, Return, exec, kitty"
 	  ];
           
           # Nvidia Performance Tweaks
