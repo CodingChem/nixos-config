@@ -29,6 +29,29 @@ in
 
           # Keybindings
           bind=SUPER,Return,spawn,kitty
+          bind=SUPER,p,spawn,wofi -show drun
+          # Focus
+          bind=SUPER,h,focusdir,left
+          bind=SUPER,l,focusdir,right
+          bind=SUPER,j,focusdir,down
+          bind=SUPER,k,focusdir,up
+          # Swap
+          bind=SUPER+SHIFT,k,exchange_client,up
+          bind=SUPER+SHIFT,j,exchange_client,down
+          bind=SUPER+SHIFT,h,exchange_client,left
+          bind=SUPER+SHIFT,l,exchange_client,right
+          # resize
+          bind=SUPER+CTRL,h,resizewin,-50,+0
+          bind=SUPER+CTRL,l,resizewin,+50,+0
+          bind=SUPER+CTRL,j,resizewin,+0,+50
+          bind=SUPER+CTRL,k,resizewin,+0,-50
+          # move
+          bind=SUPER+ALT,h,movewin,+50,+0
+          bind=SUPER+ALT,l,movewin,-50,+0
+          bind=SUPER+ALT,j,movewin,+0,+50
+          bind=SUPER+ALT,k,movewin,+0,-50
+
+          
           bind=SUPER,q,killclient,
           bind=SUPER+SHIFT,e,quit,
           
