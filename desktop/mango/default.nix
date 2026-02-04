@@ -37,6 +37,9 @@ in
                     bind=SUPER+SHIFT,b,spawn,chromium
                     bind=SUPER+SHIFT,a,spawn,chromium --app=https://gemini.google.com/app
                     bind=SUPER+SHIFT,w,spawn,chromium --app=https://web.whatsapp.com
+                    bind=SUPER+SHIFT,m,spawn,chromium --app=https://messages.google.com/web/conversations
+                    bind=SUPER+SHIFT,e,spawn,chromium --app=https://mail.google.com/mail/u/0/#inbox
+                    bind=SUPER+SHIFT,c,spawn,chromium --app=https://calendar.google.com/calendar/u/0/r?pli=1
                     bind=SUPER+SHIFT,g,spawn,steam
                     bind=SUPER+SHIFT,s,spawn,spotify
                     # Focus
@@ -64,7 +67,7 @@ in
 
           
                     bind=SUPER,q,killclient,
-                    bind=SUPER+SHIFT,e,quit,
+                    bind=SUPER+SHIFT,q,quit,
           
                     # Layouts
                     bind=SUPER,s,setlayout,scroller
