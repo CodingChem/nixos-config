@@ -7,7 +7,7 @@
     ../../desktop
   ];
 
-  my.desktop.type = "hyprland";
+  my.desktop.type = "mango";
 
   # --- BOOTLOADER ---
   boot.loader.systemd-boot.enable = true;
@@ -31,6 +31,15 @@
   hardware.graphics = {
     enable = true;
     enable32Bit = true; # Påkrevd for Steam
+    extraPackages = with pkgs; [
+      egl-wayland
+      libva-utils
+      vdpauinfo
+      mangohud
+    ];
+    extraPackages32 = with pkgs; [
+      pkgsi686Linux.mangohud
+    ];
   };
 
   # Last Nvidia-driveren

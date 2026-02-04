@@ -21,10 +21,14 @@ in
           gappiv=10
           
           # NVIDIA RTX 5070Ti Tweaks
+          env=LIBVA_DRIVER_NAME,nvidia
+          env=GBM_BACKEND,nvidia-drm
+          env=__GLX_VENDOR_LIBRARY_NAME,nvidia
+          env=WLR_NO_HARDWARE_CURSORS,1
           
 
           # Keybindings
-          bind=SUPER,Return,spawn,foot
+          bind=SUPER,Return,spawn,kitty
           bind=SUPER,q,killclient,
           bind=SUPER+SHIFT,e,quit,
           
@@ -40,7 +44,7 @@ in
       };
 
       home.packages = with pkgs; [
-        foot
+        kitty
         waybar
         swaybg
       ];

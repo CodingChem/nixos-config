@@ -17,9 +17,14 @@
   programs.gamemode.enable = true;
   programs.gamescope.enable = true;
 
+  hardware.nvidia = {
+    modesetting.enable = true;
+    open = true;
+  };
+
   environment.systemPackages = with pkgs; [
-    mangohud             # FPS/Overlay
+    mangohud # FPS/Overlay
     nvtopPackages.nvidia # GPU Monitor (veldig kjekk!)
-    vulkan-tools         # For å teste med 'vulkaninfo'
+    vulkan-tools # For å teste med 'vulkaninfo'
   ];
 }
