@@ -46,8 +46,8 @@ in
           bind=SUPER+CTRL,j,resizewin,+0,+50
           bind=SUPER+CTRL,k,resizewin,+0,-50
           # move
-          bind=SUPER+ALT,h,movewin,+50,+0
-          bind=SUPER+ALT,l,movewin,-50,+0
+          bind=SUPER+ALT,l,movewin,+50,+0
+          bind=SUPER+ALT,h,movewin,-50,+0
           bind=SUPER+ALT,j,movewin,+0,+50
           bind=SUPER+ALT,k,movewin,+0,-50
 
