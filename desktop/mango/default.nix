@@ -35,6 +35,9 @@ in
           # Layouts
           bind=SUPER,s,setlayout,scroller
           bind=SUPER,t,setlayout,tile
+
+          # autostart
+          exec-once=./autostart.sh
         '';
 
         autostart_sh = ''
@@ -47,6 +50,7 @@ in
         kitty
         waybar
         swaybg
+        wofi
       ];
     };
   };
