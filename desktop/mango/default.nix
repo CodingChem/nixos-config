@@ -29,7 +29,7 @@ in
 
           # Keybindings
           bind=SUPER,Return,spawn,kitty
-          bind=SUPER,p,spawn,wofi -show drun
+          bind=SUPER,p,spawn,wofi --show drun
           # Focus
           bind=SUPER,h,focusdir,left
           bind=SUPER,l,focusdir,right
