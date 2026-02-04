@@ -37,12 +37,8 @@ in
           bind=SUPER,t,setlayout,tile
 
           # autostart
-          exec-once=./autostart.sh
-        '';
-
-        autostart_sh = ''
-          waybar &
-          # swaybg -m fill -i /path/to/wallpaper.jpg &
+          exec-once=waybar
+          exec-once=swaybg -m fill -i /home/vegard/Pictures/wall
         '';
       };
 
