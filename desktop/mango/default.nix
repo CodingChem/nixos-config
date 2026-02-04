@@ -19,9 +19,8 @@ in
                     # Reload the configuration file
                     bind=SUPER+SHIFT,r,reload,
                     # Gaps
-                    gappih=10
-                    gappiv=10
-                    smartgap = 1
+                    gappih=0
+                    gappiv=0
           
                     # NVIDIA RTX 5070Ti Tweaks
                     env=LIBVA_DRIVER_NAME,nvidia
