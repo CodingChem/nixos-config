@@ -68,6 +68,14 @@
       nvidiaBusId = "PCI:2:0:0";
     };
   };
+  environment.sessionVariables = {
+    XKB_DEFAULT_LAYOUT = "no";
+  };
+  services.xserver.xkb = {
+    layout = "no";
+    variant = "";
+  };
+  console.keyMap = "no";
 
   # Fix for Intel Arrow Lake integrert grafikk
   boot.kernelParams = [ "i915.force_probe=7f2f" ];
