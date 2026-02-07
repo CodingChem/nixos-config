@@ -2,7 +2,7 @@
 
 {
   # System-settings
-  nix = { 
+  nix = {
     settings = {
       experimental-features = [ "nix-command" "flakes" ];
       trusted-users = [ "root" "vegard" ];
@@ -14,13 +14,14 @@
       options = "--delete-older-than 30d";
     };
   };
-  
+
   # Allow unfree packages
   nixpkgs.config = {
     allowUnfree = true;
   };
   # Networking
   networking.networkmanager.enable = true;
+  networking.networkmanager.wifi.powersave = false;
   # Enable BBR Congestion Control
   boot.kernel.sysctl = {
     "net.core.default_qdisc" = "fq";
@@ -30,14 +31,14 @@
   networking.networkmanager.wifi.backend = "iwd";
   # Set your time zone.
   time.timeZone = "Europe/Oslo";
-  
+
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
-  
+
   # Configure console keymap
   console.keyMap = "no";
   services.xserver.xkb.layout = "no";
-  
+
   virtualisation.docker = {
     enable = true;
     enableOnBoot = true;
