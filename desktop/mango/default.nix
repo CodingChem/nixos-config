@@ -73,6 +73,7 @@ in
                     bind=SUPER,t,setlayout,tile
 
                     # autostart
+                    exec-once=dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=wlroots
                     exec-once=waybar
                     exec-once=swaybg -m fill -i /home/vegard/Pictures/wall
 

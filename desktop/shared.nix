@@ -22,8 +22,8 @@
     distrobox
     android-tools
     (wrapOBS {
-      plugins = with obs-vkcapture; [
-        obs-vkcapture # Better performance for recording games
+      plugins = [
+        pkgs.obs-studio-plugins.obs-vkcapture # Better performance for recording games
       ];
     })
   ];
