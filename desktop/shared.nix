@@ -21,6 +21,11 @@
     spotify
     distrobox
     android-tools
+    (wrapOBS {
+      plugins = with obs-vkcapture; [
+        obs-vkcapture # Better performance for recording games
+      ];
+    })
   ];
   programs = {
     chromium = {
