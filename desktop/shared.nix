@@ -8,11 +8,12 @@
 
   xdg.portal = {
     enable = true;
+    wlr.enable = true;
     extraPortals = [
       pkgs.xdg-desktop-portal-gtk
       pkgs.xdg-desktop-portal-wlr
     ];
-    config.common.default = "*";
+    config.common.default = "wlr";
   };
 
   environment.systemPackages = with pkgs; [
