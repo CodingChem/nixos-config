@@ -91,7 +91,7 @@
   users.users.vegard = {
     isNormalUser = true;
     description = "Vegard Pareli Seines";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "kvm" ];
     packages = with pkgs; [
     #  thunderbird
     ];
