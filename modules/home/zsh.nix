@@ -19,7 +19,7 @@
     };
 
     # This ensures your plugins and fzf are initialized
-    initExtra = ''
+    initContent = ''
       # Custom keybindings or extra init code can go here
     '';
   };
