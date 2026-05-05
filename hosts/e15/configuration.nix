@@ -4,13 +4,14 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ../../modules/dev/android.nix
     ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.hostName = "E15"; # Define your hostname.
+  networking.hostName = "e15"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
@@ -96,7 +97,7 @@
   users.users.vegard = {
     isNormalUser = true;
     description = "Vegard Pareli Seines";
-    extraGroups = [ "networkmanager" "wheel" "kvm" ];
+    extraGroups = [ "networkmanager" "wheel" "kvm" "vegard" ];
     packages = with pkgs; [
     #  thunderbird
     ];
