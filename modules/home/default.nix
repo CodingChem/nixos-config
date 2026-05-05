@@ -9,7 +9,7 @@
   # General home-manager settings that apply to everything
   home.username = "vegard";
   home.homeDirectory = "/home/vegard";
-  home.stateVersion = "25.11"; 
+  home.stateVersion = "26.05"; 
 
   # Basic packages you want everywhere
   home.packages = with pkgs; [
