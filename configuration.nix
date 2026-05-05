@@ -53,6 +53,11 @@
   services.fwupd.enable = true;
   zramSwap.enable = true;
 
+  # Swap
+  boot.resumeDevice = "/dev/disk/by-uuid/feedd2a5-1513-4745-970e-0c8993f9fb32";
+  boot.kernelParams = [ "resume=UUID=feedd2a5-1513-4745-970e-0c8993f9fb32" ];
+  powerManagement.enable = true;
+
   # Configure console keymap
   console.keyMap = "no";
 
@@ -110,6 +115,7 @@
     wget
     google-chrome
     git
+    gnomeExtensions.hibernate-status-button
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
