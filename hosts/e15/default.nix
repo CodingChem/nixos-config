@@ -4,6 +4,7 @@
   imports = [ 
     ./hardware-configuration.nix 
     ./configuration.nix
+    ../../modules/shared/defaults.nix
   ];
 
   # Standard NixOS system settings (bootloader, networking, etc.)
