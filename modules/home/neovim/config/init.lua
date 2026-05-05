@@ -27,4 +27,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 -- Load plugins from the 'lua/plugins' folder
-require("lazy").setup("plugins")
+require("lazy").setup {
+  spec = "plugins",
+  lockfile = vim.fn.stdpath("data") .. "/lazy-lock.json",
+}
