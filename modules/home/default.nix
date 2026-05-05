@@ -4,6 +4,7 @@
   imports = [
     ./neovim/default.nix  # This is the line you wanted!
     ./kitty.nix
+    ./zsh.nix
     catppuccin.homeModules.catppuccin
   ];
 
@@ -23,6 +24,9 @@
     settings.user = {
       name = "Vegard Pareli Seines";
       email = "vegsei@gmail.com";
+    };
+    settings.core = {
+      editor = "nvim";
     };
   };
 
