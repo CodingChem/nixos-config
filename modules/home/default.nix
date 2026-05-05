@@ -16,8 +16,10 @@
   ];
   programs.git = {
     enable = true;
-    userName = "Vegard Pareli Seines";
-    userEmail = "vegsei@gmail.com";
+    settings.user = {
+      name = "Vegard Pareli Seines";
+      email = "vegsei@gmail.com";
+    };
   };
 
   programs.home-manager.enable = true;
