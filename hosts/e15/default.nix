@@ -5,6 +5,8 @@
     ./hardware-configuration.nix 
     ./configuration.nix
     ../../modules/shared/defaults.nix
+    ../../modules/desktop/gnome/default.nix
+    ../../modules/desktop/default.nix
   ];
 
   # Standard NixOS system settings (bootloader, networking, etc.)
