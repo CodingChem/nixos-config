@@ -3,8 +3,7 @@
 {
   imports = [
     ./neovim/default.nix  # This is the line you wanted!
-    ./kitty.nix
-    ./zsh.nix
+    ./terminal/default.nix
     catppuccin.homeModules.catppuccin
   ];
 
