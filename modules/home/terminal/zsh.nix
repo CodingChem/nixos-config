@@ -8,8 +8,11 @@
     syntaxHighlighting.enable = true;
 
     shellAliases = {
-      ll = "ls -l";
-      update = "sudo nixos-rebuild switch --flake .";
+      ll = "eza -l --icons";
+      la = "eza -la --icons";
+      lt = "eza --tree --icons --git-ignore";
+      refresh = "nix flake update --flake ~/Repos/nixos-system/";
+      update = "sudo nixos-rebuild switch --flake ~/Repos/nixos-system/";
       v = "nvim";
     };
 
