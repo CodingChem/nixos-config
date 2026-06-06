@@ -17,6 +17,7 @@
 
   # Basic packages you want everywhere
   home.packages = with pkgs; [
+    google-chrome
   ];
   programs.git = {
     enable = true;

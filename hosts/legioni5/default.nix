@@ -9,6 +9,7 @@
     ../../modules/desktop/gnome/default.nix
     ../../modules/desktop/default.nix
     ../../modules/apps/default.nix
+    ../../modules/dev/default.nix
   ];
 
   # Standard NixOS system settings (bootloader, networking, etc.)
