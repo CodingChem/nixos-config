@@ -15,4 +15,9 @@
      ID_GPHOTO2=0
      ID_MEDIA_PLAYER=0
   '';
+  boot.kernelParams = [ "btusb.enable_autosuspend=n" ];
+  services.tlp.settings = {
+    USB_EXCLUDE_BTUSB = 1;
+  };
+  hardware.enableAllFirmware = true;
 }

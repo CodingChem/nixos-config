@@ -23,7 +23,7 @@
   users.users.vegard = {
     isNormalUser = true;
     description = "Vegard Pareli Seines";
-    extraGroups = [ "networkmanager" "wheel" "kvm" "vegard" ];
+    extraGroups = [ "networkmanager" "wheel" "kvm" "vegard" "groups" ];
     packages = with pkgs; [
     ];
   };
