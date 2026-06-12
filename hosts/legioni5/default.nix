@@ -6,7 +6,7 @@
     ./configuration.nix
     ./bluetooth.nix
     ../../modules/shared/defaults.nix
-    ../../modules/desktop/gnome/default.nix
+    ../../modules/desktop/cosmic/default.nix
     ../../modules/desktop/default.nix
     ../../modules/apps/default.nix
     ../../modules/dev/default.nix
