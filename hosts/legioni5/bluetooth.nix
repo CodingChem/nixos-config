@@ -1,26 +1,22 @@
 { config, pkgs, ... }:
 
 {
-# 1. Enable Bluetooth (Standard)
+  # 1. Enable Bluetooth
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
 
-  # 2. THE FIX: Override the Hardware Database
-  # The original script deleted the "bad" rule. We cannot delete in NixOS, 
-  # so we overwrite the properties to "0" (False).
-  # Note: The indentation of the properties (ID_...) is required.
-  services.udev.extraHwdb = ''
-    usb:v0489pE111*
-     ID_MTP_DEVICE=0
-     ID_GPHOTO2=0
-     ID_MEDIA_PLAYER=0
-  '';
+  # 2. Keep the MediaTek card fully powered at the kernel level
   boot.kernelParams = [ 
     "btusb.enable_autosuspend=n" 
     "pcie_aspm=off"
+    "usbcore.autosuspend=-1"
   ];
-  services.tlp.settings = {
-    USB_EXCLUDE_BTUSB = 1;
-  };
+
+  # 3. Force cold-resets to prevent the broken WMT firmware download loop
+  boot.extraModprobeConfig = ''
+    options btusb disable_scofix=1 enable_autosuspend=0 reset=1
+  '';
+
+  # 4. Ensure latest MediaTek microcode is available
   hardware.enableAllFirmware = true;
 }
