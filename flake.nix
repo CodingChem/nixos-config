@@ -24,7 +24,7 @@
       };
       nixosConfigurations.legioni5 = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-	specialArgs = { inherit catppuccin; };
+	specialArgs = { inherit catppuccin hyprland; };
 	modules = [
 	  ./hosts/legioni5/default.nix
 	  home-manager.nixosModules.home-manager
