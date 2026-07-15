@@ -1,10 +1,10 @@
 { pkgs, hyprland, ...}:
 {
-  users.users.vegard = {
+  users.users.vegard.packages = with pkgs; [
     rofi
     thunar
     swaybg
-  };
+  ];
   services.displayManager.ly.enable = true;
   programs.hyprland = {
     enable = true;
