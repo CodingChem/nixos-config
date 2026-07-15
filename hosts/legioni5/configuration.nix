@@ -44,7 +44,8 @@
 
     # Strømstyring for laptoper
     powerManagement.enable = true;
-    powerManagement.finegrained = true; # Bedre strømsparing på 50-serien
+    #powerManagement.finegrained = true; # Bedre strømsparing på 50-serien
+    dynamicBoost.enable = true;
 
     # Bruk den åpne drivermodulen (anbefalt for 5070 Ti)
     open = true;
