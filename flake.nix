@@ -3,16 +3,17 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
+    hyprland.url = "github:hyprwm/Hyprland/v0.55.0";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     catppuccin.url = "github:catppuccin/nix";
   };
-  outputs = { self, nixpkgs, home-manager, catppuccin, ... }: {
+  outputs = { self, nixpkgs, hyprland, home-manager, catppuccin, ... }: {
       nixosConfigurations.e15 = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
-          specialArgs = { inherit catppuccin; };
+          specialArgs = { inherit catppuccin hyprland; };
 	  modules = [
 	      ./hosts/e15/default.nix
 	      home-manager.nixosModules.home-manager
