@@ -49,7 +49,7 @@
           enable = true;
           windowManager.oxwm.enable = true;
         };
-      };
+      }
       ];
     };
   };
