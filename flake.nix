@@ -10,28 +10,35 @@
     };
     catppuccin.url = "github:catppuccin/nix";
   };
-  outputs = { self, nixpkgs, hyprland, home-manager, catppuccin, ... }: {
-      nixosConfigurations.e15 = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          specialArgs = { inherit catppuccin hyprland; };
-	  modules = [
-	      ./hosts/e15/default.nix
-	      home-manager.nixosModules.home-manager
-        {
-          home-manager.extraSpecialArgs = { inherit catppuccin; };
-        }
-	  ];
-      };
-      nixosConfigurations.legioni5 = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-	specialArgs = { inherit catppuccin hyprland; };
-	modules = [
-	  ./hosts/legioni5/default.nix
-	  home-manager.nixosModules.home-manager
-	  {
-	    home-manager.extraSpecialArgs = { inherit catppuccin; };
-	  }
-        ];
-	};
+  outputs = inputs @ { 
+    self, 
+      nixpkgs, 
+      hyprland, 
+      home-manager, 
+      catppuccin, 
+      ... 
+  }: {
+    nixosConfigurations.e15 = nixpkgs.lib.nixosSystem {
+      system = "x86_64-linux";
+      specialArgs = { inherit inputs; };
+      modules = [
+        ./hosts/e15/default.nix
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.extraSpecialArgs = { inherit catppuccin; };
+          }
+      ];
+    };
+    nixosConfigurations.legioni5 = nixpkgs.lib.nixosSystem {
+      system = "x86_64-linux";
+      specialArgs = { inherit inputs; };
+      modules = [
+        ./hosts/legioni5/default.nix
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.extraSpecialArgs = { inherit catppuccin; };
+          }
+      ];
+    };
   };
 }

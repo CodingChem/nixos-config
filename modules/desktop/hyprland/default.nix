@@ -1,4 +1,4 @@
-{ pkgs, hyprland, ...}:
+{ pkgs, inputs, ...}:
 {
   users.users.vegard.packages = with pkgs; [
     rofi
@@ -9,7 +9,7 @@
   programs.hyprland = {
     enable = true;
     xwayland.enable = true;
-    package = hyprland.packages.${pkgs.system}.hyprland;
-    portalPackage = hyprland.packages.${pkgs.system}.xdg-desktop-portal-hyprland;
+    package = inputs.hyprland.packages.${pkgs.system}.hyprland;
+    portalPackage = inputs.hyprland.packages.${pkgs.system}.xdg-desktop-portal-hyprland;
   };
 }
