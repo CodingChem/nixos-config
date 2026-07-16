@@ -22,7 +22,7 @@
 
   hardware.bluetooth = {
     enable = true;
-    powerOnBoot = false;
+    powerOnBoot = true;
   };
 
   # List packages installed in system profile. To search, run:
