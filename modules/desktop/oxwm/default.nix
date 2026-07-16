@@ -10,7 +10,7 @@
     kitty
     xclip
   ];
-  services.displayManager.lightdm.enable = true;
+  services.xserver.displayManager.lightdm.enable = true;
   services.xserver.windowManager.oxwm.enable = true;
   services.xserver.enable = true;
   services.xserver.updateDbusEnvironment = true;
