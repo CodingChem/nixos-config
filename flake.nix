@@ -9,6 +9,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     catppuccin.url = "github:catppuccin/nix";
+    oxwm = {
+      url = "github:tonybanters/oxwm";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
   outputs = inputs @ { 
     self, 
@@ -16,6 +20,7 @@
       hyprland, 
       home-manager, 
       catppuccin, 
+      oxwm,
       ... 
   }: {
     nixosConfigurations.e15 = nixpkgs.lib.nixosSystem {
@@ -38,6 +43,13 @@
           {
             home-manager.extraSpecialArgs = { inherit catppuccin; };
           }
+      oxwm.nixosModules.default
+      {
+        services.xserver = {
+          enable = true;
+          windowManager.oxwm.enable = true;
+        };
+      };
       ];
     };
   };
