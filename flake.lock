@@ -474,26 +474,6 @@
         "type": "github"
       }
     },
-    "oxwm": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1783573128,
-        "narHash": "sha256-ZYVL9ScMRv7RafBBX8ysdsjuWui/pcjm7x8fHCUMqsE=",
-        "owner": "tonybanters",
-        "repo": "oxwm",
-        "rev": "afc403f33e4882f3007fb2d5aead402c1dba7ebd",
-        "type": "github"
-      },
-      "original": {
-        "owner": "tonybanters",
-        "repo": "oxwm",
-        "type": "github"
-      }
-    },
     "pre-commit-hooks": {
       "inputs": {
         "flake-compat": "flake-compat",
@@ -522,8 +502,7 @@
         "catppuccin": "catppuccin",
         "home-manager": "home-manager",
         "hyprland": "hyprland",
-        "nixpkgs": "nixpkgs_3",
-        "oxwm": "oxwm"
+        "nixpkgs": "nixpkgs_3"
       }
     },
     "systems": {
