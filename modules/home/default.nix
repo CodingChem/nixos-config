@@ -14,6 +14,7 @@
 
   catppuccin.flavor = "macchiato";
   catppuccin.enable = true;
+  catppuccin.autoEnable = true;
 
   # Basic packages you want everywhere
   home.packages = with pkgs; [
