@@ -44,11 +44,6 @@
             home-manager.extraSpecialArgs = { inherit catppuccin; };
           }
       oxwm.nixosModules.default
-      {
-        services.xserver = {
-          enable = true;
-        };
-      }
       ];
     };
   };
