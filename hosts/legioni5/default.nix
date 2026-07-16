@@ -6,7 +6,8 @@
     ./configuration.nix
     ./bluetooth.nix
     ../../modules/shared/defaults.nix
-    ../../modules/desktop/hyprland/default.nix
+    #../../modules/desktop/hyprland/default.nix
+    ../../modules/desktop/oxwm/default.nix
     ../../modules/desktop/default.nix
     ../../modules/apps/default.nix
     ../../modules/dev/default.nix

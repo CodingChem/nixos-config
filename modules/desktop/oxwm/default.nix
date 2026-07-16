@@ -1,9 +1,8 @@
 {
   pkgs,
   config,
-  oxwm,
   ...,
 }:
 {
-
+  services.xserver.windowManager.oxwm.enable = true;
 }
