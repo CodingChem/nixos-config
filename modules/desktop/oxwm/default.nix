@@ -4,6 +4,7 @@
   ...
 }:
 {
+  programs.fuse.enable = true;
   environment.systemPackages = with pkgs; [
     dmenu
     kitty
@@ -12,6 +13,7 @@
   services.displayManager.ly.enable = true;
   services.xserver.windowManager.oxwm.enable = true;
   services.xserver.enable = true;
+  services.xserver.updateDbusEnvironment = true;
   services.dbus.enable = true;
   xdg.portal  = {
     enable = true;
