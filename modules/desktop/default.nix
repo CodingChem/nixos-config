@@ -19,7 +19,7 @@ in
     (lib.optional (cfg.environment == "oxwm") ./oxwm/default.nix)
   ];
 
-  config = mkIf cfg.enable = {
+  config = mkIf cfg.enable {
 # Configure keymap in X11
     services.xserver.xkb = {
       layout = "no";
