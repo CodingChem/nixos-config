@@ -46,8 +46,8 @@ in
 # no need to redefine it in your config for now)
 #media-session.enable = true;
     };
-    mkIf cfg.environment == "oxwm" {
+    (mkIf cfg.environment == "oxwm" {
       myoxwm.enable = true;
-    }
+    })
   };
 }
