@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+
+NOTIF_TAG="volume_notif"
+
+send_notification() {
+  # Extract output line from wpctl
+  raw_status=$(wpctl get-volume @DEFAULT_AUDIO_SINK@)
+
+  # Check for mute status
+  if [[ "$raw_status" == *"[MUTED]"* ]]; then
+    notify-send -h "string:x-canonical-private-synchronous:${NOTIF_TAG}" \
+      -u low \
+      "Audio" "Muted"
+  else
+    # Extract volume float (e.g. 0.45) and convert to percentage (45%)
+    vol_float=$(echo "$raw_status" | awk '{print $2}')
+    vol_pct=$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{print int($2 * 100)}')
+
+    notify-send -h "string:x-canonical-private-synchronous:${NOTIF_TAG}" \
+      -h "int:value:${vol_pct%}" \
+      -u low \
+      "Volume" "${vol_pct}"
+  fi
+}
+
+case "$1" in
+  up)
+    wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 5%+ 
+    send_notification
+    ;;
+  down)
+    wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- 
+    send_notification
+    ;;
+  mute)
+    wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+    send_notification
+    ;;
+  *)
+    send_notification
+    ;;
+
+  esac
+

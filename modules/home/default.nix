@@ -20,6 +20,7 @@
   home.packages = with pkgs; [
     google-chrome
     gh
+    libnotify
   ];
   programs.git = {
     enable = true;
@@ -31,6 +32,7 @@
       editor = "nvim";
     };
   };
+  services.dunst.enable = true;
 
   programs.home-manager.enable = true;
 }
