@@ -19,4 +19,10 @@
 
   # 4. Ensure latest MediaTek microcode is available
   hardware.enableAllFirmware = true;
+
+  environment.etc."wireplumber/wireplumber.conf.d/50-bluez-no-abs-vol.conf".text = ''
+  monitor.bluez.properties = {
+      bluez5.enable-absolute-volume = false
+  }
+'';
 }
