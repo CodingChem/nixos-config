@@ -6,7 +6,6 @@
     ./configuration.nix
     ./bluetooth.nix
     ../../modules/shared/defaults.nix
-    ../../modules/desktop/oxwm/default.nix
     ../../modules/desktop/default.nix
     ../../modules/apps/default.nix
     ../../modules/dev/default.nix
@@ -20,6 +19,10 @@
         ../../modules/home/default.nix
       ];
     };
+  };
+  myDesktop = {
+    enable = true;
+    environment = "oxwm";
   };
 
 }
