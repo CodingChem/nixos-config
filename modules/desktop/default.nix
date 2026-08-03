@@ -16,7 +16,7 @@ in
   };
 
   imports = [
-    (lib.optional (cfg.environment == "oxwm") ./oxwm/default.nix)
+    ./oxwm/default.nix
   ];
 
   config = mkIf cfg.enable {
@@ -46,5 +46,8 @@ in
 # no need to redefine it in your config for now)
 #media-session.enable = true;
     };
+    mkIf cfg.environment == "oxwm" {
+      myoxwm.enable = true;
+    }
   };
 }
