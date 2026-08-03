@@ -9,7 +9,7 @@ in
     enable = mkEnableOption "Enable core desktop environment settings";
 
     environment = mkOption {
-      types.nullOr (types.enum [ "dwm" "hyprland" "cosmic" "gnome" "oxwm" ]);
+      type = types.nullOr (types.enum [ "dwm" "hyprland" "cosmic" "gnome" "oxwm" ]);
       default = null;
       description = "The primary environment to enable.";
     };
