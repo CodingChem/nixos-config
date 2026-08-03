@@ -2,7 +2,7 @@
 
 {
   imports = [
-    ./neovim/default.nix  # This is the line you wanted!
+    ./neovim/default.nix
     ./terminal/default.nix
     catppuccin.homeModules.catppuccin
   ];
@@ -20,7 +20,6 @@
   home.packages = with pkgs; [
     google-chrome
     gh
-    neovim
   ];
   programs.git = {
     enable = true;
