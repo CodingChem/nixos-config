@@ -2,7 +2,7 @@
 with lib;
 
 let
-  cfg = config.myDesktop;
+cfg = config.myDesktop;
 in
 {
   options.myDesktop = {
@@ -19,22 +19,23 @@ in
     ./oxwm/default.nix
   ];
 
-  config = mkIf cfg.enable {
+  config = mkIf cfg.enable (mkMerge [
+      {
 # Configure keymap in X11
-    services.xserver.xkb = {
+      services.xserver.xkb = {
       layout = "no";
       variant = "";
-    };
+      };
 # Configure console keymap
-    console.keyMap = "no";
+      console.keyMap = "no";
 
 # Enable CUPS to print documents.
-    services.printing.enable = true;
+      services.printing.enable = true;
 
 # Enable sound with pipewire.
-    services.pulseaudio.enable = false;
-    security.rtkit.enable = true;
-    services.pipewire = {
+      services.pulseaudio.enable = false;
+      security.rtkit.enable = true;
+      services.pipewire = {
       enable = true;
       alsa.enable = true;
       alsa.support32Bit = true;
@@ -45,9 +46,10 @@ in
 # use the example session manager (no others are packaged yet so this is enabled by default,
 # no need to redefine it in your config for now)
 #media-session.enable = true;
-    };
-    (mkIf cfg.environment == "oxwm" {
-      myoxwm.enable = true;
-    })
-  };
+      };
+      (mkIf (cfg.environment == "oxwm") {
+       myoxwm.enable = true;
+       })
+      ]);
+      };
 }
