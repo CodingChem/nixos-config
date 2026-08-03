@@ -60,6 +60,7 @@ in
       };
       environment.systemPackages = [
         myDesktopScripts
+        pkgs.playerctl
       ];
       }
   (mkIf (cfg.environment == "oxwm") {

@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+# Toggle play/pause
+playerctl play-pause
+
+# Fetch new status (Playing/Paused)
+STATUS=$(playerctl status 2>/dev/null || echo "No player")
+TITLE=$(playerctl metadata title 2>/dev/null || echo "")
+ARTIST=$(playerctl metadata artist 2>/dev/null || echo "")
+
+if [ "$STATUS" = "Playing" ]; then
+    notify-send -h string:x-canonical-private-synchronous:media_notif \
+                -u low "▶ Playing" "$TITLE - $ARTIST"
+elif [ "$STATUS" = "Paused" ]; then
+    notify-send -h string:x-canonical-private-synchronous:media_notif \
+                -u low "⏸ Paused" "$TITLE - $ARTIST"
+fi
