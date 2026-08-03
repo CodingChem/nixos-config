@@ -3,6 +3,17 @@ with lib;
 
 let
 cfg = config.myDesktop;
+
+# Package all scripts inside ./scripts into a single system package
+  myDesktopScripts = pkgs.stdenv.mkDerivation {
+    name = "mydesktop-scripts";
+    src = ./scripts;
+    installPhase = ''
+      mkdir -p $out/bin
+      cp -r * $out/bin/
+      chmod +x $out/bin/*
+    '';
+  };
 in
 {
   options.myDesktop = {
@@ -42,6 +53,9 @@ in
       pulse.enable = true;
 # If you want to use JACK applications, uncomment this
 #jack.enable = true;
+      encironment.systemPackages [
+        myDesktopScripts
+      ];
 
 # use the example session manager (no others are packaged yet so this is enabled by default,
 # no need to redefine it in your config for now)
