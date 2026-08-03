@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+
+NOTIF_TAG="brightness_notif"
+
+send_notification() {
+  # Get current brightness percentage from brightnessctl
+  bright_pct=$(brightnessctl -m | cut -d',' -f4)
+
+  notify-send -h "string:x-canonical-private-synchronous:${NOTIF_TAG}" \
+    -h "int:value:${bright_pct%}" \
+    -u low \
+    "Brightness" "${bright_pct}"
+}
+
+case "$1" in
+  up)
+    # Increase brightness by 5%, with a minimum of 1% so you don't turn off the screen completely
+    brightnessctl set +5%
+    send_notification
+    ;;
+  down)
+    # Decrease brightness by 5%, ensuring minimum 1% brightness
+    brightnessctl set 5%- -m 1%
+    send_notification
+    ;;
+  *)
+    echo "Usage: $0 {up|down}"
+    exit 1
+    ;;
+esac
