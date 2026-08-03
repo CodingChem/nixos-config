@@ -20,6 +20,7 @@
   home.packages = with pkgs; [
     google-chrome
     gh
+    neovim
   ];
   programs.git = {
     enable = true;

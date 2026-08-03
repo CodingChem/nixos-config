@@ -8,6 +8,7 @@
     syntaxHighlighting.enable = true;
 
     shellAliases = {
+      ls = "eza --icons";
       ll = "eza -l --icons";
       la = "eza -la --icons";
       lt = "eza --tree --icons --git-ignore";
