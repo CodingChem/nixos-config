@@ -61,6 +61,7 @@ in
       environment.systemPackages = [
         myDesktopScripts
         pkgs.playerctl
+        pkgs.brightnessctl
       ];
       }
   (mkIf (cfg.environment == "oxwm") {
