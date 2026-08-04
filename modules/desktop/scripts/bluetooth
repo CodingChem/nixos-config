@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+
+# Function to check if bluetooth is enabled/powered on
+if ! bluetoothctl show | grep -q "Powered: yes"; then
+    notify-send "Bluetooth" "Bluetooth is turned off."
+    exit 1
+fi
+
+# Get list of paired devices and format them for dmenu.
+# Output from 'bluetoothctl list' usually looks like:
+# Device  XX:XX:XX:XX:XX:XX  DeviceName
+# We extract the name and MAC, then format as "Name [MAC]"
+devices=$(bluetoothctl devices | awk '{print $3 " [" $2 "]"}' | sed 's/^[[:space:]]*//')
+
+if [ -z "$devices" ]; then
+    notify-send "Bluetooth" "No paired devices found."
+    exit 1
+fi
+
+# Present choices in dmenu
+selection=$(echo "$devices" | dmenu -i -l 15 -p "Connect to:")
+
+# Check if a selection was made (not just hit ESC)
+if [ -z "$selection" ]; then
+    exit 0
+fi
+
+# Extract the MAC address from the brackets
+mac=$(echo "$selection" | grep -oE "[0-9a-fA-F]{2}(:[0-9a-fA-F]{2}){5}")
+
+if [ -n "$mac" ]; then
+    notify-send "Bluetooth" "Connecting to $selection..."
+    # Use bluetoothctl to connect. 
+    # We use a timeout so the script doesn't hang if connection fails.
+    bluetoothctl --timeout 10 connect "$mac" > /dev/null 2>&1
+else
+    notify-send "Bluetooth" "Failed to parse MAC address."
+fi
