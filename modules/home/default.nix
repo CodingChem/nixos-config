@@ -12,9 +12,14 @@
   home.homeDirectory = "/home/vegard";
   home.stateVersion = "26.05"; 
 
-  catppuccin.flavor = "macchiato";
-  catppuccin.enable = true;
-  catppuccin.autoEnable = true;
+  catppuccin = {
+    enable = true;
+    flavor = "macchiato";
+    autoEnable = true;
+    tmux = {
+      enable = true;
+    };
+  };
 
   # Basic packages you want everywhere
   home.packages = with pkgs; [
