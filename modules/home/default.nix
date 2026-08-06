@@ -26,6 +26,8 @@
     google-chrome
     gh
     libnotify
+    opencode
+    herdr
   ];
   programs.git = {
     enable = true;
