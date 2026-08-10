@@ -12,6 +12,7 @@
       ll = "eza -l --icons auto";
       la = "eza -la --icons auto";
       lt = "eza --tree --icons auto --git-ignore";
+      dvim = "NVIM_APPNAME='dvim' nvim";
       refresh = "nix flake update --flake ~/Repos/nixos-system/";
       update = "sudo nixos-rebuild switch --flake ~/Repos/nixos-system/";
       v = "nvim";
