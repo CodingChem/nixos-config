@@ -8,10 +8,10 @@
     syntaxHighlighting.enable = true;
 
     shellAliases = {
-      ls = "eza --icons";
-      ll = "eza -l --icons";
-      la = "eza -la --icons";
-      lt = "eza --tree --icons --git-ignore";
+      ls = "eza --icons auto";
+      ll = "eza -l --icons auto";
+      la = "eza -la --icons auto";
+      lt = "eza --tree --icons auto --git-ignore";
       refresh = "nix flake update --flake ~/Repos/nixos-system/";
       update = "sudo nixos-rebuild switch --flake ~/Repos/nixos-system/";
       v = "nvim";
