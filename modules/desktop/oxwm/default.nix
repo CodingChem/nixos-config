@@ -31,6 +31,7 @@ in
       extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
       config.common.default = "*";
     };
+    xdg.configFile."oxwm/config.lua".source = ./config.lua
     services.picom = {
       enable = true;
       fade = true;
