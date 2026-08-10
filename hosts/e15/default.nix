@@ -5,9 +5,9 @@
     ./hardware-configuration.nix 
     ./configuration.nix
     ../../modules/shared/defaults.nix
-    ../../modules/desktop/cosmic/default.nix
     ../../modules/desktop/default.nix
     ../../modules/apps/default.nix
+    ../../modules/dev/default.nix
   ];
 
   # Standard NixOS system settings (bootloader, networking, etc.)
@@ -20,10 +20,13 @@
     users.vegard = {
       imports = [
         ../../modules/home/default.nix # General settings
-        ./home.nix                     # E15-specific settings
       ];
     };
   };
 
-  # ... the rest of your system config
+  myDesktop = {
+    enable = true;
+    environment = "oxwm";
+  };
+
 }
