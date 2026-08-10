@@ -31,3 +31,6 @@ require("lazy").setup {
   spec = "plugins",
   lockfile = vim.fn.stdpath("data") .. "/lazy-lock.json",
 }
+
+-- LSP's
+require("config.lsp")

@@ -28,6 +28,7 @@ local terminal = "kitty"
 -- Alternatively you can import other files in here, such as
 -- local colors = require("colors.lua") and make colors.lua a file
 -- in the ~/.config/oxwm directory
+
 local colors = {
     fg = "#bbbbbb",
     red = "#f7768e",
