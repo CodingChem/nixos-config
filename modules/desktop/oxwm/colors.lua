@@ -1,5 +1,4 @@
-return {
-    name = "macchiato",
+local colors = {
     rosewater = "#f4dbd6",
     flamingo = "#f0c6c6",
     pink = "#f5bde6",
@@ -27,3 +26,5 @@ return {
     mantle = "#1e2030",
     crust = "#181926",
 }
+
+return colors

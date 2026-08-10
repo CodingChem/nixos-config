@@ -29,25 +29,16 @@ local terminal = "kitty"
 -- local colors = require("colors.lua") and make colors.lua a file
 -- in the ~/.config/oxwm directory
 
-local colors = {
-    fg = "#bbbbbb",
-    red = "#f7768e",
-    bg = "#1a1b26",
-    cyan = "#0db9d7",
-    green = "#9ece6a",
-    lavender = "#a9b1d6",
-    light_blue = "#7aa2f7",
-    grey = "#bbbbbb",
-    blue = "#6dade3",
-    purple = "#ad8ee6",
-}
+--TODO: fix pathing issue
+---@type table<string, string>
+local colors =  dofile("/home/vegard/Repos/nixos-system/modules/desktop/oxwm/colors.lua")
 
 -- Workspace tags - can be numbers, names, or icons (requires a Nerd Font)
 --local tags = { "1", "2", "3", "4", "5", "6", "7", "8", "9" }
 local tags = { "", "󰊯", "", "", "󰙯", "󱇤", "", "󱘶", "󰧮" } -- Example of nerd font icon tags
 
 -- Font for the status bar (use "fc-list" to see available fonts)
-local bar_font = "JetBrainsMono Nerd Font:style=Bold:size=10"
+local bar_font = "JetBrainsMono Nerd Font:style=Bold:size=14"
 
 -- Define your blocks
 -- Similar to widgets in qtile, or dwmblocks
@@ -55,7 +46,7 @@ local blocks = {
     oxwm.bar.block.ram({
         format = "Ram: {used}/{total} GB",
         interval = 5,
-        color = colors.light_blue,
+        color = colors.blue,
         underline = true,
     }),
     oxwm.bar.block.static({
@@ -81,7 +72,7 @@ local blocks = {
         format = "{}",
         date_format = "%a, %b %d - %-I:%M %P",
         interval = 1,
-        color = colors.cyan,
+        color = colors.sky,
         underline = true,
     }),
     -- Uncomment to add battery status (useful for laptops)
@@ -136,7 +127,7 @@ oxwm.border.set_width(2)
 -- Color of focused window border
 oxwm.border.set_focused_color(colors.blue)
 -- Color of unfocused window borders
-oxwm.border.set_unfocused_color(colors.grey)
+oxwm.border.set_unfocused_color(colors.crust)
 
 -- Where floating windows spawn: "top-left", "top-center", "top-right",
 -- "center-left", "center", "center-right", "bottom-left", "bottom-center", "bottom-right"
@@ -187,13 +178,13 @@ oxwm.bar.set_blocks(blocks)
 -- Parameters: foreground, background, border
 
 -- Unoccupied tags
-oxwm.bar.set_scheme_normal(colors.fg, colors.bg, "#444444")
+oxwm.bar.set_scheme_normal(colors.sapphire, colors.base, colors.text)
 -- Occupied tags
-oxwm.bar.set_scheme_occupied(colors.cyan, colors.bg, colors.cyan)
+oxwm.bar.set_scheme_occupied(colors.green, colors.text, colors.text)
 -- Currently selected tag
-oxwm.bar.set_scheme_selected(colors.cyan, colors.bg, colors.purple)
+oxwm.bar.set_scheme_selected(colors.rosewater, colors.text, colors.rosewater)
 -- Urgent tags (windows requesting attention)
-oxwm.bar.set_scheme_urgent(colors.red, colors.bg, colors.red)
+oxwm.bar.set_scheme_urgent(colors.red, colors.text, colors.text)
 
 -- Hide tags that have no windows and are not selected
 -- oxwm.bar.set_hide_vacant_tags(true)
@@ -219,7 +210,7 @@ oxwm.key.bind({ modkey }, "S", oxwm.spawn({ "sh", "-c", "maim -s | xclip -select
 oxwm.key.bind({ modkey }, "Q", oxwm.client.kill())
 
 -- Keybind overlay - Shows important keybindings on screen
-oxwm.key.bind({ modkey, "Shift" }, "Slash", oxwm.show_keybinds())
+oxwm.key.bind({ modkey, "Shift" }, "Return", oxwm.show_keybinds())
 
 -- Window state toggles
 oxwm.key.bind({ modkey, "Shift" }, "F", oxwm.client.toggle_fullscreen())
