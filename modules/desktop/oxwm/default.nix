@@ -37,7 +37,12 @@ in
       shadow = true;
     };
     home-manager.users.vegard = {
-      xdg.configFile."oxwm/config.lua".source = ./config.lua;
+      xdg.configFile."oxwm/config.lua".text = ''
+      -- dummy importer file to allow config modification
+      -- replace path
+      path = "/home/vegard/Repos/nixos-system/modules/desktop/oxwm/config.lua"
+      dofile(path)
+      '';
     };
   };
 }
