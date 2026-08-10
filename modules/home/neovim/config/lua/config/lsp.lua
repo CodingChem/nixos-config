@@ -1,15 +1,22 @@
-local lspconfig = require('lspconfig')
-
--- setup lua ls
-lspconfig.lua_ls.setup({
+-- define lua lsp
+vim.lsp.config("lua_ls", {
+  cmd = { "lua-language-server" },
+  filetypes = { "lua" },
   settings = {
     Lua = {
       diagnostics = {
-        globals = { 'vim' },
+        globals = { "vim" },
       },
     },
   },
 })
 
--- Nix ls
-lspconfig.nil_ls.setup({})
+-- define nix lsp
+vim.lsp.config("nil_ls", {
+  cmd = { "nil" },
+  filetypes = { "nix" },
+})
+
+-- Enable servers
+vim.lsp.enable("lua_ls")
+vim.lsp.enable("nil_ls")
