@@ -7,6 +7,15 @@ vim.lsp.config("lua_ls", {
       diagnostics = {
         globals = { "vim" },
       },
+      runtime = {
+        version = "LuaJIT",
+      },
+      workspace = {
+        library = {
+          vim.env.VIMRUNTIME,
+        },
+        checkThirdParty = false,
+      },
     },
   },
 })
