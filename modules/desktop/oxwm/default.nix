@@ -20,6 +20,7 @@ in
       dmenu
         kitty
         xclip
+        feh
     ];
     services.xserver.displayManager.lightdm.enable = true;
     services.xserver.windowManager.oxwm.enable = true;
