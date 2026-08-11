@@ -1,8 +1,6 @@
 { pkgs, ... }:
 
 {
-  # ... existing config ...
-
   fonts.packages = with pkgs; [
     nerd-fonts.jetbrains-mono
     nerd-fonts.fira-code
@@ -25,6 +23,8 @@
     description = "Vegard Pareli Seines";
     extraGroups = [ "networkmanager" "wheel" "kvm" "vegard" "groups" ];
     packages = with pkgs; [
+      zip
+      unzip
     ];
   };
   users.users.vegard.shell = pkgs.zsh;
