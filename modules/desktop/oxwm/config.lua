@@ -158,6 +158,7 @@ oxwm.rule.add({ instance = "gimp", floating = true })
 -- oxwm.rule.add({ class = "firefox", title = "Library", floating = true })
 -- oxwm.rule.add({ class = "firefox", tag = 2 })
 -- oxwm.rule.add({ instance = "mpv", floating = true })
+oxwm.rule.add({ class = "wall-picker", floating = true, })
 
 -- To find window properties, use xprop and click on the window
 -- WM_CLASS(STRING) shows both instance and class (instance, class)
@@ -326,14 +327,6 @@ oxwm.key.chord({
     { {},         "w" }
 }, oxwm.spawn({ "kitty --class wall-picker -e wallpaper" }))
 
--- Window Rules
-rules = {
-    -- Floating rule for wallpaper selector
-    {
-        match = { class = "wall-picker" },
-        properties = { floating = true }
-    },
-}
 
 -------------------------------------------------------------------------------
 -- Autostart
