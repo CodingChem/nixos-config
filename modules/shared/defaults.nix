@@ -25,6 +25,12 @@
     packages = with pkgs; [
       zip
       unzip
+      wget
+      curl
+      fzf
+      ripgrep
+      bat
+      fd
     ];
   };
   users.users.vegard.shell = pkgs.zsh;
