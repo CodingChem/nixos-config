@@ -321,6 +321,20 @@ oxwm.key.chord({
     { {},         "g" }
 }, oxwm.spawn({ "steam" }))
 
+oxwm.key.chord({
+    { { modkey }, "Tab" },
+    { {},         "w" }
+}, oxwm.spawn({ "kitty --class wall-picker -e wallpaper" }))
+
+-- Window Rules
+rules = {
+    -- Floating rule for wallpaper selector
+    {
+        match = { class = "wall-picker" },
+        properties = { floating = true }
+    },
+}
+
 -------------------------------------------------------------------------------
 -- Autostart
 -------------------------------------------------------------------------------
@@ -328,6 +342,6 @@ oxwm.key.chord({
 -- Uncomment and modify these examples, or add your own
 
 -- oxwm.autostart("picom")
--- oxwm.autostart("feh --bg-scale ~/wallpaper.jpg")
+oxwm.autostart("feh --bg-scale ~/Pictures/wall.jpg")
 -- oxwm.autostart("dunst")
 -- oxwm.autostart("nm-applet")
