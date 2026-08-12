@@ -265,51 +265,20 @@ oxwm.key.bind({ modkey, "Shift" }, "Comma", oxwm.monitor.tag(-1))
 oxwm.key.bind({ modkey, "Shift" }, "Period", oxwm.monitor.tag(1))
 
 -- Workspace (tag) navigation
+for i = 1,9 do
+  local tag_num = i - 1
 -- Switch to workspace N (tags are 0-indexed, so tag "1" is index 0)
-oxwm.key.bind({ modkey }, "1", oxwm.tag.view(0))
-oxwm.key.bind({ modkey }, "2", oxwm.tag.view(1))
-oxwm.key.bind({ modkey }, "3", oxwm.tag.view(2))
-oxwm.key.bind({ modkey }, "4", oxwm.tag.view(3))
-oxwm.key.bind({ modkey }, "5", oxwm.tag.view(4))
-oxwm.key.bind({ modkey }, "6", oxwm.tag.view(5))
-oxwm.key.bind({ modkey }, "7", oxwm.tag.view(6))
-oxwm.key.bind({ modkey }, "8", oxwm.tag.view(7))
-oxwm.key.bind({ modkey }, "9", oxwm.tag.view(8))
-
+  -- oxwm.key.bind({ modkey }, tostring(i), oxwm.tag.view(i-1))
+  oxwm.key.bind({ modkey }, tostring(i), oxwm.tag.view(tag_num))
 -- Move focused window to workspace N
-oxwm.key.bind({ modkey, "Shift" }, "1", oxwm.tag.move_to(0))
-oxwm.key.bind({ modkey, "Shift" }, "2", oxwm.tag.move_to(1))
-oxwm.key.bind({ modkey, "Shift" }, "3", oxwm.tag.move_to(2))
-oxwm.key.bind({ modkey, "Shift" }, "4", oxwm.tag.move_to(3))
-oxwm.key.bind({ modkey, "Shift" }, "5", oxwm.tag.move_to(4))
-oxwm.key.bind({ modkey, "Shift" }, "6", oxwm.tag.move_to(5))
-oxwm.key.bind({ modkey, "Shift" }, "7", oxwm.tag.move_to(6))
-oxwm.key.bind({ modkey, "Shift" }, "8", oxwm.tag.move_to(7))
-oxwm.key.bind({ modkey, "Shift" }, "9", oxwm.tag.move_to(8))
-
+  oxwm.key.bind({ modkey, "Shift" }, tostring(i), oxwm.tag.move_to(i-1))
 -- Combo view (view multiple tags at once) {argos_nothing}
 -- Example: Mod+Ctrl+2 while on tag 1 will show BOTH tags 1 and 2
-oxwm.key.bind({ modkey, "Control" }, "1", oxwm.tag.toggleview(0))
-oxwm.key.bind({ modkey, "Control" }, "2", oxwm.tag.toggleview(1))
-oxwm.key.bind({ modkey, "Control" }, "3", oxwm.tag.toggleview(2))
-oxwm.key.bind({ modkey, "Control" }, "4", oxwm.tag.toggleview(3))
-oxwm.key.bind({ modkey, "Control" }, "5", oxwm.tag.toggleview(4))
-oxwm.key.bind({ modkey, "Control" }, "6", oxwm.tag.toggleview(5))
-oxwm.key.bind({ modkey, "Control" }, "7", oxwm.tag.toggleview(6))
-oxwm.key.bind({ modkey, "Control" }, "8", oxwm.tag.toggleview(7))
-oxwm.key.bind({ modkey, "Control" }, "9", oxwm.tag.toggleview(8))
-
+  oxwm.key.bind({ modkey, "Control" }, tostring(i), oxwm.tag.toggleview(i-1))
 -- Multi tag (window on multiple tags)
 -- Example: Mod+Ctrl+Shift+2 puts focused window on BOTH current tag and tag 2
-oxwm.key.bind({ modkey, "Control", "Shift" }, "1", oxwm.tag.toggletag(0))
-oxwm.key.bind({ modkey, "Control", "Shift" }, "2", oxwm.tag.toggletag(1))
-oxwm.key.bind({ modkey, "Control", "Shift" }, "3", oxwm.tag.toggletag(2))
-oxwm.key.bind({ modkey, "Control", "Shift" }, "4", oxwm.tag.toggletag(3))
-oxwm.key.bind({ modkey, "Control", "Shift" }, "5", oxwm.tag.toggletag(4))
-oxwm.key.bind({ modkey, "Control", "Shift" }, "6", oxwm.tag.toggletag(5))
-oxwm.key.bind({ modkey, "Control", "Shift" }, "7", oxwm.tag.toggletag(6))
-oxwm.key.bind({ modkey, "Control", "Shift" }, "8", oxwm.tag.toggletag(7))
-oxwm.key.bind({ modkey, "Control", "Shift" }, "9", oxwm.tag.toggletag(8))
+  oxwm.key.bind({ modkey, "Control", "Shift" }, tostring(i), oxwm.tag.toggletag(i-1))
+end
 
 -------------------------------------------------------------------------------
 -- Advanced: Keychords
@@ -331,6 +300,19 @@ oxwm.key.chord({
     { {},         "w" }
 }, oxwm.spawn({ "kitty --class wall-picker -e wallpaper" }))
 
+-- System controls
+oxwm.key.bind({ modkey, "Shift" }, "b", oxwm.spawn({ "bluetooth" }))
+
+-- Bind function keys
+oxwm.key.bind({}, "XF86AudioPlay", oxwm.spawn({ "play" }))
+oxwm.key.bind({}, "XF86AudioNext", oxwm.spawn({ "playerctl next" }))
+oxwm.key.bind({}, "XF86AudioPrev", oxwm.spawn({ "playerctl previous" }))
+oxwm.key.bind({}, "XF86AudioMicMute", oxwm.spawn({ "volume mic-mute" }))
+oxwm.key.bind({}, "XF86AudioRaiseVolume", oxwm.spawn({ "volume up" }))
+oxwm.key.bind({}, "XF86AudioLowerVolume", oxwm.spawn({ "volume down" }))
+oxwm.key.bind({}, "XF86AudioMute", oxwm.spawn({ "volume mute" }))
+oxwm.key.bind({}, "XF86MonBrightnessUp", oxwm.spawn({ "brightness up" }))
+oxwm.key.bind({}, "XF86MonBrightnessDown", oxwm.spawn({ "brightness down" }))
 
 -------------------------------------------------------------------------------
 -- Autostart
@@ -340,5 +322,6 @@ oxwm.key.chord({
 
 oxwm.autostart("picom")
 oxwm.autostart("feh --bg-scale ~/Pictures/wall.jpg")
--- oxwm.autostart("dunst")
+oxwm.autostart("dunst")
 -- oxwm.autostart("nm-applet")
+oxwm.autostart({ "playerctld daemon" })
