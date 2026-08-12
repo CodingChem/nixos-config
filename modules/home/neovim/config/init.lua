@@ -1,3 +1,4 @@
+require("config.keybinds")
 require("config.opts")
 
 -- LSP's

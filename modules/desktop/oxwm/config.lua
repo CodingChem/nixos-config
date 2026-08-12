@@ -35,7 +35,7 @@ local colors =  dofile("/home/vegard/Repos/nixos-system/modules/desktop/oxwm/col
 
 -- Workspace tags - can be numbers, names, or icons (requires a Nerd Font)
 --local tags = { "1", "2", "3", "4", "5", "6", "7", "8", "9" }
-local tags = { "", "󰊯", "", "", "󰙯", "󱇤", "", "󱘶", "󰧮" } -- Example of nerd font icon tags
+local tags = { "", "󰊯", "", "", "󰙯", "󱇤", "", "󱘶", "󰧮" } -- Example of nerd font icon tags
 
 -- Font for the status bar (use "fc-list" to see available fonts)
 local bar_font = "JetBrainsMono Nerd Font:style=Bold:size=14"
@@ -159,6 +159,10 @@ oxwm.rule.add({ instance = "gimp", floating = true })
 -- oxwm.rule.add({ class = "firefox", tag = 2 })
 -- oxwm.rule.add({ instance = "mpv", floating = true })
 oxwm.rule.add({ class = "wall-picker", floating = true, })
+oxwm.rule.add({ class = "kitty", tag = 1, focus = true })
+oxwm.rule.add({ class = "google-chrome", tag = 2, focus = true })
+oxwm.rule.add({ class = "steam", tag = 3, focus = false })
+oxwm.rule.add({ instance = "Steam", tag = 3, focus = false })
 
 -- To find window properties, use xprop and click on the window
 -- WM_CLASS(STRING) shows both instance and class (instance, class)
@@ -334,7 +338,7 @@ oxwm.key.chord({
 -- Commands to run once when OXWM starts
 -- Uncomment and modify these examples, or add your own
 
--- oxwm.autostart("picom")
+oxwm.autostart("picom")
 oxwm.autostart("feh --bg-scale ~/Pictures/wall.jpg")
 -- oxwm.autostart("dunst")
 -- oxwm.autostart("nm-applet")
