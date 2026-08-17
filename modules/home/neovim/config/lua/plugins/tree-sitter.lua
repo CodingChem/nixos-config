@@ -1,8 +1,16 @@
 return {
   "nvim-treesitter/nvim-treesitter",
+  branch = "master",
   build = ":TSUpdate",
+  lazy = false,
+  priority = 1000,
   config = function()
-    require("nvim-treesitter.configs").setup({
+    local status_ok, ts_configs = pcall(require, "nvim-treesitter.configs")
+    if not status_ok then
+      return
+    end
+
+    ts_configs.setup({
       ensure_installed = {
         "lua",
         "luadoc",
