@@ -2,7 +2,7 @@ require("config.keybinds")
 require("config.opts")
 
 -- LSP's
-require("config.lsp")
+-- require("config.lsp")
 
 -- Bootstrap lazy.nvim (The Plugin Manager)
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
