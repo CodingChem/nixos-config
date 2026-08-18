@@ -1,25 +1,18 @@
 #!/usr/bin/env bash
 
-# Log everything passed by the portal to a log file
-exec >> /tmp/yazi-chooser-debug.log 2>&1
-echo "=== $(date) ==="
-echo "Raw args ($#): $@"
-echo "Arg 1 (multiple): $1"
-echo "Arg 2 (directory): $2"
-echo "Arg 3 (path): $3"
-echo "Arg 4 (out): $4"
-echo "PATH: $PATH"
-
+# Correct positional mapping for xdg-desktop-portal-termfilechooser
 multiple="$1"
 directory="$2"
-path="$3"
-out="$4"
+save="$3"
+path="$4"
+out="$5"
 
+# Fallback: if $5 is empty, try $4
 if [ -z "$out" ]; then
-    echo "ERROR: Output file argument missing!"
-    exit 1
+    out="$4"
 fi
 
+# Set starting directory
 if [ -d "$path" ]; then
     start_dir="$path"
 elif [ -f "$path" ]; then
@@ -28,7 +21,7 @@ else
     start_dir="$HOME"
 fi
 
-# Touch the output file explicitly so the portal always finds it
+# Make sure output file exists
 touch "$out"
 
 # Execute yazi
@@ -38,6 +31,9 @@ else
     yazi "$start_dir" --chooser-file="$out"
 fi
 
-echo "File content after Yazi exit:"
-cat "$out"
-echo "=== Finished ==="
+# Exit with success if user selected a file
+if [ -s "$out" ]; then
+    exit 0
+else
+    exit 1
+fi
