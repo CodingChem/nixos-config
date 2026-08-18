@@ -105,7 +105,46 @@ return {
       },
     }
 
+    vim.lsp.config["emmet_language_server"] = {
+      filetypes = {
+        "css",
+        "eruby",
+        "html",
+        "javascript",
+        "javascriptreact",
+        "less",
+        "sass",
+        "scss",
+        "svelte",
+        "pug",
+        "typescriptreact",
+        "vue",
+        "razor",
+      },
+      init_options = {
+        showExpandedAbbreviation = "always",
+        showAbbreviationSuggestions = true,
+        showSuggestionsAsSnippets = true,
+        syntaxProfiles = {
+          razor = "html",
+        },
+      },
+    }
+    vim.lsp.config["html"] = {}
+    vim.lsp.config["cssls"] = {}
+    vim.lsp.config["jsonls"] = {}
+    vim.lsp.config["eslint"] = {}
+
     -- 4. Enable configured servers
-    vim.lsp.enable({ "lua_ls", "nil_ls", "vtsls" })
+    vim.lsp.enable({
+      "lua_ls",
+      "nil_ls",
+      "vtsls",
+      "emmet_language_server",
+      "html",
+      "cssls",
+      "jsonls",
+      "eslint",
+    })
   end,
 }

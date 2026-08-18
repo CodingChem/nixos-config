@@ -13,6 +13,7 @@
       unzip
       ripgrep
       fd
+      emmet-language-server
       vtsls
       vscode-langservers-extracted # contains eslint, html, css, json LSPs
       prettierd # faster daemonized prettier
