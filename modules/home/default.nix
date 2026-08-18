@@ -28,6 +28,7 @@
     libnotify
     opencode
     herdr
+    yazi
   ];
   programs.git = {
     enable = true;

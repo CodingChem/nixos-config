@@ -29,7 +29,9 @@ in
     services.dbus.enable = true;
     xdg.portal  = {
       enable = true;
-      extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+      extraPortals = [ 
+        pkgs.xdg-desktop-portal-termfilechooser
+      ];
       config.common.default = "*";
     };
     services.picom = {
