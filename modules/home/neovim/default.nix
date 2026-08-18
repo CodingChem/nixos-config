@@ -1,6 +1,6 @@
 { pkgs, ... }:
 
-  {
+{
   programs.neovim = {
     enable = true;
     defaultEditor = true;
@@ -35,6 +35,6 @@
         p.tsx
       ]))
     ];
-    xdg.configFile."nvim".source = ./config;
   };
+  xdg.configFile."nvim".source = ./config;
 }
