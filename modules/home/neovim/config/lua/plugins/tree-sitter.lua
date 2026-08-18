@@ -1,7 +1,7 @@
 return {
   "nvim-treesitter/nvim-treesitter",
   branch = "master",
-  build = ":TSUpdate",
+  -- Remove build = ":TSUpdate" to prevent imperative compiler calls
   lazy = false,
   priority = 1000,
   config = function()
@@ -11,19 +11,12 @@ return {
     end
 
     ts_configs.setup({
-      ensure_installed = {
-        "lua",
-        "luadoc",
-        "nix",
-        "javascript",
-        "typescript",
-        "tsx",
-        "jsdoc",
-        "json",
-        "html",
-        "css",
-      },
-      auto_install = true,
+      -- Keep empty since Nix provides the parsers
+      ensure_installed = {},
+      sync_install = false,
+      auto_install = false,
+      ignore_install = {},
+
       highlight = {
         enable = true,
         additional_vim_regex_highlighting = false,

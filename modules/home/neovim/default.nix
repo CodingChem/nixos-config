@@ -1,6 +1,6 @@
 { pkgs, ... }:
 
-{
+  {
   programs.neovim = {
     enable = true;
     defaultEditor = true;
@@ -19,7 +19,22 @@
       eslint_d   # faster daemonized eslint
       biome      # optional, fast alternative
     ];
+    plugins = with pkgs.vimPlugins; [
+      (nvim-treesitter.withPlugins (p: [
+        p.nix
+        p.lua
+        p.bash
+        p.python
+        p.c
+        p.javascript
+        p.html
+        p.css
+        p.kotlin
+        p.c_sharp
+        p.typescript
+        p.tsx
+      ]))
+    ];
+    xdg.configFile."nvim".source = ./config;
   };
-
-  xdg.configFile."nvim".source = ./config;
 }
