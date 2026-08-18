@@ -1,17 +1,25 @@
 #!/usr/bin/env bash
 
+# Log everything passed by the portal to a log file
+exec >> /tmp/yazi-chooser-debug.log 2>&1
+echo "=== $(date) ==="
+echo "Raw args ($#): $@"
+echo "Arg 1 (multiple): $1"
+echo "Arg 2 (directory): $2"
+echo "Arg 3 (path): $3"
+echo "Arg 4 (out): $4"
+echo "PATH: $PATH"
+
 multiple="$1"
 directory="$2"
 path="$3"
 out="$4"
 
-# Fallback check if arguments didn't pass through
 if [ -z "$out" ]; then
-    echo "Error: Output path argument missing from portal." >&2
+    echo "ERROR: Output file argument missing!"
     exit 1
 fi
 
-# Determine starting directory
 if [ -d "$path" ]; then
     start_dir="$path"
 elif [ -f "$path" ]; then
@@ -20,16 +28,16 @@ else
     start_dir="$HOME"
 fi
 
-# Run Yazi
+# Touch the output file explicitly so the portal always finds it
+touch "$out"
+
+# Execute yazi
 if [ "$directory" = "1" ]; then
     yazi "$start_dir" --chooser-file="$out" --cwd-file="$out"
 else
     yazi "$start_dir" --chooser-file="$out"
 fi
 
-# Check if a file was selected
-if [ -s "$out" ]; then
-    exit 0
-else
-    exit 1
-fi
+echo "File content after Yazi exit:"
+cat "$out"
+echo "=== Finished ==="
