@@ -6,6 +6,7 @@
     defaultEditor = true;
     extraPackages = with pkgs; [
       lua-language-server
+      stylua
       nil
       gcc
       gnumake
