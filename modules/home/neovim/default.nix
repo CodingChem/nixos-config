@@ -33,6 +33,8 @@
         p.c_sharp
         p.typescript
         p.tsx
+        p.markdown
+        p.markdown_inline
       ]))
     ];
   };
