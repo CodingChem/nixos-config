@@ -5,7 +5,13 @@ directory="$2"
 path="$3"
 out="$4"
 
-# Handle starting path
+# Fallback check if arguments didn't pass through
+if [ -z "$out" ]; then
+    echo "Error: Output path argument missing from portal." >&2
+    exit 1
+fi
+
+# Determine starting directory
 if [ -d "$path" ]; then
     start_dir="$path"
 elif [ -f "$path" ]; then
@@ -14,19 +20,16 @@ else
     start_dir="$HOME"
 fi
 
-# Ensure output file is empty or created
-> "$out"
-
+# Run Yazi
 if [ "$directory" = "1" ]; then
     yazi "$start_dir" --chooser-file="$out" --cwd-file="$out"
 else
     yazi "$start_dir" --chooser-file="$out"
 fi
 
-# If the user made a selection, exit with 0 (success)
+# Check if a file was selected
 if [ -s "$out" ]; then
     exit 0
 else
-    # Non-zero exit tells the portal the user cancelled
     exit 1
 fi
