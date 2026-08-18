@@ -1,16 +1,11 @@
 #!/usr/bin/env bash
-# Arguments passed by xdg-desktop-portal-termfilechooser:
-# 1: "1" for open multiple, "0" for open single, "2" for save
-# 2: "1" for directory mode, "0" for file mode
-# 3: Path to save file / initial path
-# 4: Output path file where chosen path(s) must be written
 
 multiple="$1"
 directory="$2"
 path="$3"
 out="$4"
 
-# Set start directory or default to $HOME
+# Handle starting path
 if [ -d "$path" ]; then
     start_dir="$path"
 elif [ -f "$path" ]; then
@@ -19,11 +14,19 @@ else
     start_dir="$HOME"
 fi
 
-# Run Yazi and write selected file(s) to the output file provided by the portal
+# Ensure output file is empty or created
+> "$out"
+
 if [ "$directory" = "1" ]; then
-    # Directory selection mode: press Enter or custom key to choose current directory
-    yazi "$start_dir" --chooser-file="$out"
+    yazi "$start_dir" --chooser-file="$out" --cwd-file="$out"
 else
-    # File selection mode
     yazi "$start_dir" --chooser-file="$out"
+fi
+
+# If the user made a selection, exit with 0 (success)
+if [ -s "$out" ]; then
+    exit 0
+else
+    # Non-zero exit tells the portal the user cancelled
+    exit 1
 fi
