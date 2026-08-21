@@ -28,6 +28,7 @@ in
 
   imports = [
     ./oxwm/default.nix
+    ./hyprland/default.nix
   ];
 
   config = mkIf cfg.enable (mkMerge [
@@ -66,6 +67,9 @@ in
       }
   (mkIf (cfg.environment == "oxwm") {
    myoxwm.enable = true;
+   })
+  (mkIf (cfg.environment == "hyprland") {
+   myhyprland.enable = true;
    })
   ]);
 }
