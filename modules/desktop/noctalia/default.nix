@@ -12,7 +12,7 @@ in
     services.power-profiles-daemon.enable = true;
     services.upower.enable = true;
 
-    home-manager.users.drfoobar = {
+    home-manager.users.vegard = {
       imports = [
         inputs.noctalia.homeModules.default
       ];
