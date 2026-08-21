@@ -29,6 +29,7 @@ in
   imports = [
     ./oxwm/default.nix
     ./hyprland/default.nix
+    ./noctalia/default.nix
   ];
 
   config = mkIf cfg.enable (mkMerge [
