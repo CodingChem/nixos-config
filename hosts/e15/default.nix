@@ -26,7 +26,7 @@
 
   myDesktop = {
     enable = true;
-    environment = "hyprland";
+    environment = "noctalia";
   };
 
 }

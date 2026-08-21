@@ -20,7 +20,7 @@ in
     enable = mkEnableOption "Enable core desktop environment settings";
 
     environment = mkOption {
-      type = types.nullOr (types.enum [ "dwm" "hyprland" "cosmic" "gnome" "oxwm" ]);
+      type = types.nullOr (types.enum [ "dwm" "hyprland" "cosmic" "gnome" "oxwm" "noctalia" ]);
       default = null;
       description = "The primary environment to enable.";
     };
@@ -70,6 +70,9 @@ in
    })
   (mkIf (cfg.environment == "hyprland") {
    myhyprland.enable = true;
+   })
+  (mkIf (cfg.environment == "noctalia") {
+   mynoctalia.enable = true;
    })
   ]);
 }
