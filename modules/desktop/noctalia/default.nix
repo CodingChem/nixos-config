@@ -3,7 +3,7 @@ with lib;
 let cfg = config.mynoctalia;
 in
 {
-  options.myoxwm = {
+  options.mynoctalia = {
     enable = mkEnableOption "Enable Noctalia.";
   };
   config = mkIf cfg.enable {
