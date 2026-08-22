@@ -22,7 +22,7 @@
   };
   myDesktop = {
     enable = true;
-    environment = "oxwm";
+    environment = "noctalia";
   };
 
 }
