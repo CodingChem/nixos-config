@@ -64,6 +64,7 @@ in
         myDesktopScripts
         pkgs.playerctl
         pkgs.brightnessctl
+        pkgs.beeper
       ];
       }
   (mkIf (cfg.environment == "oxwm") {
