@@ -65,6 +65,7 @@ in
         pkgs.playerctl
         pkgs.brightnessctl
         pkgs.beeper
+        pkgs.microsoft-edge
       ];
       }
   (mkIf (cfg.environment == "oxwm") {
