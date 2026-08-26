@@ -48,7 +48,7 @@ in
       services.gnome.gnome-keyring.enable = true;
       programs.seahorse.enable = true;
       services.dbus.packages = [ pkgs.gnome-keyring pkgs.gcr ];
-      services.gnome.gcr-ssh-agent.enable;
+      services.gnome.gcr-ssh-agent.enable = true;
 
 # Enable sound with pipewire.
       services.pulseaudio.enable = false;
