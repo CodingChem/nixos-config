@@ -44,8 +44,11 @@ in
 
 # Enable CUPS to print documents.
       services.printing.enable = true;
+# Security
       services.gnome.gnome-keyring.enable = true;
       programs.seahorse.enable = true;
+      services.dbus.packages = [ pkgs.gnome-keyring pkgs.gcr ];
+      services.gnome.gcr-ssh-agent.enable;
 
 # Enable sound with pipewire.
       services.pulseaudio.enable = false;
