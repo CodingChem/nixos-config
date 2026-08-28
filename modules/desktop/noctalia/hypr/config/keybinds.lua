@@ -6,6 +6,7 @@
 local terminal = "kitty"
 local fileManager = "yazi"
 local browser = "google-chrome"
+local ai = "google-chrome --app=https://gemini.google.com/app"
 
 ---------------------
 ---- KEYBINDINGS ----
@@ -16,8 +17,9 @@ local mainMod = "SUPER" -- Sets "Windows" key as main modifier
 hl.bind(mainMod .. " + T", hl.dsp.exec_cmd(terminal))
 hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(fileManager))
 hl.bind(mainMod .. " + b", hl.dsp.exec_cmd(browser))
-hl.bind(mainMod .. " + m", hl.dsp.exec_cmd("beeper"))
+hl.bind(mainMod .. " + M", hl.dsp.exec_cmd("beeper"))
 hl.bind(mainMod .. " + G", hl.dsp.exec_cmd("steam"))
+hl.bind(mainMod .. " + A", hl.dsp.exec_cmd(ai))
 local closeWindowBind = hl.bind(mainMod .. " + Q", hl.dsp.window.close())
 -- closeWindowBind:set_enabled(false)
 hl.bind(
@@ -26,6 +28,7 @@ hl.bind(
 )
 hl.bind(mainMod .. " + V", hl.dsp.window.float({ action = "toggle" }))
 hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
+hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen("maximized", "toggle"))
 
 -- Move focus with mainMod + arrow keys
 hl.bind(mainMod .. " + h", hl.dsp.focus({ direction = "left" }))
@@ -42,6 +45,9 @@ for i = 1, 10 do
 	hl.bind(mainMod .. " + " .. key, hl.dsp.focus({ workspace = i }))
 	hl.bind(mainMod .. " + SHIFT + " .. key, hl.dsp.window.move({ workspace = i }))
 end
+
+-- move workspace to other display
+hl.bind(mainMod .. " + w", hl.dsp.workspace.move({ monitor = "+1" }))
 
 -- Example special workspace (scratchpad)
 hl.bind(mainMod .. " + S", hl.dsp.workspace.toggle_special("magic"))
