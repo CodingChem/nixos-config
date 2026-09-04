@@ -16,7 +16,6 @@
       hyprland, 
       home-manager, 
       catppuccin, 
-      noctalia,
       ... 
   }: {
     nixosConfigurations.e15 = nixpkgs.lib.nixosSystem {
