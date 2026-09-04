@@ -22,7 +22,7 @@
   };
   myDesktop = {
     enable = true;
-    environment = "noctalia";
+    environment = "hyprland";
   };
 
 }
