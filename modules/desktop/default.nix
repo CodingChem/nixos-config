@@ -20,7 +20,7 @@ in
     enable = mkEnableOption "Enable core desktop environment settings";
 
     environment = mkOption {
-      type = types.nullOr (types.enum [ "dwm" "hyprland" "cosmic" "gnome" "oxwm" "noctalia" ]);
+      type = types.nullOr (types.enum [ "dwm" "hyprland" "cosmic" "gnome" "oxwm" ]);
       default = null;
       description = "The primary environment to enable.";
     };
@@ -29,7 +29,6 @@ in
   imports = [
     ./oxwm/default.nix
     ./hyprland/default.nix
-    ./noctalia/default.nix
   ];
 
   config = mkIf cfg.enable (mkMerge [
@@ -78,9 +77,6 @@ in
    })
   (mkIf (cfg.environment == "hyprland") {
    myhyprland.enable = true;
-   })
-  (mkIf (cfg.environment == "noctalia") {
-   mynoctalia.enable = true;
    })
   ]);
 }
