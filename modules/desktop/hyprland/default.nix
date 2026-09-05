@@ -17,6 +17,7 @@ in
     services.displayManager.ly.enable = true;
     programs.hyprland = {
       enable = true;
+      withUWSM = true;
       xwayland.enable = true;
       package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
       portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
@@ -30,7 +31,7 @@ in
       extraPortals = [
           pkgs.xdg-desktop-portal-gtk
       ];
-      config.common.default = [ "hyprland" "gtk" ];
+      config.common.default = [ "gtk" ];
       config.hyprland.default = [ "hyprland" "gtk" ];
     };
   };
