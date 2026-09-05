@@ -43,6 +43,7 @@ in
 
 # Enable CUPS to print documents.
       services.printing.enable = true;
+      services.upower.enable = true;
 # Security
       services.gnome.gnome-keyring.enable = true;
       programs.seahorse.enable = true;
