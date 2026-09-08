@@ -59,7 +59,8 @@ in
       alsa.support32Bit = true;
       pulse.enable = true;
       services.resolved.enable = true;
-      networking.nameservers = [ "1.1.1.1" "8.8.8.8" ];
+      networking.networkmanager.dns = "systemd-resolved";
+      services.resolved.fallbackDns = [ "1.1.1.1" "8.8.8.8" ];
 # If you want to use JACK applications, uncomment this
 #jack.enable = true;
 
