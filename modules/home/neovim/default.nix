@@ -20,7 +20,7 @@
       prettierd # faster daemonized prettier
       eslint_d   # faster daemonized eslint
       biome      # optional, fast alternative
-      qmls
+      kdePackages.qtdeclarative
     ];
     plugins = with pkgs.vimPlugins; [
       (nvim-treesitter.withPlugins (p: [
@@ -38,6 +38,7 @@
         p.tsx
         p.markdown
         p.markdown_inline
+        p.qmljs
       ]))
     ];
   };
