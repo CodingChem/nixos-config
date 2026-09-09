@@ -130,6 +130,13 @@ return {
 				},
 			},
 		}
+		vim.lsp.config("qmlls", {
+			cmd = { "qmls" },
+			filetypes = { "qml", "qmljs" },
+			root_markers = { "qmldir", ".git" },
+		})
+
+		vim.lsp.enable("qmlls")
 		vim.lsp.config["html"] = {}
 		vim.lsp.config["cssls"] = {}
 		vim.lsp.config["jsonls"] = {}

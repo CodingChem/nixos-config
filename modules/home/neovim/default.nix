@@ -20,6 +20,7 @@
       prettierd # faster daemonized prettier
       eslint_d   # faster daemonized eslint
       biome      # optional, fast alternative
+      qmls
     ];
     plugins = with pkgs.vimPlugins; [
       (nvim-treesitter.withPlugins (p: [
