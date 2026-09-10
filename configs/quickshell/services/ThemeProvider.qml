@@ -8,7 +8,7 @@ QtObject {
 
     // File watcher on the symlink
     property FileView file: FileView {
-        path: Quickshell.configPath("current_theme.json")
+        path: Quickshell.shellPath("current_theme.json")
         watchChanges: true
         blockLoading: true // Ensure initial load is available on startup
 

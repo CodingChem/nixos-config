@@ -9,7 +9,7 @@ PanelWindow {
   screen: modelData
 
   anchors {top: true; left: true; right: true }
-  exclusiveZone: 60
+  exclusiveZone: 40
   implicitHeight: statusPill.height + (statusPill.anchors.topMargin * 2)
   color: "transparent"
 
@@ -39,9 +39,9 @@ PanelWindow {
       id: contentLoader
       anchors.centerIn: parent
       source: {
-        switch (barState.currentMode) {
-          default: return "./views/RestingView.qml";
-        }
+        barState.notification? 
+        barState.views["toastView"] :
+        barState.currentView
       }
       onLoaded: {
         if (item && item.hasOwnProperty("barState")) {

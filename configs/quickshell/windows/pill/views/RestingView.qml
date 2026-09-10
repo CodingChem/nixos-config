@@ -2,7 +2,6 @@ import QtQuick
 import QtQuick.Layouts
 import QtQuick.Effects
 import Quickshell
-import Quickshell.Hyprland
 import "../../../services"
 import "../widgets"
 
@@ -10,11 +9,6 @@ Item {
     id: root
 
     property var barState: null
-    // Determine current workspace on this monitor
-    readonly property var hyprMonitor: targetScreen ? Hyprland.monitorFor(targetScreen) : null
-    readonly property string workspaceName: hyprMonitor && hyprMonitor.activeWorkspace 
-        ? hyprMonitor.activeWorkspace.name 
-        : "1"
 
     implicitHeight: 32
     implicitWidth: contentRow.implicitWidth + 28
