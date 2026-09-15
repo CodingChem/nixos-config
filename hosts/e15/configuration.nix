@@ -34,7 +34,7 @@
     wget
     google-chrome
     git
-    gemini-cli
+    antigravity-cli
     gh
   ];
   system.stateVersion = "25.11"; # Did you read the comment?
