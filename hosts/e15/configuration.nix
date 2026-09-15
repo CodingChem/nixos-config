@@ -35,6 +35,7 @@
     google-chrome
     git
     antigravity-cli
+    antigravity-ide
     gh
   ];
   system.stateVersion = "25.11"; # Did you read the comment?
