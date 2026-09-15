@@ -16,5 +16,5 @@
   };
   environment.systemPackages = with pkgs; [
     rider
-    ]
+    ];
 }
