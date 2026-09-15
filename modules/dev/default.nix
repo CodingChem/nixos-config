@@ -14,4 +14,7 @@
       enableZshIntegration = true;
     };
   };
+  environment.systemPackages = with pkgs; [
+    rider
+    ]
 }
