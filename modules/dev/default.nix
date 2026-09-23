@@ -21,8 +21,38 @@
     git
     uv
     (texlive.withPackages (ps: with ps; [
-      scheme-medium
-      latexmk
+scheme-medium
+  latexmk
+
+  # Fonts, microtypography & encoding
+  microtype
+  pdfcol
+
+  # Math, tables, layout & graphics
+  amsmath
+  booktabs
+  caption         # provides caption and subcaption
+  geometry
+  setspace
+  fancyhdr
+
+  # TikZ & PGF extensions
+  pgfplots
+  eso-pic
+  ifoddpage
+  tikzfill
+  tcolorbox
+
+  # Algorithms, code & citations
+  algorithm2e
+  relsize
+  listings
+  natbib
+
+  # Navigation & referencing
+  enumitem
+  hyperref
+  cleveref
     ]))
     ];
 }
