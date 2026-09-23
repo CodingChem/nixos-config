@@ -83,5 +83,8 @@ in
   (mkIf (cfg.environment == "hyprland") {
    myhyprland.enable = true;
    })
+  (mkIf (cfg.environment == "gnome") {
+   mygnome.enable = true;
+   })
   ]);
 }
