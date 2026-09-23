@@ -16,7 +16,7 @@
   };
   environment.systemPackages = with pkgs; [
     emacs-pgtk
-    texenliveFull
+    texliveFull
     fd
     ripgrep
     git
