@@ -16,10 +16,13 @@
   };
   environment.systemPackages = with pkgs; [
     emacs-pgtk
-    texliveFull
     fd
     ripgrep
     git
     uv
+    (texlive.withPackages (ps: with ps; [
+      scheme-medium
+      latexmk
+    ]))
     ];
 }
