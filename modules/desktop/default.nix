@@ -48,7 +48,7 @@ in
 # Security
       services.gnome.gnome-keyring.enable = true;
       programs.seahorse.enable = true;
-      services.dbus.packages = [ pkgs.gnome-keyring pkgs.gcr ];
+      services.dbus.packages = [ pkgs.gnome-keyring pkgs.gcr_4 ];
       services.gnome.gcr-ssh-agent.enable = true;
 
 # Enable sound with pipewire.
@@ -68,7 +68,7 @@ in
       };
       services.resolved.enable = true;
       networking.networkmanager.dns = "systemd-resolved";
-      services.resolved.fallbackDns = [ "1.1.1.1" "8.8.8.8" ];
+      services.resolved.settings.Resolve.FallbackDNS = [ "1.1.1.1" "8.8.8.8" ];
       environment.systemPackages = [
         myDesktopScripts
         pkgs.playerctl
