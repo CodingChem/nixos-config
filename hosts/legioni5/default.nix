@@ -22,7 +22,7 @@
   };
   myDesktop = {
     enable = true;
-    environment = "hyprland";
+    environment = "gnome";
   };
 
 }
