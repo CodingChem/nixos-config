@@ -15,6 +15,11 @@
     };
   };
   environment.systemPackages = with pkgs; [
+    emacs-pgtk
+    texenliveFull
+    fd
+    ripgrep
+    git
     uv
     ];
 }
