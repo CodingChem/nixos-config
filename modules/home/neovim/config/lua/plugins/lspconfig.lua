@@ -74,6 +74,29 @@ return {
 				},
 			},
 		}
+		vim.lsp.config["clangd"] = {
+			cmd = {
+				"clangd",
+				"--background-index",
+				"--clang-tidy",
+				"--header-insertion=iwyu",
+				"--completion-style=detailed",
+				-- Required for embedded cross-compilers (Xtensa / ESP32 GCC toolchains):
+				-- Prevents clangd from choking on GCC-specific build flags in compile_commands.json
+				"--query-driver=**/*xtensa-esp32*-elf-*,**/*gcc*,**/*g++*",
+			},
+			filetypes = { "c", "cpp", "objc", "objcpp", "cuda", "proto", "arduino" },
+			root_markers = {
+				".clangd",
+				".clang-tidy",
+				".clang-format",
+				"compile_commands.json",
+				"compile_flags.txt",
+				"build",
+				"platformio.ini",
+				".git",
+			},
+		}
 
 		vim.lsp.config["nil_ls"] = {
 			settings = {
@@ -152,6 +175,7 @@ return {
 			"cssls",
 			"jsonls",
 			"eslint",
+			"clangd",
 		})
 	end,
 }
