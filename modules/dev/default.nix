@@ -7,12 +7,14 @@
   virtualisation.docker = {
     enable = true;
   };
+  services.udev.packages = [ pkgs.platformio-core.udev ];
   home-manager.users.vegard = {
     programs.direnv = {
       enable = true;
       nix-direnv.enable = true;
       enableZshIntegration = true;
     };
+    extraGroups = [ "dialout" ];
   };
   environment.systemPackages = with pkgs; [
     emacs-pgtk
