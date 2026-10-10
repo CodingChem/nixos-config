@@ -18,6 +18,8 @@
   };
   environment.systemPackages = with pkgs; [
     emacs-pgtk
+    antigravity-cli
+    antigravity-ide
     fd
     ripgrep
     git

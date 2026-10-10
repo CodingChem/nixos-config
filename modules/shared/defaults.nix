@@ -21,7 +21,7 @@
   users.users.vegard = {
     isNormalUser = true;
     description = "Vegard Pareli Seines";
-    extraGroups = [ "networkmanager" "wheel" "kvm" "vegard" "groups" ];
+    extraGroups = [ "networkmanager" "wheel" "kvm" "vegard" "groups" "dialout" ];
     packages = with pkgs; [
       zip
       unzip
