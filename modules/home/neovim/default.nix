@@ -43,5 +43,5 @@
     ];
   };
   xdg.configFile."nvim".source = 
-    config.lib.file.mkOutOfStoreSymLink "./config";
+    config.lib.file.mkOutOfStoreSymlink "{config.home.homeDirectory}/Repos/nixos-system/modules/home/neovim/config";
 }
