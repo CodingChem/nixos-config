@@ -42,7 +42,7 @@
   };
   # Config mapping with symlinks
   xdg.configFile."doom".source =
-    config.lib.file.mkOutOfStoreSymlink "{config.home.homeDirectory}/Repos/nixos-system/modules/home/doom";
+    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Repos/nixos-system/modules/home/doom";
   services.dunst.enable = true;
 
   programs.home-manager.enable = true;
