@@ -1,4 +1,4 @@
-{ pkgs, catppuccin, ... }:
+{ pkgs, catppuccin, config, ... }:
 
 {
   imports = [
@@ -40,6 +40,9 @@
       editor = "nvim";
     };
   };
+  # Config mapping with symlinks
+  xdg.configFile."doom".source =
+    config.lib.file.mkOutOfStoreSymLink "./doom";
   services.dunst.enable = true;
 
   programs.home-manager.enable = true;
