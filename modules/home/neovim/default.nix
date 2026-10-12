@@ -22,25 +22,6 @@
       biome      # optional, fast alternative
       kdePackages.qtdeclarative
     ];
-    plugins = with pkgs.vimPlugins; [
-      (nvim-treesitter.withPlugins (p: [
-        p.nix
-        p.lua
-        p.bash
-        p.python
-        p.c
-        p.javascript
-        p.html
-        p.css
-        p.kotlin
-        p.c_sharp
-        p.typescript
-        p.tsx
-        p.markdown
-        p.markdown_inline
-        p.qmljs
-      ]))
-    ];
   };
   xdg.configFile."nvim".source = 
     config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Repos/nixos-system/modules/home/neovim/nvim";
