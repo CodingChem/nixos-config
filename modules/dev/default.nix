@@ -17,6 +17,8 @@
     };
   };
   environment.systemPackages = with pkgs; [
+    pyright
+    ruff
     emacs-pgtk
     antigravity-cli
     antigravity-ide
