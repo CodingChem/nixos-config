@@ -16,10 +16,14 @@
     enable = true;
     flavor = "macchiato";
     autoEnable = true;
+    nvim.enable = false;
     tmux = {
       enable = true;
     };
   };
+  home.sessionPath = [
+    "$HOME/.local/bin"
+  ];
 
   # Basic packages you want everywhere
   home.packages = with pkgs; [
