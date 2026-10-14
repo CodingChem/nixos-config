@@ -133,5 +133,9 @@
 ;; Use proportional fonts for text while keeping code and tables fixed-pitch
 ;;      (add-hook! 'org-mode-hook #'mixed-pitch-mode)
 
-(after! python
-  (add-hook 'python-base-mode-hook #'uv-mode))
+;; Auto-start eglot and uv-mode for both python-mode and python-ts-mode
+(add-hook 'python-base-mode-hook #'eglot-ensure)
+(add-hook 'python-base-mode-hook #'uv-mode)
+
+(after! eglot
+  (set-eglot-client! 'python-base-mode '("pyright-langserver" "--stdio")))
