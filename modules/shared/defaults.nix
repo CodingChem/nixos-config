@@ -17,6 +17,9 @@
       dates = "weekly";
       options = "--delete-older-than 7d";
   };
+  environment.systemPackages = with pkgs; [
+    musescore
+  ];
 
   users.users.vegard = {
     isNormalUser = true;
