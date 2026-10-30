@@ -3,30 +3,36 @@
 {
   imports = [ 
     ./hardware-configuration.nix 
-    ./configuration.nix
-    ../../modules/shared/defaults.nix
-    ../../modules/desktop/default.nix
-    ../../modules/apps/default.nix
-    ../../modules/dev/default.nix
   ];
 
-  # Standard NixOS system settings (bootloader, networking, etc.)
-  # ...
+  # --- BOOTLOADER ---
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+  
+  # --- SYSTEM SETUP ---
+  services.fwupd.enable = true;
+  zramSwap.enable = true;
 
-  # Home Manager setup inside the host config
-  home-manager = {
-    useGlobalPkgs = true;
-    useUserPackages = true;
-    users.vegard = {
-      imports = [
-        ../../modules/home/default.nix # General settings
-      ];
-    };
+  # --- SWAP & POWER ---
+  boot.resumeDevice = "/dev/disk/by-uuid/feedd2a5-1513-4745-970e-0c8993f9fb32";
+  boot.kernelParams = [ "resume=UUID=feedd2a5-1513-4745-970e-0c8993f9fb32" ];
+  powerManagement.enable = true;
+
+  # --- HARDWARE ---
+  hardware.bluetooth = {
+    enable = true;
+    powerOnBoot = true;
   };
 
+  # --- DESKTOP PROFILE ---
   myDesktop = {
     enable = true;
     environment = "gnome";
   };
 
+  # --- SYSTEM CAPABILITIES ---
+  mySystem.dev.enable = true;
+
+  # --- SYSTEM VERSION ---
+  system.stateVersion = "25.11";
 }

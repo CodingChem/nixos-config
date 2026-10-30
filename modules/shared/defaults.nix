@@ -21,23 +21,6 @@
     musescore
   ];
 
-  users.users.vegard = {
-    isNormalUser = true;
-    description = "Vegard Pareli Seines";
-    extraGroups = [ "networkmanager" "wheel" "kvm" "vegard" "groups" "dialout" "docker" ];
-    packages = with pkgs; [
-      zip
-      unzip
-      wget
-      curl
-      fzf
-      ripgrep
-      bat
-      fd
-    ];
-  };
-  users.users.vegard.shell = pkgs.zsh;
-
   # Enable networking
   networking.networkmanager.enable = true;
   services.tailscale.enable = true;
@@ -58,6 +41,16 @@
     LC_PAPER = "nb_NO.UTF-8";
     LC_TELEPHONE = "nb_NO.UTF-8";
     LC_TIME = "nb_NO.UTF-8";
+  };
+
+  # Keyboard layout and console keymap
+  services.xserver.xkb = {
+    layout = "no";
+    variant = "";
+  };
+  console.keyMap = "no";
+  environment.sessionVariables = {
+    XKB_DEFAULT_LAYOUT = "no";
   };
 
   # Allow unfree packages

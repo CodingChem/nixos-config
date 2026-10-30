@@ -1,19 +1,11 @@
 { config, pkgs, inputs, lib, ...}:
-
 with lib;
 
-let cfg = config.myhyprland;
-
+let
+  cfg = config.myDesktop;
 in
 {
-  options.myhyprland = {
-    enable = mkEnableOption "Enable Hyprland.";
-  };
-  config = mkIf cfg.enable {
-    users.users.vegard.packages = with pkgs; [
-      rofi
-        swaybg
-    ];
+  config = mkIf (cfg.enable && cfg.environment == "hyprland") {
     services.displayManager.ly.enable = true;
     programs.hyprland = {
       enable = true;
@@ -23,13 +15,15 @@ in
       portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
     };
     environment.systemPackages = with pkgs; [
+      rofi
+      swaybg
       hyprpolkitagent
-        quickshell
+      quickshell
     ];
     xdg.portal = {
       enable = true;
       extraPortals = [
-          pkgs.xdg-desktop-portal-gtk
+        pkgs.xdg-desktop-portal-gtk
       ];
       config.common.default = [ "gtk" ];
       config.hyprland.default = [ "hyprland" "gtk" ];

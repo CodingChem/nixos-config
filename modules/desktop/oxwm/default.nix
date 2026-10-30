@@ -6,28 +6,24 @@
 }:
 with lib;
 
-let cfg = config.myoxwm;
-
+let
+  cfg = config.myDesktop;
 in
 {
-  options.myoxwm = {
-    enable = mkEnableOption "Enable OXWM.";
-  };
-
-  config = mkIf cfg.enable {
+  config = mkIf (cfg.enable && cfg.environment == "oxwm") {
     programs.fuse.enable = true;
     environment.systemPackages = with pkgs; [
       dmenu
-        kitty
-        xclip
-        feh
+      kitty
+      xclip
+      feh
     ];
     services.xserver.displayManager.lightdm.enable = true;
     services.xserver.windowManager.oxwm.enable = true;
     services.xserver.enable = true;
     services.xserver.updateDbusEnvironment = true;
     services.dbus.enable = true;
-    xdg.portal  = {
+    xdg.portal = {
       enable = true;
       extraPortals = [ 
         pkgs.xdg-desktop-portal-termfilechooser
@@ -39,11 +35,11 @@ in
       fade = true;
       shadow = true;
     };
-    home-manager.users.vegard = {
+    home-manager.users.${config.mySystem.user.name} = {
       xdg.configFile."oxwm/config.lua".text = ''
       -- dummy importer file to allow config modification
       -- replace path
-      path = "/home/vegard/Repos/nixos-system/modules/desktop/oxwm/config.lua"
+      path = "/home/${config.mySystem.user.name}/Repos/nixos-system/modules/desktop/oxwm/config.lua"
       dofile(path)
       '';
     };

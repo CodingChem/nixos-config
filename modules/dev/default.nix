@@ -1,65 +1,75 @@
-{ pkgs, ... }:
+{ config, lib, pkgs, ... }:
+with lib;
 
+let
+  cfg = config.mySystem.dev;
+in
 {
+  options.mySystem.dev = {
+    enable = mkEnableOption "Enable baseline development tools (Docker, Node, Python LSP, Emacs, Git, uv)";
+    android.enable = mkEnableOption "Enable Android Studio, emulator tools, and nix-ld library bridges";
+    latex.enable = mkEnableOption "Enable TeX Live medium scheme and LaTeX tooling";
+  };
+
   imports = [
     ./android.nix
   ];
-  virtualisation.docker = {
-    enable = true;
-  };
-  users.users.vegard.extraGroups = [ "dialout" ];
-  services.udev.packages = [ pkgs.platformio-core.udev ];
-  home-manager.users.vegard = {
-    programs.direnv = {
-      enable = true;
-      nix-direnv.enable = true;
-      enableZshIntegration = true;
-    };
-  };
-  environment.systemPackages = with pkgs; [
-    nodejs
-    pyright
-    ruff
-    emacs-pgtk
-    antigravity-cli
-    antigravity-ide
-    fd
-    ripgrep
-    git
-    uv
-    (texlive.withPackages (ps: with ps; [
-scheme-medium
-  latexmk
 
-  # Fonts, microtypography & encoding
-  microtype
-  pdfcol
+  config = mkMerge [
+    (mkIf cfg.enable {
+      virtualisation.docker.enable = true;
+      services.udev.packages = [ pkgs.platformio-core.udev ];
+      environment.systemPackages = with pkgs; [
+        nodejs
+        pyright
+        ruff
+        emacs-pgtk
+        antigravity-cli
+        antigravity-ide
+        fd
+        ripgrep
+        git
+        uv
+      ];
+    })
 
-  # Math, tables, layout & graphics
-  amsmath
-  booktabs
-  caption         # provides caption and subcaption
-  geometry
-  setspace
-  fancyhdr
+    (mkIf (cfg.enable && cfg.latex.enable) {
+      environment.systemPackages = [
+        (pkgs.texlive.withPackages (ps: with ps; [
+          scheme-medium
+          latexmk
 
-  # TikZ & PGF extensions
-  pgfplots
-  eso-pic
-  ifoddpage
-  tikzfill
-  tcolorbox
+          # Fonts, microtypography & encoding
+          microtype
+          pdfcol
 
-  # Algorithms, code & citations
-  algorithm2e
-  relsize
-  listings
-  natbib
+          # Math, tables, layout & graphics
+          amsmath
+          booktabs
+          caption
+          geometry
+          setspace
+          fancyhdr
 
-  # Navigation & referencing
-  enumitem
-  hyperref
-  cleveref
-    ]))
-    ];
+          # TikZ & PGF extensions
+          pgfplots
+          eso-pic
+          ifoddpage
+          tikzfill
+          tcolorbox
+
+          # Algorithms, code & citations
+          algorithm2e
+          relsize
+          listings
+          natbib
+
+          # Navigation & referencing
+          enumitem
+          hyperref
+          cleveref
+        ]))
+      ];
+    })
+  ];
 }

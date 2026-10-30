@@ -10,35 +10,42 @@
     };
     catppuccin.url = "github:catppuccin/nix";
   };
+
   outputs = inputs @ { 
     self, 
-      nixpkgs, 
-      hyprland, 
-      home-manager, 
-      catppuccin, 
-      ... 
-  }: {
-    nixosConfigurations.e15 = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
-      specialArgs = { inherit inputs; };
-      modules = [
-        ./hosts/e15/default.nix
+    nixpkgs, 
+    hyprland, 
+    home-manager, 
+    catppuccin, 
+    ... 
+  }: 
+  let
+    mkHost = hostName: { system ? "x86_64-linux" }:
+      nixpkgs.lib.nixosSystem {
+        inherit system;
+        specialArgs = { inherit inputs; };
+        modules = [
+          { networking.hostName = hostName; }
           home-manager.nixosModules.home-manager
           {
-            home-manager.extraSpecialArgs = { inherit catppuccin; };
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              extraSpecialArgs = { inherit catppuccin; };
+            };
           }
-      ];
-    };
-    nixosConfigurations.legioni5 = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
-      specialArgs = { inherit inputs; };
-      modules = [
-        ./hosts/legioni5/default.nix
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.extraSpecialArgs = { inherit catppuccin; };
-          }
-      ];
+          ./modules/shared/defaults.nix
+          ./modules/shared/user.nix
+          ./modules/desktop/default.nix
+          ./modules/gaming/default.nix
+          ./modules/dev/default.nix
+          ./hosts/${hostName}/default.nix
+        ];
+      };
+  in {
+    nixosConfigurations = {
+      e15 = mkHost "e15" {};
+      legioni5 = mkHost "legioni5" {};
     };
   };
 }

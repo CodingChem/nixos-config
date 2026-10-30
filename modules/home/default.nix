@@ -1,4 +1,4 @@
-{ pkgs, catppuccin, config, ... }:
+{ pkgs, catppuccin, config, osConfig, ... }:
 
 {
   imports = [
@@ -7,9 +7,9 @@
     catppuccin.homeModules.catppuccin
   ];
 
-  # General home-manager settings that apply to everything
-  home.username = "vegard";
-  home.homeDirectory = "/home/vegard";
+  # Derive identity from the primary system user seam
+  home.username = osConfig.mySystem.user.name;
+  home.homeDirectory = "/home/${osConfig.mySystem.user.name}";
   home.stateVersion = "26.05"; 
 
   catppuccin = {
@@ -21,6 +21,7 @@
       enable = true;
     };
   };
+
   home.sessionPath = [
     "$HOME/.local/bin"
   ];
@@ -34,16 +35,25 @@
     herdr
     yazi
   ];
+
   programs.git = {
     enable = true;
     settings.user = {
-      name = "Vegard Pareli Seines";
-      email = "vegsei@gmail.com";
+      name = osConfig.mySystem.user.fullName;
+      email = osConfig.mySystem.user.email;
     };
     settings.core = {
       editor = "nvim";
     };
   };
+
+  # Shell environment integration
+  programs.direnv = {
+    enable = true;
+    nix-direnv.enable = true;
+    enableZshIntegration = true;
+  };
+
   # Config mapping with symlinks
   xdg.configFile."doom".source =
     config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Repos/nixos-system/modules/home/doom";
