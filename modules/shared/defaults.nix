@@ -21,9 +21,22 @@
     musescore
   ];
 
-  # Enable networking
-  networking.networkmanager.enable = true;
+  # Networking & DNS resolution
+  networking.networkmanager = {
+    enable = true;
+    wifi.powersave = false;
+    dns = "systemd-resolved";
+  };
   services.tailscale.enable = true;
+
+  services.resolved = {
+    enable = true;
+    settings.Resolve = {
+      DNSSEC = "no";
+      LLMNR = "no";
+      FallbackDNS = [ "1.1.1.1" "8.8.8.8" ];
+    };
+  };
 
   # Set your time zone.
   time.timeZone = "Europe/Oslo";

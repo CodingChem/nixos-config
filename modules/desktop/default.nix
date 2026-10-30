@@ -54,11 +54,6 @@ in
       pulse.enable = true;
     };
 
-    # DNS resolution
-    services.resolved.enable = true;
-    networking.networkmanager.dns = "systemd-resolved";
-    services.resolved.settings.Resolve.FallbackDNS = [ "1.1.1.1" "8.8.8.8" ];
-
     # Common desktop utilities
     environment.systemPackages = [
       myDesktopScripts

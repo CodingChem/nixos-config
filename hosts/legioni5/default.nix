@@ -52,8 +52,25 @@
     };
   };
 
-  # Intel Arrow Lake integrated graphics probe
-  boot.kernelParams = [ "i915.force_probe=7f2f" ];
+  # --- KERNEL TUNING & SCHEDULER ---
+  boot.kernelModules = [ "tcp_bbr" ];
+  boot.kernelParams = [
+    "i915.force_probe=7f2f"
+    "split_lock_mitigate=0"
+  ];
+
+  boot.kernel.sysctl = {
+    "vm.swappiness" = 10;
+    "vm.max_map_count" = 2147483642;
+    "net.core.default_qdisc" = "fq";
+    "net.ipv4.tcp_congestion_control" = "bbr";
+  };
+
+  # Sched-ext: Latency-criticality Aware Virtual Deadline scheduler for Arrow Lake hybrid P/E cores
+  services.scx = {
+    enable = true;
+    scheduler = "scx_lavd";
+  };
 
   # --- DESKTOP PROFILE ---
   myDesktop = {

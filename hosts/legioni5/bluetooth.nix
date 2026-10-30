@@ -12,9 +12,10 @@
     "usbcore.autosuspend=-1"
   ];
 
-  # 3. Force cold-resets to prevent the broken WMT firmware download loop
+  # 3. Force cold-resets and disable ASPM on MediaTek Wi-Fi & Bluetooth
   boot.extraModprobeConfig = ''
     options btusb disable_scofix=1 enable_autosuspend=0 reset=1
+    options mt7925e disable_aspm=1
   '';
 
   # 4. Ensure latest MediaTek microcode is available
