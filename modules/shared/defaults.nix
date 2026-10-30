@@ -27,6 +27,8 @@
     wifi.powersave = false;
     dns = "systemd-resolved";
   };
+  # Allow desktop and graphical target to start immediately without waiting for network IPs
+  systemd.services.NetworkManager-wait-online.enable = false;
   services.tailscale.enable = true;
 
   services.resolved = {

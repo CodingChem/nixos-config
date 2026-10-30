@@ -9,6 +9,7 @@
   # --- BOOTLOADER ---
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.timeout = 1;
 
   # --- FIRMWARE ---
   services.fwupd.enable = true;
