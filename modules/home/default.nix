@@ -46,6 +46,10 @@
       editor = "nvim";
     };
   };
+  programs.gh = {
+    enable = true;
+    gitCredentialHelper.enable = true;
+  };
 
   # Shell environment integration
   programs.direnv = {
